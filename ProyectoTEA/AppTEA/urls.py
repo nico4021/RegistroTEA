@@ -18,4 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^$', 'AppTEA.views.home', name='home'),
+    url(r'^loguearse/$', 'AppTEA.views.loguearse', name='loguearse'),
+    url(r'^desloguearse/$', 'AppTEA.views.desloguearse', name='desloguearse'),
+    url(r'^curso/(?P<id_curso>\d+)/$', 'AppTEA.views.curso', name='curso'),
+    url(r'^curso/(?P<id_curso>\d+)/info/$', 'AppTEA.views.info', name='info'),
+    url(r'^alumno/(?P<id_alumno>\d+)/$', 'AppTEA.views.alumno', name='alumno'),
 ]
