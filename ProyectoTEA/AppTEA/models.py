@@ -52,11 +52,22 @@ class Presupuesto(models.Model):
     frecuencia = models.IntegerField(max_length=5)
     costo_mensual = models.IntegerField(max_length=20)
 
+    class Meta:
+        verbose_name = 'presupuesto'
+        verbose_name_plural = 'presupuestos'
+
 class Profesional(models.Model):
     #Registro nacional de proveedores
     rnp = models.IntegerField(max_length=8)
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
+    mail = models.CharField(max_length=40)
+    dni =  models.CharField(max_length=10)
+    profesion = models.CharField(max_length=40)
+    num_matricula = models.IntegerField(max_length=20)
+    tel_personal = models.IntegerField(max_length=40)
 
-
+    class Meta:
+        verbose_name = 'profesional'
+        verbose_name_plural = 'profesionales'
 
