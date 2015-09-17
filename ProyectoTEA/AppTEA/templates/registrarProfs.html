@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<form action="../registrarProf/" method="POST">{% csrf_token %}
+			<input type="number" maxlength="8" name="rnp" placeholder="Registro nacional de proveedores"><br>
+			<input type="text" maxlength="30" name="nombres" placeholder="nombres"><br>
+			<input type="text" maxlength="30" name="apellidos" placeholder="apellidos"><br>
+			<input type="email"maxlength="40" name="mail" placeholder="e-mail"><br>
+			<input type="number" maxlength="10" name="dni" placeholder="dni"><br>
+			<input type="text" maxlength="40" name="profesion" placeholder="profesion"><br>
+			<input type="number" maxlength="20" name="num_matricula" placeholder="numero de matricula"><br>
+			<input type="number" maxlength="40" name="tel_personal" placeholder="telefono personal"><br>
+			<input type="submit" value="Registrar Profesional">
+		</form>
+	</body>
+</html>

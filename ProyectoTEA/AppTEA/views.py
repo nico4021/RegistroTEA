@@ -1,10 +1,10 @@
-from django.shortcuts import render_to_response, render, redirect
+from django.shortcuts import render_to_response
+from django.shortcuts import render, redirect
+from AppTEA.models import Profesional
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
-
-
+from django.contrib.auth.decorators import login_required 
 
 
 def index(request):
@@ -48,9 +48,26 @@ def cobranza(request):
 	
 	return render(request, 'cobranza.html', context_dict)
 
-
-	
-
+def registrarProfesionales(request):
+	context = RequestContext(request)
+	if request.method == 'POST':
+		
+#		'asi con todos'
+		fieldrnp = request.POST['rnp']
+		fieldnombres = request.POST['nombres']
+		fieldapellidos = request.POST['apellidos']
+		fieldmail = request.POST['mail']
+		fielddni = request.POST['dni']
+		fieldprofesion = request.POST['profesion']
+		fieldnum_matricula = request.POST['num_matricula']
+		fieldtel_personal = request.POST['tel_personal']
+		
+		nuevoProfesional = Profesional(rnp = fieldrnp, nombres = fieldnombres, apellidos = fieldapellidos, mail = fieldmail, dni = fielddni, profesion = fieldprofesion, num_matricula = fieldnum_matricula, tel_personal = fieldtel_personal)
+		nuevoProfesional.save()
+		return redirect("/home")
+	else:
+		return render_to_response("registrarProfs.html",context)	
+		
 def loguearse(request):
     context = RequestContext(request)
 	

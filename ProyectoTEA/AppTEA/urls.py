@@ -24,7 +24,8 @@ urlpatterns = [
 #    url(r'^curso/(?P<id_curso>\d+)/$', 'AppTEA.views.curso', name='curso'),
 #    url(r'^curso/(?P<id_curso>\d+)/info/$', 'AppTEA.views.info', name='info'),
 #    url(r'^alumno/(?P<id_alumno>\d+)/$', 'AppTEA.views.alumno', name='alumno'),
-    url(r'^pacientes','AppTEA.views.pacientes',name='pacientes'),
-    url(r'^cobranza','AppTEA.views.cobranza',name='cobranza'),
-    url(r'^facturacion','AppTEA.views.facturacion',name='facturacion'),
+    url(r'^pacientes/','AppTEA.views.pacientes',name='pacientes'),
+    url(r'^cobranza/','AppTEA.views.cobranza',name='cobranza'),
+    url(r'^facturacion/','AppTEA.views.facturacion',name='facturacion'),
+    url(r'^registrarProf/','AppTEA.views.registrarProfesionales',name='registrarProf')
 ]

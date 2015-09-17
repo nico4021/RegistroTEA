@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
@@ -12,6 +13,10 @@ from datetime import date
 
 class Area(models.Model):
     nombre = models.CharField(max_length=40)
+    
+    def __str__(self):
+        return self.nombre
+    
     class Meta:
         verbose_name = 'area'
         verbose_name_plural = 'areas'
@@ -26,6 +31,9 @@ class Paciente(models.Model):
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
     nombres = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.apellidos
 
     def edad(fecha_nacimiento):
         hoy = date.today()
@@ -52,12 +60,13 @@ class Presupuesto(models.Model):
     frecuencia = models.IntegerField(max_length=5)
     costo_mensual = models.IntegerField(max_length=20)
 
+    
     class Meta:
         verbose_name = 'presupuesto'
         verbose_name_plural = 'presupuestos'
 
 class Profesional(models.Model):
-    #Registro nacional de proveedores
+    #rnp = Registro nacional de proveedores
     rnp = models.IntegerField(max_length=8)
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
@@ -67,7 +76,9 @@ class Profesional(models.Model):
     num_matricula = models.IntegerField(max_length=20)
     tel_personal = models.IntegerField(max_length=40)
 
+    def __str__(self):
+        return self.apellidos
+        
     class Meta:
         verbose_name = 'profesional'
         verbose_name_plural = 'profesionales'
-
