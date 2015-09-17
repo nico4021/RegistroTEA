@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'proyectotea',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'tea',
+        'PASSWORD': 't3a',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -106,4 +106,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = ('/templates/',)
