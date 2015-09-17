@@ -5,9 +5,51 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 
+
+
+def index(request):
+	context_dict = {
+#		'key':'value'
+		'titulo':'Fundacion Tea'		
+	}
+	
+	return render(request, 'index.html', context_dict)
+	
 @login_required(login_url="/loguearse")
 def home(request):
-    return HttpResponse("<h1>HOLA!!!</h1>")
+	context_dict = {
+#		'key':'value'
+		'titulo':'Fundacion Tea'		
+	}
+	
+	return render(request, 'home.html', context_dict)
+
+def facturacion(request):
+	context_dict = {
+#		'key':'value'
+		'titulo':'Fundacion Tea'		
+	}
+	
+	return render(request, 'facturacion.html', context_dict)
+
+def pacientes(request):
+	context_dict = {
+#		'key':'value'
+		'titulo':'Fundacion Tea'		
+	}
+	
+	return render(request, 'pacientes.html', context_dict)
+
+def cobranza(request):
+	context_dict = {
+#		'key':'value'
+		'titulo':'Fundacion Tea'		
+	}
+	
+	return render(request, 'cobranza.html', context_dict)
+
+
+	
 
 def loguearse(request):
     context = RequestContext(request)
@@ -27,7 +69,7 @@ def loguearse(request):
 		# We'll send the user back to the homepage.
 		login(request, user)
 
-		return redirect('/')
+		return redirect('/home')
 
 	    else:
 		# An inactive account was used - no logging in!
@@ -43,7 +85,7 @@ def loguearse(request):
 	# No context variables to pass to the template system, hence the
 	# blank dictionary object...
 	
-	return render_to_response('login.html', context)
+	return render_to_response('home.html', context)
 
 def desloguearse(request):
     logout(request)

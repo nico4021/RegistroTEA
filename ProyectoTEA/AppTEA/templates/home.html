@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+	<h1>HOME</h1><br>
+	{% if user.is_staff %}
+		<h2> ADMIN </h2>
+	{% else %}
+		<h2> PROFESIONAL </h2>
+	{% endif %}
+	<a href="/pacientes">pacientes</a>
+	<a href="/cobranza">cobranza</a>
+	<a href="/facturacion">facturacion</a>	
+
+{% endif %}
