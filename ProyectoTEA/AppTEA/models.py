@@ -17,7 +17,7 @@ class Area(models.Model):
         verbose_name_plural = 'areas'
 
 class Paciente(models.Model):
-    dni = models.IntegerField(max_length=9)
+    dni = models.IntegerField()
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
@@ -39,18 +39,18 @@ class Presupuesto(models.Model):
     paciente = models.ForeignKey(Paciente)
     tratamiento_prestacion = models.CharField(max_length=50)
     #horas por semana que asiste el profesional
-    horas_semanales = models.IntegerField(max_length=2)
+    horas_semanales = models.IntegerField()
     #horas por mes que asiste el profesional
-    horas_mensuales = models.IntegerField(max_length=3)
+    horas_mensuales = models.IntegerField()
     domicilio_prestacion = models.CharField(max_length=40)
     #costo de una hora
-    costo_hora = models.IntegerField(max_length=5)
+    costo_hora = models.IntegerField()
     #Martes, jueves, etc
     dias_semanales = models.CharField(max_length=100)
     horario = models.CharField(max_length=6)
     #Cantidad (1, 2, 18, etc) Veces por semana
-    frecuencia = models.IntegerField(max_length=5)
-    costo_mensual = models.IntegerField(max_length=20)
+    frecuencia = models.IntegerField()
+    costo_mensual = models.IntegerField()
 
     class Meta:
         verbose_name = 'presupuesto'
@@ -58,14 +58,14 @@ class Presupuesto(models.Model):
 
 class Profesional(models.Model):
     #Registro nacional de proveedores
-    rnp = models.IntegerField(max_length=8)
+    rnp = models.IntegerField()
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
     mail = models.CharField(max_length=40)
     dni =  models.CharField(max_length=10)
     profesion = models.CharField(max_length=40)
-    num_matricula = models.IntegerField(max_length=20)
-    tel_personal = models.IntegerField(max_length=40)
+    num_matricula = models.IntegerField()
+    tel_personal = models.IntegerField()
 
     class Meta:
         verbose_name = 'profesional'
