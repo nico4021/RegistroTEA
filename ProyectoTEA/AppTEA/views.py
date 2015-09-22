@@ -56,17 +56,49 @@ def registrarProfesionales(request):
 		fieldrnp = request.POST['rnp']
 		fieldnombres = request.POST['nombres']
 		fieldapellidos = request.POST['apellidos']
+		fieldcontra = request.POST['contra']
 		fieldmail = request.POST['mail']
 		fielddni = request.POST['dni']
 		fieldprofesion = request.POST['profesion']
 		fieldnum_matricula = request.POST['num_matricula']
 		fieldtel_personal = request.POST['tel_personal']
 		
-		nuevoProfesional = Profesional(rnp = fieldrnp, nombres = fieldnombres, apellidos = fieldapellidos, mail = fieldmail, dni = fielddni, profesion = fieldprofesion, num_matricula = fieldnum_matricula, tel_personal = fieldtel_personal)
+		nuevoProfesional = Profesional(rnp = fieldrnp, first_name = fieldnombres, last_name = fieldapellidos, password = fieldcontra, email = fieldmail, dni = fielddni, profesion = fieldprofesion, num_matricula = fieldnum_matricula, tel_personal = fieldtel_personal)
 		nuevoProfesional.save()
 		return redirect("/home")
 	else:
 		return render_to_response("registrarProfs.html",context)	
+		
+def darDeBajaProfesional(request, id_profesional):
+	profesional = Profesional.objects.get(pk = id_profesional)
+	if profesional.is_active == True:
+		profesional.is_active = False
+		profesional.save()
+	else:
+		return HttpResponse("el usuario ya esta inactivo")
+def editarProfesional(reuest, id_profesional):
+	profesional = Profesional.objects.get(pk = id_profesional)
+	
+	fieldrnp = request.POST['rnp']
+	fieldnombres = request.POST['nombres']
+	fieldapellidos = request.POST['apellidos']
+	fieldcontra = request.POST['contra']
+	fieldmail = request.POST['mail']
+	fielddni = request.POST['dni']
+	fieldprofesion = request.POST['profesion']
+	fieldnum_matricula = request.POST['num_matricula']
+	fieldtel_personal = request.POST['tel_personal']
+	
+	profesional.rnp = fieldrnp
+	Profesional.first_name = fieldnombres
+	profesional.last_name = fieldapellidos
+	profesional.password = fieldcontra
+	profesional.email = fieldmail
+	profesional.dni = fielddni
+	profesional.profesion = fieldprofesion
+	profesional.num_matricula = fieldnum_matricula
+	profesional.tel_personal = fieldtel_personal
+	profesional.save()
 		
 def loguearse(request):
     context = RequestContext(request)

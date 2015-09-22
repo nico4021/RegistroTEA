@@ -21,15 +21,6 @@ urlpatterns = [
     url(r'^$', 'AppTEA.views.home', name='home'),
     url(r'^loguearse/$', 'AppTEA.views.loguearse', name='loguearse'),
     url(r'^desloguearse/$', 'AppTEA.views.desloguearse', name='desloguearse'),
-<<<<<<< HEAD
-#    url(r'^curso/(?P<id_curso>\d+)/$', 'AppTEA.views.curso', name='curso'),
-#    url(r'^curso/(?P<id_curso>\d+)/info/$', 'AppTEA.views.info', name='info'),
-#    url(r'^alumno/(?P<id_alumno>\d+)/$', 'AppTEA.views.alumno', name='alumno'),
-    url(r'^pacientes/','AppTEA.views.pacientes',name='pacientes'),
-    url(r'^cobranza/','AppTEA.views.cobranza',name='cobranza'),
-    url(r'^facturacion/','AppTEA.views.facturacion',name='facturacion'),
-    url(r'^registrarProf/','AppTEA.views.registrarProfesionales',name='registrarProf')
-=======
     url(r'^cobranza/$', 'AppTEA.views.cobranza', name='cobranza'),
     
     # Urls del administrador
@@ -42,5 +33,6 @@ urlpatterns = [
     # Urls del profesional
     url(r'^pacientes/$', 'AppTEA.views.pacientes', name='pacientes'),
     url(r'^facturacion/$', 'AppTEA.views.facturacion', name='facturacion'),
->>>>>>> 4c4b3f58161321a782e953e94e708493e98e697a
+    url(r'^registrarProf/','AppTEA.views.registrarProfesionales',name='registrarProf')
+
 ]
