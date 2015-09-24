@@ -38,7 +38,7 @@ class Paciente(models.Model):
 
 class Presupuesto(models.Model):
     paciente = models.ForeignKey(Paciente)
-    tratamiento_prestacion = models.CharField(max_length=40)
+    tratamiento_prestacion = models.CharField(max_length=50)
     #horas por semana que asiste el profesional
     horas_semanales = models.IntegerField()
     #horas por mes que asiste el profesional
