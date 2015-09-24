@@ -22,4 +22,3 @@ urlpatterns = [
     
 ]
 
-todo esto es verdra para ladsfadskñlfjadsñlkfjadskñlfjdskñl
