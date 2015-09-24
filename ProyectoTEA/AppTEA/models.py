@@ -65,17 +65,9 @@ class Presupuesto(models.Model):
         verbose_name = 'presupuesto'
         verbose_name_plural = 'presupuestos'
 
-class Profesional(models.Model):
-<<<<<<< HEAD
-    #rnp = Registro nacional de proveedores
-    rnp = models.IntegerField(max_length=8)
-=======
+class Profesional(User):
     #Registro nacional de proveedores
     rnp = models.IntegerField()
->>>>>>> 4c4b3f58161321a782e953e94e708493e98e697a
-    nombres = models.CharField(max_length=30)
-    apellidos = models.CharField(max_length=30)
-    mail = models.CharField(max_length=40)
     dni =  models.CharField(max_length=10)
     profesion = models.CharField(max_length=40)
     num_matricula = models.IntegerField()
