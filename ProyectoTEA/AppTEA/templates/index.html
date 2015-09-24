@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
 INDEX
 
 <form action="loguearse/" method="POST">{% csrf_token %}
@@ -5,3 +9,4 @@ INDEX
 	<input type="password" placeholder="Contra" name="password">
 	<input type="submit" placeholder="login">
 </form>
+{% endblock %}
