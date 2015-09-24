@@ -79,3 +79,4 @@ class Profesional(User):
     class Meta:
         verbose_name = 'profesional'
         verbose_name_plural = 'profesionales'
+
