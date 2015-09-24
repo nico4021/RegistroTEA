@@ -45,7 +45,7 @@ class Paciente(models.Model):
 
 class Presupuesto(models.Model):
     paciente = models.ForeignKey(Paciente)
-    tratamiento_prestacion = models.CharField() Lucho
+    tratamiento_prestacion = models.CharField()
     #horas por semana que asiste el profesional
     horas_semanales = models.IntegerField()
     #horas por mes que asiste el profesional
@@ -79,3 +79,4 @@ class Profesional(User):
     class Meta:
         verbose_name = 'profesional'
         verbose_name_plural = 'profesionales'
+Hola
