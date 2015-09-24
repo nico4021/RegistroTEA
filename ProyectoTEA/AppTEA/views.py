@@ -13,7 +13,7 @@ def index(request):
 		'titulo':'Fundacion Tea'		
 	}
 	
-	return render(request, 'index.html', context_dict)
+	return render(request, 'login.html', context_dict)
 	
 @login_required(login_url="/loguearse")
 def home(request):
@@ -118,7 +118,7 @@ def loguearse(request):
 		# We'll send the user back to the homepage.
 		login(request, user)
 
-		return redirect('/home')
+		return redirect('/')
 
 	    else:
 		# An inactive account was used - no logging in!
@@ -134,10 +134,10 @@ def loguearse(request):
 	# No context variables to pass to the template system, hence the
 	# blank dictionary object...
 	
-	return render_to_response('home.html', context)
+	return render_to_response('login.html', context)
 
 def desloguearse(request):
     logout(request)
     
-    return redirect('/loguearse')
+    return redirect('/')
 
