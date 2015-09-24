@@ -19,7 +19,7 @@ class Paciente(models.Model):
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
-    foto = models.ImageField
+    foto = models.ImageField()
     fecha_nacimiento = models.DateField(blank=False)
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
@@ -38,7 +38,7 @@ class Paciente(models.Model):
 
 class Presupuesto(models.Model):
     paciente = models.ForeignKey(Paciente)
-    tratamiento_prestacion = models.CharField()
+    tratamiento_prestacion = models.CharField(max_length=50)
     #horas por semana que asiste el profesional
     horas_semanales = models.IntegerField()
     #horas por mes que asiste el profesional
