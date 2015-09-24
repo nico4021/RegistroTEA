@@ -1,4 +1,5 @@
 <!doctype html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -33,22 +34,25 @@
             <div class="mdl-card__title mdl-card--expand">
                 <h2 class="mdl-card__title-text">Bienvenido</h2>
             </div>
-
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="mail">
-                <label class="mdl-textfield__label">Ingrese su mail...</label>
-            </div>
-    
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="contraseña" />
-                <label class="mdl-textfield__label">Ingrese su contraseña...</label>
-            </div>
+            
+            <center>
+                <form action="" method="POST">{% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input name="username" class="mdl-textfield__input" type="text" >
+                    <label class="mdl-textfield__label">Ingrese su nombre de usuario...</label>
+                </div>
+            </center>
+            
+            <center>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input name="password" class="mdl-textfield__input" type="password" id="contraseña" />
+                    <label class="mdl-textfield__label">Ingrese su contraseña...</label>
+                </div>
+            </center>
             <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Ingresar</a>
+                <input type="submit" value="Ingresar" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Restablecer contraseña</a>
-            </div>
+            </form>
         </div>
     </center>          
 </body>
