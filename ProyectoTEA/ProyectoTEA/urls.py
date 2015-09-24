@@ -21,3 +21,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     
 ]
+
+todo esto es verdra para ladsfadskñlfjadsñlkfjadskñlfjdskñl
