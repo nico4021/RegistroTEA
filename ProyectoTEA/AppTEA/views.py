@@ -13,7 +13,7 @@ def index(request):
 		'titulo':'Fundacion Tea'		
 	}
 	
-	return render(request, 'base.html', context_dict)
+	return render(request, 'index.html', context_dict)
 	
 @login_required(login_url="/loguearse")
 def home(request):
@@ -22,7 +22,7 @@ def home(request):
 		'titulo':'Fundacion Tea'		
 	}
 	
-	return render(request, 'base.html', context_dict)
+	return render(request, 'home.html', context_dict)
 
 def facturacion(request):
 	context_dict = {
