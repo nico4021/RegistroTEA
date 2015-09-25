@@ -51,11 +51,10 @@
           <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
               <header class="demo-drawer-header">
                   <img src="{% static 'images/dog.png' %}" class="demo-avatar">
-                      <center><h5>Hot Dog</h5></center>
+                      <center><h5>{{ user }}</h5></center>
               </header>
               <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Pacientes</a>
-                  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Cobranza</a>
+                  {% block barra_de_navegacion %}{% endblock %}
               </nav>
           </div>
           <main class="mdl-layout__content">
