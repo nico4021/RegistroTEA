@@ -19,7 +19,7 @@ class Paciente(models.Model):
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
-    foto = models.ImageField()
+    foto = models.ImageField(upload_to='profile_images', blank=True)
     fecha_nacimiento = models.DateField(blank=False)
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
