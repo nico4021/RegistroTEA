@@ -81,7 +81,7 @@ Vista del Administrador para gestionar los profesionales existentes.
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"profesionales": Profesional.objects.order_by("nombres")}
+        context = {"profesionales": Profesional.objects.order_by("first_name")}
         
         return render(request, "administrador/profesionales.html", context)
     else:
