@@ -20,7 +20,9 @@ y filtrarlos por nombre o apellido.
 """
 @login_required(login_url="/loguearse")
 def home(request):
-    context = { "usuario": request.user }
+    context = { "usuario": request.user,
+                "pacientes": Paciente.objects.order_by("nombres"),}
+    
     
     return render(request, 'home.html', context)
 

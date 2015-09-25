@@ -30,7 +30,7 @@
     <script src="{% static 'js/material.min.js' %}"></script>
   </head>
     
-  <body>
+  <body style="background-color: #E2E8F2;">
       
       <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">  
           <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
@@ -58,7 +58,7 @@
               </nav>
           </div>
           <main class="mdl-layout__content">
-            <div class="page-content"><center>{% block body_block %}{% endblock %}</center></div>
+            <div class="page-content" style="padding: 2%">{% block body_block %}{% endblock %}</div>
           </main>
               
           
