@@ -81,6 +81,8 @@ DATABASES = {
         'NAME': 'proyectotea',
         'USER': 'tea',
         'PASSWORD': 't3a',
+#        'USER': 'root',
+#        'PASSWORD': '', 
         'HOST': 'localhost',
         'PORT': '3306',
     }
