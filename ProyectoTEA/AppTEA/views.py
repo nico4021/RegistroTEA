@@ -109,7 +109,8 @@ Vista de cobranza.
 """
 @login_required(login_url="/loguearse")
 def cobranza(request):
-    return HttpResponse("cobranza")
+    
+    return render(request, "cobranza.html")
 
 
 """
