@@ -19,15 +19,14 @@ class Paciente(models.Model):
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
-    foto = models.ImageField(blank=True)
-    foto = models.ImageField()
+    foto = models.ImageField(upload_to='profile_images', blank=True)
     fecha_nacimiento = models.DateField(blank=False)
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
     nombres = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.apellidos
+        return self.nombres + " " + self.apellidos
 
     def edad(fecha_nacimiento):
         hoy = date.today()
@@ -68,7 +67,7 @@ class Profesional(User):
     tel_personal = models.IntegerField()
 
     def __str__(self):
-        return self.apellidos
+        return self.first_name + " " + self.last_name
         
     class Meta:
         verbose_name = 'profesional'
