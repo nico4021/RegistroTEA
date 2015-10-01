@@ -16,10 +16,11 @@ class Area(models.Model):
 
 class Paciente(models.Model):
     dni = models.IntegerField()
+    is_active = models.BooleanField(default=True)
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
-    foto = models.ImageField(upload_to='profile_images', blank=True)
+    foto = models.ImageField(upload_to='profile_images', null=True, blank=True, default="")
     fecha_nacimiento = models.DateField(blank=False)
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
