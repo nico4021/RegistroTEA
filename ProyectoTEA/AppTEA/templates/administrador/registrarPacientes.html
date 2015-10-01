@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<form action="../registrarPac/" method="POST">{% csrf_token %}
+			<input type="number" maxlength="8" name="dni" placeholder="dni"><br>
+			<input type="text" maxlength="30" name="nombres" placeholder="nombres"><br>
+			<input type="text" maxlength="30" name="apellidos" placeholder="apellidos"><br>
+			<input type="text"maxlength="40" name="diagnostico" placeholder="diagnostico"><br>
+			<input type="text" maxlength="10" name="obra_social" placeholder="obra social"><br>
+			<input type="file" name="foto" accept=".jpeg, .jpg, .png"><br>
+			<input type="date" maxlength="20" name="fecha_nacimiento" placeholder="AAAA-MM-DD"><br>
+			<input type="number" maxlength="40" name="numero_afiliado" placeholder="numero de afiliado"><br>
+			<input type="submit" value="Registrar pacicente">
+		</form>
+	</body>
+</html>

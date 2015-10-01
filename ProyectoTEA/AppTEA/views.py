@@ -137,6 +137,31 @@ def registrarProfesionales(request):
         return render_to_response("registrarProfs.html",context)
 
 """
+Vista del Administrador para registrar paciente.
+"""
+def registrarPacientes(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+            
+#                'asi con todos'
+        fielddni = request.POST['dni']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fielddiagnostico = request.POST['diagnostico']
+        fieldobra_social = request.POST['obra_social']
+        fieldfoto = request.POST['foto']
+        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldnumero_afiliado = request.POST['numero_afiliado']
+
+                
+        nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, foto = fieldfoto, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
+        nuevoPaciente.save()
+        return redirect("/home")
+    else:
+        return render_to_response("administrador/registrarPacientes.html",context)
+
+
+"""
 Vista del Administrador para dar de baja profesional.
 """
 def darDeBajaProfesional(request, id_profesional):
