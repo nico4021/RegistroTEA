@@ -150,12 +150,13 @@ def registrarPacientes(request):
         fieldapellidos = request.POST['apellidos']
         fielddiagnostico = request.POST['diagnostico']
         fieldobra_social = request.POST['obra_social']
-        fieldfoto = request.POST['foto']
         fieldfecha_nacimiento = request.POST['fecha_nacimiento']
         fieldnumero_afiliado = request.POST['numero_afiliado']
-
-                
-        nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, foto = fieldfoto, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
+        if request.POST['foto']: 
+            fieldfoto = request.POST['foto']                
+            nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, foto = fieldfoto, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
+        else:
+            nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
         nuevoPaciente.save()
         return redirect("/home")
     else:
