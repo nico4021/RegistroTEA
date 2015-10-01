@@ -158,11 +158,34 @@ def registrarPacientes(request):
         else:
             nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
         nuevoPaciente.save()
-        return redirect("/home")
+        return redirect("/")
     else:
         return render_to_response("administrador/registrarPacientes.html",context)
 
-
+def modificarPaciente(request, id_paciente):
+    context = RequestContext(request)
+    paciente = Paciente.objects.get(pk = id_profesional)
+    
+    fielddni = request.POST['dni']
+    fieldnombres = request.POST['nombres']
+    fieldapellidos = request.POST['apellidos']
+    fielddiagnostico = request.POST['diagnostico']
+    fieldobra_social = request.POST['obra_social']
+    fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+    fieldnumero_afiliado = request.POST['numero_afiliado']
+    fieldfoto = request.POST['foto']
+    
+    paciente.dni = fielddni
+    paciente.nombres = fieldnombres
+    paciente.apellidos = fieldapellidos
+    paciente.diagnostico = fielddiagnostico
+    paciente.obra_social = fieldobra_social
+    paciente.fecha_nacimiento = fieldfecha_nacimiento
+    paciente.numero_afiliado = fieldnumero_afiliado
+    paciente.foto = fieldfoto
+    paciente.save()
+    
+    return redirect("/")
 """
 Vista del Administrador para dar de baja profesional.
 """
