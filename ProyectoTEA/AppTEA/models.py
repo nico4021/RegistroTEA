@@ -19,11 +19,8 @@ class Paciente(models.Model):
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
     obra_social = models.CharField(max_length=20)
-<<<<<<< HEAD
     foto = models.ImageField(blank=True)
-=======
     foto = models.ImageField()
->>>>>>> 157196d7a1882e88e43f73a9441b23ec3beb8e8e
     fecha_nacimiento = models.DateField(blank=False)
     #numero_afiliado es un numero pero lleva guiones
     numero_afiliado = models.CharField(max_length=30)
