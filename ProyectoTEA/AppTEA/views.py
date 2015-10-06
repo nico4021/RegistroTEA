@@ -135,7 +135,7 @@ def registrarProfesionales(request):
         nuevoProfesional.save()
         return redirect("/home")
     else:
-        return render_to_response("registrarProfs.html",context)
+        return render_to_response("administrador/registrarProfs.html",context)
 
 """
 Vista del Administrador para registrar paciente.
@@ -162,11 +162,15 @@ def registrarPacientes(request):
     else:
         return render_to_response("administrador/registrarPacientes.html",context)
 
+"""
+Vista del Administrador para modificar paciente.
+"""
 def modificarPaciente(request, id_paciente):
     context = RequestContext(request)
     paciente = Paciente.objects.get(pk = id_profesional)
     
     fielddni = request.POST['dni']
+    fieldactivo = request.POST['activo']
     fieldnombres = request.POST['nombres']
     fieldapellidos = request.POST['apellidos']
     fielddiagnostico = request.POST['diagnostico']
@@ -176,6 +180,7 @@ def modificarPaciente(request, id_paciente):
     fieldfoto = request.POST['foto']
     
     paciente.dni = fielddni
+    paciente.is_active = fieldactivo
     paciente.nombres = fieldnombres
     paciente.apellidos = fieldapellidos
     paciente.diagnostico = fielddiagnostico
@@ -186,6 +191,18 @@ def modificarPaciente(request, id_paciente):
     paciente.save()
     
     return redirect("/")
+    
+"""
+Vista del Administrador para desactivar paciente.
+"""    
+def desactivarPaciente(request, id_paciente):
+    paciente = Paciente.objects.get(pk = id_paciente)
+    if paciente.is_active == True:
+        profesional.is_active = False
+        profesion.save()
+        return redirect("/pacientes")
+    else:
+        return  HttpResponse("el paciente ya esta inactivo")
 """
 Vista del Administrador para dar de baja profesional.
 """
@@ -194,6 +211,7 @@ def darDeBajaProfesional(request, id_profesional):
     if profesional.is_active == True:
         profesional.is_active = False
         profesional.save()
+        return redirect("/profesionales")
     else:
         return HttpResponse("el usuario ya esta inactivo")
 
