@@ -160,7 +160,7 @@ def registrarPacientes(request):
         nuevoPaciente.save()
         return redirect("/")
     else:
-        return render_to_response("administrador/registrarPacientes.html",context)
+        return render_to_response("administrador/registrarPacientes.html", context)
 
 def modificarPaciente(request, id_paciente):
     context = RequestContext(request)
@@ -274,3 +274,12 @@ def desloguearse(request):
     
     return redirect('/')
 
+def agregarArea(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        fieldnombre = request.POST['nombre']
+        nuevaArea = Area(nombre = fieldnombre)
+        nuevaArea.save()
+        return redirect("/")
+    else:
+        return render_to_response("administrador/agregarArea.html")
