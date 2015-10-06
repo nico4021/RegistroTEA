@@ -31,7 +31,10 @@ urlpatterns = [
     url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
     url(r'^profesionales/$', 'AppTEA.views.profesionales', name='profesionales'),
     url(r'^registrarProf/', 'AppTEA.views.registrarProfesionales', name='registrarProf'),
-    url(r'^registrarPac/', 'AppTEA.views.registrarPacientes', name='registrarProf'),
+    url(r'^registrarPac/', 'AppTEA.views.registrarPacientes', name='registrarPac'),
+    url(r'^desactivarPac/', 'AppTEA.views.desactivarPac', name='desactivarPac'),
+    url(r'^desactivarProf/', 'AppTEA.views.desactivarProf', name='desactivarProf'),
+    url(r'^desactivarArea/', 'AppTEA.views.desactivarArea', name='desactivarArea'),
     
     # Urls del profesional
     url(r'^facturacion/$', 'AppTEA.views.facturacion', name='facturacion'),

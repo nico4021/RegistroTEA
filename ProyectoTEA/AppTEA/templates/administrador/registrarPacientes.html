@@ -1,9 +1,11 @@
-<html>
-	<head>
-		<title></title>
-	</head>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
 	<body>
-		<form action="../registrarPac/" method="POST">{% csrf_token %}
+		<center><form action="../registrarPac/" method="POST">{% csrf_token %}
 			<input type="number" maxlength="8" name="dni" placeholder="dni"><br>
 			<input type="text" maxlength="30" name="nombres" placeholder="nombres"><br>
 			<input type="text" maxlength="30" name="apellidos" placeholder="apellidos"><br>
@@ -13,6 +15,5 @@
 			<input type="date" maxlength="20" name="fecha_nacimiento" placeholder="AAAA-MM-DD"><br>
 			<input type="number" maxlength="40" name="numero_afiliado" placeholder="numero de afiliado"><br>
 			<input type="submit" value="Registrar pacicente">
-		</form>
-	</body>
-</html>
+		</form></center>
+{% endblock %}
