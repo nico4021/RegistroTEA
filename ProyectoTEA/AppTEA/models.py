@@ -16,6 +16,7 @@ class Area(models.Model):
 
 class Paciente(models.Model):
     dni = models.IntegerField()
+    #booleano
     is_active = models.BooleanField(default=True)
     apellidos = models.CharField(max_length=30)
     diagnostico = models.CharField(max_length=300)
