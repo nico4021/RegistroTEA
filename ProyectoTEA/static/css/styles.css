@@ -1,4 +1,5 @@
 /**
+/**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -113,7 +114,7 @@ html, body {
   font-weight: 500;
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #00BCD4;
+  background-color: lavender;
   color: #37474F;
 }
 .demo-navigation .mdl-navigation__link .material-icons {

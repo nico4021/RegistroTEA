@@ -4,7 +4,6 @@
 
 {% block body_block %}
 
-	<body>
 		<center><form action="../registrarPac/" method="POST">{% csrf_token %}
 			<input type="number" maxlength="8" name="dni" placeholder="dni"><br>
 			<input type="text" maxlength="30" name="nombres" placeholder="nombres"><br>

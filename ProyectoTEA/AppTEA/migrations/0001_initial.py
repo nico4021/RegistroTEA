@@ -18,10 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=40)),
-<<<<<<< HEAD
                 ('is_active', models.BooleanField(default=True)),
-=======
->>>>>>> b8f8c62ccb8e0b6bdb02c9d6edc25af1a8b3aaa3
             ],
             options={
                 'verbose_name': 'area',
@@ -29,7 +26,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-<<<<<<< HEAD
             name='Cobranza',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -37,8 +33,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-=======
->>>>>>> b8f8c62ccb8e0b6bdb02c9d6edc25af1a8b3aaa3
             name='Paciente',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -70,10 +64,7 @@ class Migration(migrations.Migration):
                 ('horario', models.CharField(max_length=6)),
                 ('frecuencia', models.IntegerField()),
                 ('costo_mensual', models.IntegerField()),
-<<<<<<< HEAD
                 ('cobranza', models.ManyToManyField(to='AppTEA.Cobranza')),
-=======
->>>>>>> b8f8c62ccb8e0b6bdb02c9d6edc25af1a8b3aaa3
                 ('paciente', models.ForeignKey(to='AppTEA.Paciente')),
             ],
             options={
@@ -87,15 +78,9 @@ class Migration(migrations.Migration):
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
                 ('rnp', models.IntegerField()),
                 ('dni', models.CharField(max_length=10)),
-<<<<<<< HEAD
                 ('num_matricula', models.IntegerField()),
                 ('tel_personal', models.IntegerField()),
                 ('area', models.ForeignKey(to='AppTEA.Area')),
-=======
-                ('profesion', models.CharField(max_length=40)),
-                ('num_matricula', models.IntegerField()),
-                ('tel_personal', models.IntegerField()),
->>>>>>> b8f8c62ccb8e0b6bdb02c9d6edc25af1a8b3aaa3
             ],
             options={
                 'verbose_name': 'profesional',
@@ -106,7 +91,6 @@ class Migration(migrations.Migration):
                 ('objects', django.contrib.auth.models.UserManager()),
             ],
         ),
-<<<<<<< HEAD
         migrations.AddField(
             model_name='presupuesto',
             name='profesional',
@@ -117,6 +101,4 @@ class Migration(migrations.Migration):
             name='profesional',
             field=models.ForeignKey(to='AppTEA.Profesional'),
         ),
-=======
->>>>>>> b8f8c62ccb8e0b6bdb02c9d6edc25af1a8b3aaa3
     ]
