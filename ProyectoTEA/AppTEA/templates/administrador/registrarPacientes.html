@@ -5,14 +5,46 @@
 {% block body_block %}
 
 		<center><form action="../registrarPac/" method="POST">{% csrf_token %}
-			<input type="number" maxlength="8" name="dni" placeholder="dni"><br>
-			<input type="text" maxlength="30" name="nombres" placeholder="nombres"><br>
-			<input type="text" maxlength="30" name="apellidos" placeholder="apellidos"><br>
-			<input type="text"maxlength="40" name="diagnostico" placeholder="diagnostico"><br>
-			<input type="text" maxlength="10" name="obra_social" placeholder="obra social"><br>
-			<input type="file" name="foto" accept=".jpeg, .jpg, .png"><br>
-			<input type="date" maxlength="20" name="fecha_nacimiento" placeholder="AAAA-MM-DD"><br>
-			<input type="number" maxlength="40" name="numero_afiliado" placeholder="numero de afiliado"><br>
-			<input type="submit" value="Registrar pacicente">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="8" name="dni" pattern="-?[0-9]*(\.[0-9]+)?">
+				<label class="mdl-textfield__label" for="sample4">DNI </label>
+				<span class="mdl-textfield__error">Eso no es un numero!</span>
+			</div><br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="30" name="nombres" >
+				<label class="mdl-textfield__label" for="sample4">Nombres</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div><br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="30" name="apellidos" >
+				<label class="mdl-textfield__label" for="sample4">Apellidos</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div><br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="40" name="diagnostico" >
+				<label class="mdl-textfield__label" for="sample4">Diagnostico</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div><br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="10" name="obra_social" >
+				<label class="mdl-textfield__label" for="sample4">Obra Social</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div><br>
+			<div class="mdl-card__actions mdl-card--border">
+				<input type="file" name="foto" accept=".jpeg, .jpg, .png" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"><br>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="10" name="fecha_nacimiento" >
+				<label class="mdl-textfield__label" for="sample4">Fecha</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div><br>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" maxlength="40" name="numero_afiliado" pattern="-?[0-9]*(\.[0-9]+)?">
+				<label class="mdl-textfield__label" for="sample4">DNI </label>
+				<span class="mdl-textfield__error">Eso no es un numero!</span>
+			</div><br>
+			<div class="mdl-card__actions mdl-card--border">
+				<input type="submit" value="Registrar Paciente" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #78909C;">
+			</div>
 		</form></center>
 {% endblock %}

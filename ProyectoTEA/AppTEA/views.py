@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from AppTEA.models import Profesional, Area, Paciente
+from django.core.context_processors import csrf
 
 
 """
@@ -118,20 +119,21 @@ Vista del Administrador para registrar profesional.
 """
 def registrarProfesionales(request):
     context = RequestContext(request)
+    context = { "areas" : Area.objects.order_by("nombre").filter(is_active = True),}
     if request.method == 'POST':
             
 #                'asi con todos'
+        fieldarea = request.POST['area']
         fieldrnp = request.POST['rnp']
         fieldnombres = request.POST['nombres']
         fieldapellidos = request.POST['apellidos']
         fieldcontra = request.POST['contra']
         fieldmail = request.POST['mail']
         fielddni = request.POST['dni']
-        fieldprofesion = request.POST['profesion']
         fieldnum_matricula = request.POST['num_matricula']
         fieldtel_personal = request.POST['tel_personal']
             
-        nuevoProfesional = Profesional(rnp = fieldrnp, first_name = fieldnombres, last_name = fieldapellidos, password = fieldcontra, email = fieldmail, dni = fielddni, profesion = fieldprofesion, num_matricula = fieldnum_matricula, tel_personal = fieldtel_personal)
+        nuevoProfesional = Profesional(area = fieldarea, rnp = fieldrnp, first_name = fieldnombres, last_name = fieldapellidos, password = fieldcontra, email = fieldmail, dni = fielddni, num_matricula = fieldnum_matricula, tel_personal = fieldtel_personal)
         nuevoProfesional.save()
         return redirect("/home")
     else:

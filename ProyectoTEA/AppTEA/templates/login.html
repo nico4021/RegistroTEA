@@ -38,14 +38,14 @@
             <center>
                 <form action="" method="POST">{% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input name="username" class="mdl-textfield__input" type="text" >
+                    <input name="username" class="mdl-textfield__input" type="text" required>
                     <label class="mdl-textfield__label">Ingrese su nombre de usuario...</label>
                 </div>
             </center>
             
             <center>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input name="password" class="mdl-textfield__input" type="password" id="contraseña" />
+                    <input name="password" class="mdl-textfield__input" type="password" id="contraseña" required/>
                     <label class="mdl-textfield__label">Ingrese su contraseña...</label>
                 </div>
             </center>
