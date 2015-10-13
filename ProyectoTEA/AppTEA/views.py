@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from AppTEA.models import Profesional, Area, Paciente
 from django.core.context_processors import csrf
-
+import django.contrib.auth.hashers
 
 """
 Página principal del sitio. 
@@ -127,7 +127,7 @@ def registrarProfesionales(request):
         fieldrnp = request.POST['rnp']
         fieldnombres = request.POST['nombres']
         fieldapellidos = request.POST['apellidos']
-        fieldcontra = request.POST['contra']
+        fieldcontra = make_password(request.POST['contra'])
         fieldmail = request.POST['mail']
         fielddni = request.POST['dni']
         fieldnum_matricula = request.POST['num_matricula']
@@ -200,8 +200,8 @@ Vista del Administrador para desactivar paciente.
 def desactivarPaciente(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if paciente.is_active == True:
-        profesional.is_active = False
-        profesion.save()
+        paciente.is_active = False
+        paciente.save()
         return redirect("/pacientes")
     else:
         return  HttpResponse("el paciente ya esta inactivo")
