@@ -34,10 +34,20 @@ Recibe como parámetro el id del paciente.
 """
 @login_required(login_url="/loguearse")
 def paciente(request, id_paciente):
+    context = RequestContext(request)
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
+    # me fijo si se quiere editar
+    if request.method == 'POST':
+        modificarPaciente(request, paciente.pk) 
+        return redirect("/")   
+    else:
+    #sino solo lo muestro
+        context = {"paciente": paciente}
+        return render(request, 'paciente.html', context)
     
-    return HttpResponse("paciente")
+    
+    
 
 """
 Vista que muestra la historia clínica de un paciente específico.
@@ -168,11 +178,9 @@ def registrarPacientes(request):
 Vista del Administrador para modificar paciente.
 """
 def modificarPaciente(request, id_paciente):
-    context = RequestContext(request)
-    paciente = Paciente.objects.get(pk = id_profesional)
+    pacienteM = Paciente.objects.get(pk = id_paciente)
     
     fielddni = request.POST['dni']
-    fieldactivo = request.POST['activo']
     fieldnombres = request.POST['nombres']
     fieldapellidos = request.POST['apellidos']
     fielddiagnostico = request.POST['diagnostico']
@@ -181,18 +189,17 @@ def modificarPaciente(request, id_paciente):
     fieldnumero_afiliado = request.POST['numero_afiliado']
     fieldfoto = request.POST['foto']
     
-    paciente.dni = fielddni
-    paciente.is_active = fieldactivo
-    paciente.nombres = fieldnombres
-    paciente.apellidos = fieldapellidos
-    paciente.diagnostico = fielddiagnostico
-    paciente.obra_social = fieldobra_social
-    paciente.fecha_nacimiento = fieldfecha_nacimiento
-    paciente.numero_afiliado = fieldnumero_afiliado
-    paciente.foto = fieldfoto
-    paciente.save()
+    pacienteM.dni = fielddni
+    pacienteM.nombres = fieldnombres
+    pacienteM.apellidos = fieldapellidos
+    pacienteM.diagnostico = fielddiagnostico
+    pacienteM.obra_social = fieldobra_social
+    pacienteM.fecha_nacimiento = fieldfecha_nacimiento
+    pacienteM.numero_afiliado = fieldnumero_afiliado
+    pacienteM.foto = fieldfoto
+    pacienteM.save()
     
-    return redirect("/")
+
     
 """
 Vista del Administrador para desactivar paciente.
