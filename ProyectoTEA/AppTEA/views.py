@@ -339,11 +339,17 @@ def agregarArea(request):
 Vista del Administrador para editar un area
 """
 def editarArea(request, id_area):
+    area = Area.objects.get(pk=id_area)
     context = {"area": Area.objects.get(pk=id_area),
                "btn_enlace": "..",
                "btn_icono": "arrow_back"}
                
-    return render(request, "", context)
+    if request.method == 'POST':
+        area.nombre = request.POST['nombre']
+        area.save()
+        return redirect("..")
+    else:
+        return render(request, "administrador/editarArea.html", context)
 
 
 
