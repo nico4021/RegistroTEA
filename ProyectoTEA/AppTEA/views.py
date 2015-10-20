@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from AppTEA.models import Profesional, Area, Paciente
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
+from django.utils.datastructures import MultiValueDictKeyError
+
 
 """
 Página principal del sitio. 
@@ -171,11 +173,15 @@ def registrarPacientes(request):
         fieldobra_social = request.POST['obra_social']
         fieldfecha_nacimiento = request.POST['fecha_nacimiento']
         fieldnumero_afiliado = request.POST['numero_afiliado']
-        if request.POST['foto']: 
-            fieldfoto = request.POST['foto']                
+        
+        try: 
+            request.FILES['foto']
+            fieldfoto = request.FILES['foto']                
             nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, foto = fieldfoto, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
-        else:
+        
+        except MultiValueDictKeyError:
             nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
+
         nuevoPaciente.save()
         return redirect("/")
     else:
@@ -194,7 +200,7 @@ def modificarPaciente(request, id_paciente):
     fieldobra_social = request.POST['obra_social']
     fieldfecha_nacimiento = request.POST['fecha_nacimiento']
     fieldnumero_afiliado = request.POST['numero_afiliado']
-    fieldfoto = request.POST['foto']
+    fieldfoto = request.FILES['foto']
     
     pacienteM.dni = fielddni
     pacienteM.nombres = fieldnombres
