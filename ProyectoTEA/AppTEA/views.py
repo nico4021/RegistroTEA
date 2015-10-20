@@ -24,7 +24,7 @@ y filtrarlos por nombre o apellido.
 @login_required(login_url="/loguearse")
 def home(request):
     context = { "usuario": request.user,
-                "pacientes": Paciente.objects.order_by("nombres"),
+                "pacientes": Paciente.objects.filter(is_active=True).order_by("nombres"),
                 "btn_enlace": "registrar/",
                 "btn_icono": "add",}
     
@@ -98,7 +98,7 @@ Vista del Administrador para gestionar los profesionales existentes.
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"profesionales": Profesional.objects.order_by("first_name"),
+        context = {"profesionales": Profesional.objects.filter(is_active=True).order_by("first_name"),
                    "btn_enlace": "registrar/",
                    "btn_icono": "add",}
         
