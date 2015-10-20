@@ -37,7 +37,6 @@ Recibe como parámetro el id del paciente.
 """
 @login_required(login_url="/loguearse")
 def paciente(request, id_paciente):
-    context = RequestContext(request)
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
     # me fijo si se quiere editar
@@ -46,10 +45,10 @@ def paciente(request, id_paciente):
         return redirect("/")   
     else:
     #sino solo lo muestro
-        context = {"paciente": paciente}
+        context = {"paciente": paciente,
+                   "btn_enlace": "..",
+                   "btn_icono": "arrow_back"}
         return render(request, 'paciente.html', context)
-    
-    
     
 
 """

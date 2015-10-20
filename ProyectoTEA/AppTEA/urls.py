@@ -23,9 +23,9 @@ urlpatterns = [
     url(r'^desloguearse/$', 'AppTEA.views.desloguearse', name='desloguearse'),
 
     url(r'^cobranza/$', 'AppTEA.views.cobranza', name='cobranza'),
-    url(r'^paciente/(?P<id_paciente>\d+)/$', 'AppTEA.views.paciente', name='paciente'),
-    url(r'^paciente/(?P<id_paciente>\d+)/historia/$', 'AppTEA.views.historia', name='historia'),
-    url(r'^paciente/(?P<id_paciente>\d+)/presupuestos/$', 'AppTEA.views.presupuestos', name='presupuestos'), 
+    url(r'^(?P<id_paciente>\d+)/$', 'AppTEA.views.paciente', name='paciente'),
+    url(r'^(?P<id_paciente>\d+)/historia/$', 'AppTEA.views.historia', name='historia'),
+    url(r'^(?P<id_paciente>\d+)/presupuestos/$', 'AppTEA.views.presupuestos', name='presupuestos'), 
     
     # Urls del administrador
     url(r'^areas/agregar/$', 'AppTEA.views.agregarArea', name='agregarArea'),
