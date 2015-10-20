@@ -28,16 +28,17 @@ urlpatterns = [
     url(r'^(?P<id_paciente>\d+)/presupuestos/$', 'AppTEA.views.presupuestos', name='presupuestos'), 
     
     # Urls del administrador
+    url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
     url(r'^areas/agregar/$', 'AppTEA.views.agregarArea', name='agregarArea'),
     url(r'^areas/(?P<id_area>\d+)/$', 'AppTEA.views.editarArea', name='editarArea'),
-    url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
+    url(r'^areas/(?P<id_area>\d+)/desactivar/$', 'AppTEA.views.desactivarArea', name='desactivarArea'),
     url(r'^profesionales/$', 'AppTEA.views.profesionales', name='profesionales'),
     url(r'^profesionales/(?P<id_profesional>\d+)/$', 'AppTEA.views.editarProfesional', name='editarProf'),
     url(r'^profesionales/registrar/$', 'AppTEA.views.registrarProfesionales', name='registrarProf'),
     url(r'^registrar/$', 'AppTEA.views.registrarPacientes', name='registrarPac'),
 #    url(r'^desactivarPac/$', 'AppTEA.views.desactivarPac', name='desactivarPac'),
 #    url(r'^desactivarProf/$', 'AppTEA.views.desactivarProf', name='desactivarProf'),
-#    url(r'^desactivarArea/$', 'AppTEA.views.desactivarArea', name='desactivarArea'),
+
     
     # Urls del profesional
     url(r'^facturacion/$', 'AppTEA.views.facturacion', name='facturacion'),

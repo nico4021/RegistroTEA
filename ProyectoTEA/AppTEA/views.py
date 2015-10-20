@@ -83,7 +83,7 @@ Vista del Administrador para gestionar las áreas existentes.
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"areas": Area.objects.order_by("nombre"),
+        context = {"areas": Area.objects.filter(is_active=True).order_by("nombre"),
                    "btn_enlace": "agregar/",
                    "btn_icono": "add" }
         
@@ -351,7 +351,14 @@ def editarArea(request, id_area):
     else:
         return render(request, "administrador/areas/editar.html", context)
 
-
+"""
+Vista del Administrador para desactivar area.
+"""    
+def desactivarArea(request, id_area):
+    area = Area.objects.get(pk=id_area)
+    area.is_active = False
+    area.save()
+    return redirect("apptea:areas")
 
 
 
