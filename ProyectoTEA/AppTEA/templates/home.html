@@ -2,26 +2,6 @@
 
 {% load staticfiles %}
 
-{% block barra_de_navegacion %}
-
-    {% if user.is_authenticated %}
-
-	    {% if user.is_staff %}
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Pacientes</a>
-            <a class="mdl-navigation__link" href="areas"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Areas</a>
-            <a class="mdl-navigation__link" href="profesionales"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Profesionales</a>
-            <a class="mdl-navigation__link" href="cobranza"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Cobranza</a>
-            <a class="mdl-navigation__link" href="desloguearse"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Log Out</a>
-	    {% else %}
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Pacientes</a>
-            <a class="mdl-navigation__link" href="facturacion"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Facturación</a>
-            <a class="mdl-navigation__link" href="cobranza"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Cobranza</a>
-            <a class="mdl-navigation__link" href="desloguearse"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Log Out</a>
-	    {% endif %}
-    {% endif %}
-
-{% endblock %}
-
 {% block body_block %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}" />
@@ -61,10 +41,6 @@
 		
 	{% endfor %}
 	</div>
-	
-	<a href="registrarPac/"><button href="registrarPac/" class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast">
-      <i class="material-icons">add</i>
-    </button></a>
 
 {% endif %}
 

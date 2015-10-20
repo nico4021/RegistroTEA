@@ -28,14 +28,14 @@ urlpatterns = [
     url(r'^paciente/(?P<id_paciente>\d+)/presupuestos/$', 'AppTEA.views.presupuestos', name='presupuestos'), 
     
     # Urls del administrador
-    url(r'^agregarArea/', 'AppTEA.views.agregarArea', name='agregarArea'),
+    url(r'^areas/agregar/$', 'AppTEA.views.agregarArea', name='agregarArea'),
     url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
     url(r'^profesionales/$', 'AppTEA.views.profesionales', name='profesionales'),
-    url(r'^registrarProf/', 'AppTEA.views.registrarProfesionales', name='registrarProf'),
-    url(r'^registrarPac/', 'AppTEA.views.registrarPacientes', name='registrarPac'),
-    url(r'^desactivarPac/', 'AppTEA.views.desactivarPac', name='desactivarPac'),
-    url(r'^desactivarProf/', 'AppTEA.views.desactivarProf', name='desactivarProf'),
-    url(r'^desactivarArea/', 'AppTEA.views.desactivarArea', name='desactivarArea'),
+    url(r'^profesionales/registrar/$', 'AppTEA.views.registrarProfesionales', name='registrarProf'),
+    url(r'^registrar/$', 'AppTEA.views.registrarPacientes', name='registrarPac'),
+#    url(r'^desactivarPac/$', 'AppTEA.views.desactivarPac', name='desactivarPac'),
+#    url(r'^desactivarProf/$', 'AppTEA.views.desactivarProf', name='desactivarProf'),
+#    url(r'^desactivarArea/$', 'AppTEA.views.desactivarArea', name='desactivarArea'),
     
     # Urls del profesional
     url(r'^facturacion/$', 'AppTEA.views.facturacion', name='facturacion'),

@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <!doctype html>
 
-<html lang="en">
+<html lang="es">
   <head>
 
     <meta charset="utf-8">
@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{% static 'css/fuentes.css' %}">
     <link rel="stylesheet" href="{% static 'css/boton-flotante.css' %}" />
     <script src="{% static 'js/material.min.js' %}"></script>
+    <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
   </head>
     
   <body style="background-color: #E2E8F2;">
@@ -37,7 +38,6 @@
       <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">  
           <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
               <div class="mdl-layout__header-row">
-                  <!--<span class="mdl-layout-title">Registro T.E.A</span>-->
                   <div class="mdl-layout-spacer"></div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
                       <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -56,12 +56,44 @@
                       <center><h5>{{ user }}</h5></center>
               </header>
               <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                  {% block barra_de_navegacion %}{% endblock %}
+                  
+                {% url 'apptea:home' as pac %}
+                {% url 'apptea:areas' as ars %}
+                {% url 'apptea:profesionales' as profs %}
+                {% url 'apptea:facturacion' as fac %}
+                {% url 'apptea:cobranza' as cob %}
+                {% url 'apptea:desloguearse' as log %}
+
+                {% include "_comun/_item_menu.html" with titulo="Pacientes" enlace=pac icono="wc" %}
+
+                {% if user.is_staff %}
+
+                    {% include "_comun/_item_menu.html" with titulo="Areas" enlace=ars icono="dvr" %}
+                    {% include "_comun/_item_menu.html" with titulo="Profesionales" enlace=profs icono="local_library" %}
+                      
+                {% else %}
+                
+                    {% include "_comun/_item_menu.html" with titulo="Facturación" enlace=fac icono="chrome_reader_mode" %}
+                      
+                {% endif %}
+
+                {% include "_comun/_item_menu.html" with titulo="Cobranza" enlace=cob icono="local_atm" %}
+                {% include "_comun/_item_menu.html" with titulo="Log Out" enlace=log icono="cancel" %}  
 
               </nav>
           </div>
           <main class="mdl-layout__content">
-            <div class="page-content" style="padding: 2%">{% block body_block %}{% endblock %}</div>
+            <div class="page-content" style="padding: 2%">
+            
+                {% block body_block %}{% endblock %}
+            
+                {% if btn_enlace and btn_icono %}
+                    <a href="{{ btn_enlace }}"><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast">
+                      <i class="material-icons">{{ btn_icono }}</i>
+                    </button></a>
+                {% endif %}
+              
+            </div>
           </main> 
     </body>
 </html>
