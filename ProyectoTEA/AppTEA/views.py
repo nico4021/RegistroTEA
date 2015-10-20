@@ -234,29 +234,37 @@ def darDeBajaProfesional(request, id_profesional):
 """
 Vista del Administrador para editar profesional.
 """
-def editarProfesional(reuest, id_profesional):
+def editarProfesional(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
-    
-    fieldrnp = request.POST['rnp']
-    fieldnombres = request.POST['nombres']
-    fieldapellidos = request.POST['apellidos']
-    fieldcontra = request.POST['contra']
-    fieldmail = request.POST['mail']
-    fielddni = request.POST['dni']
-    fieldprofesion = request.POST['profesion']
-    fieldnum_matricula = request.POST['num_matricula']
-    fieldtel_personal = request.POST['tel_personal']
-    
-    profesional.rnp = fieldrnp
-    Profesional.first_name = fieldnombres
-    profesional.last_name = fieldapellidos
-    profesional.password = fieldcontra
-    profesional.email = fieldmail
-    profesional.dni = fielddni
-    profesional.profesion = fieldprofesion
-    profesional.num_matricula = fieldnum_matricula
-    profesional.tel_personal = fieldtel_personal
-    profesional.save()
+    if request.POST:
+            
+        fieldarea = request.POST['area']    
+        fieldrnp = request.POST['rnp']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fieldmail = request.POST['mail']
+        fielddni = request.POST['dni']
+        fieldprofesion = request.POST['profesion']
+        fieldnum_matricula = request.POST['num_matricula']
+        fieldtel_personal = request.POST['tel_personal']
+        
+        profesional.area = fieldarea
+        profesional.rnp = fieldrnp
+        Profesional.first_name = fieldnombres
+        profesional.last_name = fieldapellidos
+        profesional.email = fieldmail
+        profesional.dni = fielddni
+        profesional.profesion = fieldprofesion
+        profesional.num_matricula = fieldnum_matricula
+        profesional.tel_personal = fieldtel_personal
+        profesional.save()
+        return redirect("/profesionales")
+    else:
+        context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back",
+               "profesional":profesional,
+               "areas" : Area.objects.order_by("nombre").filter(is_active = True)}
+        return render(request, "administrador/editarProfesional.html", context)
 
 
 """
