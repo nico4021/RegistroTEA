@@ -29,6 +29,7 @@ urlpatterns = [
     
     # Urls del administrador
     url(r'^areas/agregar/$', 'AppTEA.views.agregarArea', name='agregarArea'),
+    url(r'^areas/(?P<id_area>\d+)/editar/$', 'AppTEA.views.editarArea', name='editarArea'),
     url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
     url(r'^profesionales/$', 'AppTEA.views.profesionales', name='profesionales'),
     url(r'^profesionales/(?P<id_profesional>\d+)/$', 'AppTEA.views.editarProfesional', name='editarProf'),
