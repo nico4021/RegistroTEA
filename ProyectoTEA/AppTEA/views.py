@@ -22,8 +22,9 @@ y filtrarlos por nombre o apellido.
 @login_required(login_url="/loguearse")
 def home(request):
     context = { "usuario": request.user,
-                "pacientes": Paciente.objects.order_by("nombres"),}
-    
+                "pacientes": Paciente.objects.order_by("nombres"),
+                "btn_enlace": "registrar/",
+                "btn_icono": "add",}
     
     return render(request, 'home.html', context)
 
@@ -81,7 +82,9 @@ Vista del Administrador para gestionar las áreas existentes.
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"areas": Area.objects.order_by("nombre")}
+        context = {"areas": Area.objects.order_by("nombre"),
+                   "btn_enlace": "agregar/",
+                   "btn_icono": "add" }
         
         return render(request, "administrador/areas.html", context)
     else:
@@ -94,7 +97,9 @@ Vista del Administrador para gestionar los profesionales existentes.
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"profesionales": Profesional.objects.order_by("first_name")}
+        context = {"profesionales": Profesional.objects.order_by("first_name"),
+                   "btn_enlace": "registrar/",
+                   "btn_icono": "add",}
         
         return render(request, "administrador/profesionales.html", context)
     else:
@@ -128,8 +133,9 @@ def cobranza(request):
 Vista del Administrador para registrar profesional.
 """
 def registrarProfesionales(request):
-    context = RequestContext(request)
-    context = { "areas" : Area.objects.order_by("nombre").filter(is_active = True),}
+    context = { "areas" : Area.objects.order_by("nombre").filter(is_active = True),
+               "btn_enlace": "..",
+               "btn_icono": "arrow_back"}
     if request.method == 'POST':
             
 #                'asi con todos'
@@ -147,13 +153,14 @@ def registrarProfesionales(request):
         nuevoProfesional.save()
         return redirect("/home")
     else:
-        return render_to_response("administrador/registrarProfs.html",context)
+        return render(request, "administrador/registrarProfs.html",context)
 
 """
 Vista del Administrador para registrar paciente.
 """
 def registrarPacientes(request):
-    context = RequestContext(request)
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back"}
     if request.method == 'POST':
             
 #                'asi con todos'
@@ -172,7 +179,7 @@ def registrarPacientes(request):
         nuevoPaciente.save()
         return redirect("/")
     else:
-        return render_to_response("administrador/registrarPacientes.html", context)
+        return render(request, "administrador/registrarPacientes.html", context)
 
 """
 Vista del Administrador para modificar paciente.
@@ -302,11 +309,12 @@ def desloguearse(request):
     return redirect('/')
 
 def agregarArea(request):
-    context = RequestContext(request)
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back"}
     if request.method == 'POST':
         fieldnombre = request.POST['nombre']
         nuevaArea = Area(nombre = fieldnombre)
         nuevaArea.save()
-        return redirect("/")
+        return redirect("..")
     else:
-        return render_to_response("administrador/agregarArea.html")
+        return render(request, "administrador/agregarArea.html", context)
