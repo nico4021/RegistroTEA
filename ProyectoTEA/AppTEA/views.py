@@ -308,6 +308,9 @@ def desloguearse(request):
     
     return redirect('/')
 
+"""
+Vista del Administrador para agregar una nueva area
+"""
 def agregarArea(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -318,3 +321,25 @@ def agregarArea(request):
         return redirect("..")
     else:
         return render(request, "administrador/agregarArea.html", context)
+
+"""
+Vista del Administrador para editar un area
+"""
+def editarArea(request, id_area):
+    context = {"area": Area.objects.get(pk=id_area),
+               "btn_enlace": "..",
+               "btn_icono": "arrow_back"}
+               
+    return render(request, "", context)
+
+
+
+
+
+
+
+
+
+
+
+
