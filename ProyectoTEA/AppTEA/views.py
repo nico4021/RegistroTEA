@@ -87,7 +87,7 @@ def areas(request):
                    "btn_enlace": "agregar/",
                    "btn_icono": "add" }
         
-        return render(request, "administrador/areas.html", context)
+        return render(request, "administrador/areas/areas.html", context)
     else:
         return HttpResponse("Acceso denegado")
 
@@ -333,7 +333,7 @@ def agregarArea(request):
         nuevaArea.save()
         return redirect("..")
     else:
-        return render(request, "administrador/agregarArea.html", context)
+        return render(request, "administrador/areas/agregar.html", context)
 
 """
 Vista del Administrador para editar un area
@@ -349,7 +349,7 @@ def editarArea(request, id_area):
         area.save()
         return redirect("..")
     else:
-        return render(request, "administrador/editarArea.html", context)
+        return render(request, "administrador/areas/editar.html", context)
 
 
 
