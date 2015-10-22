@@ -75,7 +75,6 @@ class Paciente(models.Model):
         verbose_name_plural = 'pacientes'
 
 
-
 """
 Modelo de informe
 """
