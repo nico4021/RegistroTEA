@@ -1,0 +1,4 @@
+{% url 'apptea:agregarArea' as accion_url %}
+
+{% include 'administrador/areas/_form_area.html' with titulo='Registrar una nueva area' accion_form=accion_url boton='Registrar area' %}
+

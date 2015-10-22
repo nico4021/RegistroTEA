@@ -64,7 +64,7 @@
 			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="10" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento.year }}-{{ paciente.fecha_nacimiento.month }}-{{ paciente.fecha_nacimiento.day }}">
-				<label class="mdl-textfield__label" for="sample4">Fecha</label>
+				<label class="mdl-textfield__label" for="sample4">Fecha de nacimiento (AAAA-MM-DD)</label>
 				<span class="mdl-textfield__error">Que paso aca?</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -85,7 +85,7 @@
 		.demo-card-wide > .mdl-card__title {
 		color: #999999;
 		height: 176px;
-		background: url('../assets/demos/welcome_card.jpg') center / cover;
+		background: url("{% static 'cb/welcome_card.jpg'%}") center / cover;
 		}
 		.demo-card-wide > .mdl-card__menu {
 		color: #fff;
