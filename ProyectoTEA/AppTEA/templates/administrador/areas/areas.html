@@ -10,21 +10,17 @@
 
   {% for area in areas %}
     <div class="mdl-cell demo-card-square mdl-card mdl-shadow--2dp mdl-layout__content">
-      <div class="mdl-card__title mdl-card--expand">
+      <div class="mdl-card__title mdl-card--expand" >
         <h2 class="mdl-card__title-text">{{ area }}</h2>
       </div>
 
-      <div class="mdl-card__supporting-text mdl-layout__content">
-        {% for prof in areas.profesional_set %}
-            {{ prof }}
+      <div class="mdl-card__supporting-text mdl-layout__content" style="	height: 150px; overflow-y: scrollable;">
+        {% for prof in profesionales %}
+        {% if prof.area == area %}    
+            <h6>{{ prof }}<br></h6>
+        {% endif %}
         {% endfor %}
-        Prof<br>
-        Prof<br>
-        Prof<br>
-        Prof<br>Prof<br>
-        Prof<br>
-        Prof<br>
-        Prof<br>
+
       </div>
 
 

@@ -83,7 +83,9 @@ Vista del Administrador para gestionar las áreas existentes.
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"areas": Area.objects.filter(is_active=True).order_by("nombre"),
+        
+        context = {"profesionales": Profesional.objects.all(),
+                   "areas": Area.objects.filter(is_active=True).order_by("nombre"),
                    "btn_enlace": "agregar/",
                    "btn_icono": "add" }
         
