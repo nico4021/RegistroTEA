@@ -28,7 +28,7 @@ def home(request):
                 "btn_enlace": "registrar/",
                 "btn_icono": "add",}
     
-    return render(request, 'home.html', context)
+    return render(request, '_comun/home.html', context)
 
 """
 Vista de un paciente particular con sus datos.
@@ -48,7 +48,7 @@ def paciente(request, id_paciente):
         context = {"paciente": paciente,
                    "btn_enlace": "..",
                    "btn_icono": "arrow_back"}
-        return render(request, 'paciente.html', context)
+        return render(request, '_comun/paciente.html', context)
     
 
 """
@@ -112,7 +112,9 @@ Vista del Profesional para mostrar información de facturación.
 """
 @login_required(login_url="/loguearse")
 def facturacion(request):
-    return HttpResponse("facturacion")
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back" }
+    return render(request,"profesional/facturacion.html",context)
 
 
 """
@@ -127,7 +129,7 @@ Vista de cobranza.
 @login_required(login_url="/loguearse")
 def cobranza(request):
     
-    return render(request, "cobranza.html")
+    return render(request, "_comun/cobranza.html")
 
 
 """
