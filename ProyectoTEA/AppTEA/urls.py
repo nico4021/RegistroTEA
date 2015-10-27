@@ -28,12 +28,14 @@ urlpatterns = [
     url(r'^(?P<id_paciente>\d+)/presupuestos/$', 'AppTEA.views.presupuestos', name='presupuestos'), 
     
     # Urls del administrador
+    url(r'^(?P<id_paciente>\d+)/eliminar$', 'AppTEA.views.desactivarPaciente', name='desactivarPac'),
     url(r'^areas/$', 'AppTEA.views.areas', name='areas'),
     url(r'^areas/agregar/$', 'AppTEA.views.agregarArea', name='agregarArea'),
     url(r'^areas/(?P<id_area>\d+)/$', 'AppTEA.views.editarArea', name='editarArea'),
     url(r'^areas/(?P<id_area>\d+)/desactivar/$', 'AppTEA.views.desactivarArea', name='desactivarArea'),
     url(r'^profesionales/$', 'AppTEA.views.profesionales', name='profesionales'),
     url(r'^profesionales/(?P<id_profesional>\d+)/$', 'AppTEA.views.editarProfesional', name='editarProf'),
+#    url(r'^profesionales/(?P<id_profesional>\d+)/eliminar$', 'AppTEA.views.desactivarProfesional', name='desactivarProf'),
     url(r'^profesionales/registrar/$', 'AppTEA.views.registrarProfesionales', name='registrarProf'),
     url(r'^registrar/$', 'AppTEA.views.registrarPacientes', name='registrarPac'),
 #    url(r'^desactivarPac/$', 'AppTEA.views.desactivarPac', name='desactivarPac'),

@@ -225,7 +225,7 @@ def desactivarPaciente(request, id_paciente):
     if paciente.is_active == True:
         paciente.is_active = False
         paciente.save()
-        return redirect("/pacientes")
+        return redirect("/")
     else:
         return  HttpResponse("el paciente ya esta inactivo")
 """
