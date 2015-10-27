@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="{% static 'css/fuentes.css' %}">
     <link rel="stylesheet" href="{% static 'css/boton-flotante.css' %}" />
     <script src="{% static 'js/material.min.js' %}"></script>
-    <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
   </head>
     
   <body style="background-color: #E2E8F2;">
@@ -47,6 +46,7 @@
                           <input class="mdl-textfield__input" type="text" id="search" />
                           <label class="mdl-textfield__label" for="search"></label>
                       </div>
+                      
                   </div>
               </div>
               {% block tagArea %}{% endblock %}
@@ -89,7 +89,7 @@
                 {% block body_block %}{% endblock %}
             
                 {% if btn_enlace and btn_icono %}
-                    <a href="{{ btn_enlace }}"><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast">
+                    <a href="{{ btn_enlace }}"><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast mdl-button--colored">
                       <i class="material-icons">{{ btn_icono }}</i>
                     </button></a>
                 {% endif %}

@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from AppTEA.models import Profesional, Area, Paciente
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
+from django.utils.datastructures import MultiValueDictKeyError
+
 
 """
 Página principal del sitio. 
@@ -22,11 +24,11 @@ y filtrarlos por nombre o apellido.
 @login_required(login_url="/loguearse")
 def home(request):
     context = { "usuario": request.user,
-                "pacientes": Paciente.objects.order_by("nombres"),
+                "pacientes": Paciente.objects.filter(is_active=True).order_by("nombres"),
                 "btn_enlace": "registrar/",
                 "btn_icono": "add",}
     
-    return render(request, 'home.html', context)
+    return render(request, '_comun/home.html', context)
 
 """
 Vista de un paciente particular con sus datos.
@@ -35,19 +37,13 @@ Recibe como parámetro el id del paciente.
 """
 @login_required(login_url="/loguearse")
 def paciente(request, id_paciente):
-    context = RequestContext(request)
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    # me fijo si se quiere editar
-    if request.method == 'POST':
-        modificarPaciente(request, paciente.pk) 
-        return redirect("/")   
-    else:
-    #sino solo lo muestro
-        context = {"paciente": paciente}
-        return render(request, 'paciente.html', context)
-    
-    
+
+    context = {"paciente": paciente,
+                "btn_enlace": "..",
+                "btn_icono": "arrow_back"}
+    return render(request, '_comun/paciente/paciente-ver.html', context)
     
 
 """
@@ -84,11 +80,13 @@ Vista del Administrador para gestionar las áreas existentes.
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"areas": Area.objects.order_by("nombre"),
+        
+        context = {"profesionales": Profesional.objects.all(),
+                   "areas": Area.objects.filter(is_active=True).order_by("nombre"),
                    "btn_enlace": "agregar/",
                    "btn_icono": "add" }
         
-        return render(request, "administrador/areas.html", context)
+        return render(request, "administrador/areas/areas.html", context)
     else:
         return HttpResponse("Acceso denegado")
 
@@ -99,7 +97,7 @@ Vista del Administrador para gestionar los profesionales existentes.
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"profesionales": Profesional.objects.order_by("first_name"),
+        context = {"profesionales": Profesional.objects.filter(is_active=True).order_by("first_name"),
                    "btn_enlace": "registrar/",
                    "btn_icono": "add",}
         
@@ -113,7 +111,9 @@ Vista del Profesional para mostrar información de facturación.
 """
 @login_required(login_url="/loguearse")
 def facturacion(request):
-    return HttpResponse("facturacion")
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back" }
+    return render(request,"profesional/facturacion.html",context)
 
 
 """
@@ -128,7 +128,7 @@ Vista de cobranza.
 @login_required(login_url="/loguearse")
 def cobranza(request):
     
-    return render(request, "cobranza.html")
+    return render(request, "_comun/cobranza.html")
 
 
 """
@@ -173,11 +173,15 @@ def registrarPacientes(request):
         fieldobra_social = request.POST['obra_social']
         fieldfecha_nacimiento = request.POST['fecha_nacimiento']
         fieldnumero_afiliado = request.POST['numero_afiliado']
-        if request.POST['foto']: 
-            fieldfoto = request.POST['foto']                
+        
+        try: 
+            request.FILES['foto']
+            fieldfoto = request.FILES['foto']                
             nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, foto = fieldfoto, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
-        else:
+        
+        except MultiValueDictKeyError:
             nuevoPaciente = Paciente(dni = fielddni, nombres = fieldnombres, apellidos = fieldapellidos,diagnostico = fielddiagnostico, obra_social = fieldobra_social, fecha_nacimiento = fieldfecha_nacimiento, numero_afiliado = fieldnumero_afiliado)
+
         nuevoPaciente.save()
         return redirect("/")
     else:
@@ -187,26 +191,31 @@ def registrarPacientes(request):
 Vista del Administrador para modificar paciente.
 """
 def modificarPaciente(request, id_paciente):
-    pacienteM = Paciente.objects.get(pk = id_paciente)
-    
-    fielddni = request.POST['dni']
-    fieldnombres = request.POST['nombres']
-    fieldapellidos = request.POST['apellidos']
-    fielddiagnostico = request.POST['diagnostico']
-    fieldobra_social = request.POST['obra_social']
-    fieldfecha_nacimiento = request.POST['fecha_nacimiento']
-    fieldnumero_afiliado = request.POST['numero_afiliado']
-    fieldfoto = request.POST['foto']
-    
-    pacienteM.dni = fielddni
-    pacienteM.nombres = fieldnombres
-    pacienteM.apellidos = fieldapellidos
-    pacienteM.diagnostico = fielddiagnostico
-    pacienteM.obra_social = fieldobra_social
-    pacienteM.fecha_nacimiento = fieldfecha_nacimiento
-    pacienteM.numero_afiliado = fieldnumero_afiliado
-    pacienteM.foto = fieldfoto
-    pacienteM.save()
+    paciente = Paciente.objects.get(pk = id_paciente)
+    if request.POST:
+        fielddni = request.POST['dni']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fielddiagnostico = request.POST['diagnostico']
+        fieldobra_social = request.POST['obra_social']
+        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldnumero_afiliado = request.POST['numero_afiliado']
+        fieldfoto = request.FILES['foto']
+        
+        paciente.dni = fielddni
+        paciente.nombres = fieldnombres
+        paciente.apellidos = fieldapellidos
+        paciente.diagnostico = fielddiagnostico
+        paciente.obra_social = fieldobra_social
+        paciente.fecha_nacimiento = fieldfecha_nacimiento
+        paciente.numero_afiliado = fieldnumero_afiliado
+        paciente.foto = fieldfoto
+        paciente.save()
+    else:
+        context = {"paciente": paciente,
+                   "btn_enlace": "..",
+                   "btn_icono": "arrow_back"}
+        return render(request, '_comun/paciente/paciente-editar.html', context)
     
 
     
@@ -218,7 +227,7 @@ def desactivarPaciente(request, id_paciente):
     if paciente.is_active == True:
         paciente.is_active = False
         paciente.save()
-        return redirect("/pacientes")
+        return redirect("/")
     else:
         return  HttpResponse("el paciente ya esta inactivo")
 """
@@ -236,29 +245,37 @@ def darDeBajaProfesional(request, id_profesional):
 """
 Vista del Administrador para editar profesional.
 """
-def editarProfesional(reuest, id_profesional):
+def editarProfesional(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
-    
-    fieldrnp = request.POST['rnp']
-    fieldnombres = request.POST['nombres']
-    fieldapellidos = request.POST['apellidos']
-    fieldcontra = request.POST['contra']
-    fieldmail = request.POST['mail']
-    fielddni = request.POST['dni']
-    fieldprofesion = request.POST['profesion']
-    fieldnum_matricula = request.POST['num_matricula']
-    fieldtel_personal = request.POST['tel_personal']
-    
-    profesional.rnp = fieldrnp
-    Profesional.first_name = fieldnombres
-    profesional.last_name = fieldapellidos
-    profesional.password = fieldcontra
-    profesional.email = fieldmail
-    profesional.dni = fielddni
-    profesional.profesion = fieldprofesion
-    profesional.num_matricula = fieldnum_matricula
-    profesional.tel_personal = fieldtel_personal
-    profesional.save()
+    if request.POST:
+            
+        fieldarea = request.POST['area']    
+        fieldrnp = request.POST['rnp']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fieldmail = request.POST['mail']
+        fielddni = request.POST['dni']
+        fieldprofesion = request.POST['profesion']
+        fieldnum_matricula = request.POST['num_matricula']
+        fieldtel_personal = request.POST['tel_personal']
+        
+        profesional.area = fieldarea
+        profesional.rnp = fieldrnp
+        Profesional.first_name = fieldnombres
+        profesional.last_name = fieldapellidos
+        profesional.email = fieldmail
+        profesional.dni = fielddni
+        profesional.profesion = fieldprofesion
+        profesional.num_matricula = fieldnum_matricula
+        profesional.tel_personal = fieldtel_personal
+        profesional.save()
+        return redirect("/profesionales")
+    else:
+        context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back",
+               "profesional":profesional,
+               "areas" : Area.objects.order_by("nombre").filter(is_active = True)}
+        return render(request, "administrador/editarProfesional.html", context)
 
 
 """
@@ -310,6 +327,9 @@ def desloguearse(request):
     
     return redirect('/')
 
+"""
+Vista del Administrador para agregar una nueva area
+"""
 def agregarArea(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -319,4 +339,39 @@ def agregarArea(request):
         nuevaArea.save()
         return redirect("..")
     else:
-        return render(request, "administrador/agregarArea.html", context)
+        return render(request, "administrador/areas/agregar.html", context)
+
+"""
+Vista del Administrador para editar un area
+"""
+def editarArea(request, id_area):
+    area = Area.objects.get(pk=id_area)
+    context = {"area": Area.objects.get(pk=id_area),
+               "btn_enlace": "..",
+               "btn_icono": "arrow_back"}
+               
+    if request.method == 'POST':
+        area.nombre = request.POST['nombre']
+        area.save()
+        return redirect("..")
+    else:
+        return render(request, "administrador/areas/editar.html", context)
+
+"""
+Vista del Administrador para desactivar area.
+"""    
+def desactivarArea(request, id_area):
+    area = Area.objects.get(pk=id_area)
+    area.is_active = False
+    area.save()
+    return redirect("apptea:areas")
+
+
+
+
+
+
+
+
+
+

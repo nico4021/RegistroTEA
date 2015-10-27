@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             name='Area',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(max_length=40)),
                 ('is_active', models.BooleanField(default=True)),
+                ('nombre', models.CharField(max_length=30)),
             ],
             options={
                 'verbose_name': 'area',
@@ -26,25 +26,31 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Cobranza',
+            name='Informe',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('porcentaje_aporte', models.IntegerField()),
+                ('is_active', models.BooleanField(default=True)),
+                ('fecha', models.DateField(default=b'1')),
+                ('contenido', models.CharField(max_length=400)),
             ],
+            options={
+                'verbose_name': 'informe',
+                'verbose_name_plural': 'informes',
+            },
         ),
         migrations.CreateModel(
             name='Paciente',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('dni', models.IntegerField()),
                 ('is_active', models.BooleanField(default=True)),
-                ('apellidos', models.CharField(max_length=30)),
-                ('diagnostico', models.CharField(max_length=300)),
-                ('obra_social', models.CharField(max_length=20)),
-                ('foto', models.ImageField(upload_to=b'profile_images', blank=True)),
-                ('fecha_nacimiento', models.DateField()),
-                ('numero_afiliado', models.CharField(max_length=30)),
                 ('nombres', models.CharField(max_length=40)),
+                ('apellidos', models.CharField(max_length=40)),
+                ('dni', models.CharField(max_length=15)),
+                ('obra_social', models.CharField(max_length=20)),
+                ('numero_afiliado', models.CharField(max_length=30)),
+                ('fecha_nacimiento', models.DateField()),
+                ('diagnostico', models.CharField(max_length=300)),
+                ('foto', models.ImageField(upload_to=b'profile_images', blank=True)),
             ],
             options={
                 'verbose_name': 'paciente',
@@ -55,6 +61,7 @@ class Migration(migrations.Migration):
             name='Presupuesto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('is_active', models.BooleanField(default=True)),
                 ('tratamiento_prestacion', models.CharField(max_length=50)),
                 ('horas_semanales', models.IntegerField()),
                 ('horas_mensuales', models.IntegerField()),
@@ -64,7 +71,6 @@ class Migration(migrations.Migration):
                 ('horario', models.CharField(max_length=6)),
                 ('frecuencia', models.IntegerField()),
                 ('costo_mensual', models.IntegerField()),
-                ('cobranza', models.ManyToManyField(to='AppTEA.Cobranza')),
                 ('paciente', models.ForeignKey(to='AppTEA.Paciente')),
             ],
             options={
@@ -76,10 +82,11 @@ class Migration(migrations.Migration):
             name='Profesional',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('rnp', models.IntegerField()),
-                ('dni', models.CharField(max_length=10)),
-                ('num_matricula', models.IntegerField()),
-                ('tel_personal', models.IntegerField()),
+                ('rnp', models.CharField(max_length=15)),
+                ('dni', models.CharField(max_length=15)),
+                ('num_matricula', models.CharField(max_length=15)),
+                ('tel_personal', models.CharField(max_length=20)),
+                ('cuit', models.CharField(max_length=20)),
                 ('area', models.ForeignKey(to='AppTEA.Area')),
             ],
             options={
@@ -94,10 +101,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='presupuesto',
             name='profesional',
-            field=models.ManyToManyField(to='AppTEA.Profesional'),
+            field=models.ForeignKey(to='AppTEA.Profesional'),
         ),
         migrations.AddField(
-            model_name='cobranza',
+            model_name='informe',
+            name='paciente',
+            field=models.ForeignKey(to='AppTEA.Paciente'),
+        ),
+        migrations.AddField(
+            model_name='informe',
             name='profesional',
             field=models.ForeignKey(to='AppTEA.Profesional'),
         ),

@@ -75,7 +75,6 @@ class Paciente(models.Model):
         verbose_name_plural = 'pacientes'
 
 
-
 """
 Modelo de informe
 """
@@ -87,7 +86,7 @@ class Informe(models.Model):
     # Atributos
     is_active = models.BooleanField(default=True)
 
-    fecha = models.DateField(blank=False, default=timezone.now())
+    fecha = models.DateField(blank=False, default="1")
     contenido = models.CharField(max_length=400)
     
     def __unicode__(self):
