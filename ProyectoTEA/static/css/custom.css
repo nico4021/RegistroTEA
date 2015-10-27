@@ -16,3 +16,8 @@
   color: #fff;
   background: url('cb/dog.png') bottom right 15% no-repeat #46B6AC;
 }
+.truncate{
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis ;}

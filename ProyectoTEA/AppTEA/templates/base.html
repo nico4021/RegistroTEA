@@ -35,7 +35,7 @@
     
   <body style="background-color: #E2E8F2;">
       
-      <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">  
+      <div class="demo-layout-waterfall mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">  
           <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
               <div class="mdl-layout__header-row">
                   <div class="mdl-layout-spacer"></div>
@@ -49,6 +49,7 @@
                       </div>
                   </div>
               </div>
+              {% block tagArea %}{% endblock %}
           </header>
           <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
               <header class="demo-drawer-header">
@@ -94,6 +95,7 @@
                 {% endif %}
               
             </div>
-          </main> 
+          </main>
+          
     </body>
 </html>
