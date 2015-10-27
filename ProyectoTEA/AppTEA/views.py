@@ -39,16 +39,11 @@ Recibe como parámetro el id del paciente.
 def paciente(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    # me fijo si se quiere editar
-    if request.method == 'POST':
-        modificarPaciente(request, paciente.pk) 
-        return redirect("/")   
-    else:
-    #sino solo lo muestro
-        context = {"paciente": paciente,
-                   "btn_enlace": "..",
-                   "btn_icono": "arrow_back"}
-        return render(request, '_comun/paciente.html', context)
+
+    context = {"paciente": paciente,
+                "btn_enlace": "..",
+                "btn_icono": "arrow_back"}
+    return render(request, '_comun/paciente/paciente-ver.html', context)
     
 
 """
@@ -194,26 +189,31 @@ def registrarPacientes(request):
 Vista del Administrador para modificar paciente.
 """
 def modificarPaciente(request, id_paciente):
-    pacienteM = Paciente.objects.get(pk = id_paciente)
-    
-    fielddni = request.POST['dni']
-    fieldnombres = request.POST['nombres']
-    fieldapellidos = request.POST['apellidos']
-    fielddiagnostico = request.POST['diagnostico']
-    fieldobra_social = request.POST['obra_social']
-    fieldfecha_nacimiento = request.POST['fecha_nacimiento']
-    fieldnumero_afiliado = request.POST['numero_afiliado']
-    fieldfoto = request.FILES['foto']
-    
-    pacienteM.dni = fielddni
-    pacienteM.nombres = fieldnombres
-    pacienteM.apellidos = fieldapellidos
-    pacienteM.diagnostico = fielddiagnostico
-    pacienteM.obra_social = fieldobra_social
-    pacienteM.fecha_nacimiento = fieldfecha_nacimiento
-    pacienteM.numero_afiliado = fieldnumero_afiliado
-    pacienteM.foto = fieldfoto
-    pacienteM.save()
+    paciente = Paciente.objects.get(pk = id_paciente)
+    if request.POST:
+        fielddni = request.POST['dni']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fielddiagnostico = request.POST['diagnostico']
+        fieldobra_social = request.POST['obra_social']
+        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldnumero_afiliado = request.POST['numero_afiliado']
+        fieldfoto = request.FILES['foto']
+        
+        paciente.dni = fielddni
+        paciente.nombres = fieldnombres
+        paciente.apellidos = fieldapellidos
+        paciente.diagnostico = fielddiagnostico
+        paciente.obra_social = fieldobra_social
+        paciente.fecha_nacimiento = fieldfecha_nacimiento
+        paciente.numero_afiliado = fieldnumero_afiliado
+        paciente.foto = fieldfoto
+        paciente.save()
+    else:
+        context = {"paciente": paciente,
+                   "btn_enlace": "..",
+                   "btn_icono": "arrow_back"}
+        return render(request, '_comun/paciente/paciente-editar.html', context)
     
 
     
