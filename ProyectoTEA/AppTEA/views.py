@@ -277,6 +277,23 @@ def editarProfesional(request, id_profesional):
 
 
 """
+Creacion de un nuevo informe
+"""
+def crearInforme(request, id_paciente):
+    if request.POST:
+        fieldContenido = request.POST["contenido"]
+        fieldPaciente = id_paciente
+        fieldProfesional = request.POST["idProfesional"] 
+            
+        nuevoInforme = Informe(paciente = fieldPaciente, profesional = fieldProfesional, contenido = fieldContenido)
+        nuevoInforme.save()
+    else :
+        context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back"
+               "paciente":Paciente.objects.get(pk = id_paciente) }
+        return render(request, "informe/nuevoInforme.html", context)
+    
+"""
 Sistema de logueo de usuarios.
 """
 def loguearse(request):
