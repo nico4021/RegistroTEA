@@ -1,26 +1,5 @@
 {% extends 'base.html' %}
-
-{% block barra_de_navegacion %}
-
-	{% if user.is_authenticated %}
-	
-		{% if user.is_staff %}
-		<a class="mdl-navigation__link" href=".."><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Pacientes</a>
-		<a class="mdl-navigation__link" href="../areas"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Areas</a>
-		<a class="mdl-navigation__link" href="../profesionales"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Profesionales</a>
-		<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Cobranza</a>
-		<a class="mdl-navigation__link" href="../desloguearse"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Log Out</a>
-		{% else %}
-		<a class="mdl-navigation__link" href=".."><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Pacientes</a>
-		<a class="mdl-navigation__link" href="../facturacion"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Facturación</a>
-		<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Cobranza</a>
-        <a class="mdl-navigation__link" href="../desloguearse"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">wc</i>Log Out</a>		
-		{% endif %}
-		
-	{% endif %}
-	
-{% endblock %}
-
+{% block tagArea %}{% endblock %}
 {% block body_block %}
 <center><h1>COBRANZA!!!</h1></center>
 {% endblock %}

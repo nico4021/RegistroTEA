@@ -28,7 +28,9 @@
 			<h2 class="mdl-card__title-text">Registro de nuevo paciente</h2>
 		</div>
 		<div class="mdl-card__supporting-text">
+
 		<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+
 
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="8" name="dni" pattern="-?[0-9]*(\.[0-9]+)?">

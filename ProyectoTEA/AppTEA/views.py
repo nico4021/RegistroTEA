@@ -55,8 +55,10 @@ Recibe como parámetro el id del paciente.
 def historia(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    
-    return HttpResponse("historia")
+    context = {"paciente":paciente,
+              "btn_enlace": "..",
+               "btn_icono": "arrow_back"}
+    return render(request, 'historia.html', context)
 
 """
 Vista que muestra la lista de presupuestos de distintas fechas 
