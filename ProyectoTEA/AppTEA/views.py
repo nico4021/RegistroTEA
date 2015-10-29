@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from AppTEA.models import Profesional, Area, Paciente
+from AppTEA.models import Profesional, Area, Paciente, Informe
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
 from django.utils.datastructures import MultiValueDictKeyError
@@ -55,10 +55,21 @@ Recibe como parámetro el id del paciente.
 def historia(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    context = {"paciente":paciente,
-              "btn_enlace": "..",
-               "btn_icono": "arrow_back"}
-    return render(request, 'historia.html', context)
+    informes = Informe.objects.all().filter(is_active = True).filter(paciente = id_paciente).order_by("profesional")
+    areas = Area.objects.all().filter(is_active = True).order_by("nombre")
+    if request.user.is_staff:
+        context = {"areas":areas,
+            "informes":informes,
+            "paciente":paciente,
+            "btn_enlace": "..",
+            "btn_icono": "arrow_back"}
+    else:
+        context = {"areas":areas,
+                "informes":informes,
+                "paciente":paciente,
+                "btn_enlace": "nuevoInforme/",
+                "btn_icono": "add"}
+    return render(request, '_comun/paciente/historia.html', context)
 
 """
 Vista que muestra la lista de presupuestos de distintas fechas 
@@ -284,16 +295,59 @@ Creacion de un nuevo informe
 def crearInforme(request, id_paciente):
     if request.POST:
         fieldContenido = request.POST["contenido"]
-        fieldPaciente = id_paciente
-        fieldProfesional = request.POST["idProfesional"] 
+        fieldPaciente = Paciente.objects.get(pk = id_paciente)
+        fieldProfesional = request.POST["nombre"]
+        profesionalObj = Profesional.objects.get(first_name = fieldProfesional) 
             
-        nuevoInforme = Informe(paciente = fieldPaciente, profesional = fieldProfesional, contenido = fieldContenido)
+        nuevoInforme = Informe(paciente = fieldPaciente, profesional = profesionalObj, contenido = fieldContenido)
         nuevoInforme.save()
+        return redirect("../")
     else :
         context = {"btn_enlace": "..",
-               "btn_icono": "arrow_back"
+               "btn_icono": "arrow_back",
                "paciente":Paciente.objects.get(pk = id_paciente) }
-        return render(request, "informe/nuevoInforme.html", context)
+        return render(request, "profesional/informe/informe-nuevo.html", context)
+    
+"""
+Desactivar un informe
+"""    
+def desactivarInforme(request,id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    informe.is_active = False
+    informe.save()
+    return redirect("../")
+    
+"""
+Ver un informe en especifico
+"""    
+def verInforme(request, id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    context = {
+        "informe":informe,
+        "btn_enlace": "..",
+        "btn_icono": "arrow_back"        
+    }
+    pagina = render(request,  "profesional/informe/informe-ver.html", context)
+    return pagina
+    
+"""
+Editar un informe
+"""
+def editarInforme(request,id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    if request.POST:
+        fieldContenido = request.POST['contenido']
+        informe.contenido = fieldContenido
+        informe.save()
+        return redirect("../")
+    else:
+        context = {
+            "informe":informe,
+            "btn_enlace": "..",
+            "btn_icono": "arrow_back"        
+        }
+        pagina = render(request,  "profesional/informe/informe-editar.html", context)
+        return pagina
     
 """
 Sistema de logueo de usuarios.

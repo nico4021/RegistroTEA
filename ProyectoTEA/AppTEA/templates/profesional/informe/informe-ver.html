@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+{% if user.is_authenticated %}
+
+	
+<style>
+		.mdl-card__title {
+		color: #fff;
+		height: 176px;
+		background: url("{% static 'images/avion.png' %}") center / cover;
+		}
+		
+		</style>
+
+
+	<div class="mdl-grid">
+		<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-phone">
+			<div class="mdl-card__title">
+				<h2 class="mdl-card__title-text">{{informe}}</h2>
+			</div>
+			<div class="mdl-card__supporting-text">
+				{{informe.contenido}}
+			</div>
+		</div>
+	</div>
+
+	{% else %}
+	<h1>acceso denegado</h1>
+	{% endif %}
+{% endblock %}

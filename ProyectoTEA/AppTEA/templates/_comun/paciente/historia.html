@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<style>
+        .scroll{
+        height: 120px;
+        overflow-y: scrolleable;
+        }
+        .coloreado { 
+        background-color: gainsboro
+        }
+        .demo-card-wide > .mdl-card__title {
+        align-self:center;
+        
+        }
+        .mdl-cell--5-col{
+        width: 310px;
+        }
+        </style>
+
+
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-phone   demo-card-wide mdl-card mdl-shadow--3dp"  style="background-color: white; ">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" >
+            <div class="mdl-tabs__tab-bar">
+            {% for area in areas%}
+            <a href="#{{area.nombre}}-panel " class="mdl-tabs__tab {% if forloop.first %}is-active{% endif %}">{{area.nombre}}</a>
+            {% endfor %}
+        </div>
+        
+        {% for area in areas %}
+        <div class="mdl-tabs__panel {% if forloop.first %}is-active{% endif %} mdl-grid" id="{{area.nombre}}-panel">
+
+        {% for informe in informes %}
+
+        {% if informe.profesional.area = area %}
+            <div class="coloreado mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--12-col-phone informe mdl-layout__content">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{informe.fecha}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text mdl-layout__content scroll">
+                {{informe.contenido}}
+                    
+                </div>
+                <center>
+                <div class="mdl-card__actions mdl-card--border">
+                    {% if user.is_staff %}
+                     <a href="informe/{{informe.pk}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons" >menu</i>
+                    </a> 
+                    {% else %}
+                    <a href="editarInforme/{{informe.pk}}"" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons" >edit</i>
+                    </a>
+        
+                    <a href="#eliminar" id="borrar-{{informe.pk}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons" >delete</i>
+                    </a>
+                    <div class="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect" for="borrar-{{informe.pk}}">
+                        <h5 style="margin: 10px; color: black;" >¿Seguro?</h5>
+                        <a href="eliminarInforme/{{informe.pk}}" class="mdl-menu__item"><span class="material-icons" style="font-size: 1.5em; display: inline-block;">done</span>Si</a>
+                        <a class="mdl-menu__item"><span class="material-icons" style="font-size: 1.5em; display: inline-block;">clear</span>No</a>
+                    </div>
+        
+                    <a href="informe/{{informe.pk}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons" >menu</i>
+                    </a>   
+                    {% endif %} 
+                </div>
+                </center>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    
+{% endblock %}
+
+

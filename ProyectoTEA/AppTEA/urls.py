@@ -44,5 +44,9 @@ urlpatterns = [
 
     
     # Urls del profesional
+    url(r'^(?P<id_paciente>\d+)/historia/nuevoInforme/$', 'AppTEA.views.crearInforme', name='nuevoInforme'),
+    url(r'^(?P<id_paciente>\d+)/historia/informe/(?P<id_informe>\d+)$', 'AppTEA.views.verInforme', name='informe'),
+    url(r'^(?P<id_paciente>\d+)/historia/editarInforme/(?P<id_informe>\d+)$', 'AppTEA.views.editarInforme', name='editarInforme'),
+    url(r'^(?P<id_paciente>\d+)/historia/eliminarInforme/(?P<id_informe>\d+)$', 'AppTEA.views.desactivarInforme', name='desactivarInforme'),
     url(r'^facturacion/$', 'AppTEA.views.facturacion', name='facturacion'),
 ]

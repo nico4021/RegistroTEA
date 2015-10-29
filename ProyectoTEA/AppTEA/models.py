@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import *
 from django.utils import timezone
 
 
@@ -86,11 +86,11 @@ class Informe(models.Model):
     # Atributos
     is_active = models.BooleanField(default=True)
 
-    fecha = models.DateField(blank=False, default="1")
+    fecha = models.DateField(default=datetime.now, blank=False)
     contenido = models.CharField(max_length=400)
     
     def __unicode__(self):
-        return self.fecha
+        return "informe de "+self.paciente.nombres+" del "+self.fecha.strftime("%d/%m/%Y")
     
     class Meta:
         verbose_name = 'informe'
