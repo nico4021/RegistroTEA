@@ -6,9 +6,13 @@ from django.template import RequestContext, Context
 from django.template.loader import get_template
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from AppTEA.models import Profesional, Area, Paciente
 from xhtml2pdf import pisa
 from cgi import escape
+=======
+from AppTEA.models import Profesional, Area, Paciente, Informe
+>>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
 import cStringIO as StringIO
@@ -32,7 +36,7 @@ def home(request):
                 "btn_enlace": "registrar/",
                 "btn_icono": "add",}
     
-    return render(request, 'home.html', context)
+    return render(request, '_comun/home.html', context)
 
 """
 Vista de un paciente particular con sus datos.
@@ -43,16 +47,11 @@ Recibe como parámetro el id del paciente.
 def paciente(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    # me fijo si se quiere editar
-    if request.method == 'POST':
-        modificarPaciente(request, paciente.pk) 
-        return redirect("/")   
-    else:
-    #sino solo lo muestro
-        context = {"paciente": paciente,
-                   "btn_enlace": "..",
-                   "btn_icono": "arrow_back"}
-        return render(request, 'paciente.html', context)
+
+    context = {"paciente": paciente,
+                "btn_enlace": "..",
+                "btn_icono": "arrow_back"}
+    return render(request, '_comun/paciente/paciente-ver.html', context)
     
 
 """
@@ -64,8 +63,21 @@ Recibe como parámetro el id del paciente.
 def historia(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
-    
-    return HttpResponse("historia")
+    informes = Informe.objects.all().filter(is_active = True).filter(paciente = id_paciente).order_by("profesional")
+    areas = Area.objects.all().filter(is_active = True).order_by("nombre")
+    if request.user.is_staff:
+        context = {"areas":areas,
+            "informes":informes,
+            "paciente":paciente,
+            "btn_enlace": "..",
+            "btn_icono": "arrow_back"}
+    else:
+        context = {"areas":areas,
+                "informes":informes,
+                "paciente":paciente,
+                "btn_enlace": "nuevoInforme/",
+                "btn_icono": "add"}
+    return render(request, '_comun/paciente/historia.html', context)
 
 """
 Vista que muestra la lista de presupuestos de distintas fechas 
@@ -87,7 +99,9 @@ Vista del Administrador para gestionar las áreas existentes.
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
-        context = {"areas": Area.objects.filter(is_active=True).order_by("nombre"),
+        
+        context = {"profesionales": Profesional.objects.all(),
+                   "areas": Area.objects.filter(is_active=True).order_by("nombre"),
                    "btn_enlace": "agregar/",
                    "btn_icono": "add" }
         
@@ -116,7 +130,9 @@ Vista del Profesional para mostrar información de facturación.
 """
 @login_required(login_url="/loguearse")
 def facturacion(request):
-    return HttpResponse("facturacion")
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back" }
+    return render(request,"profesional/facturacion.html",context)
 
 
 """
@@ -131,6 +147,7 @@ Vista de cobranza.
 @login_required(login_url="/loguearse")
 def cobranza(request):
     
+<<<<<<< HEAD
     return render_to_pdf(
             'cobranza.html',
             {
@@ -139,6 +156,9 @@ def cobranza(request):
         )
 
 
+=======
+    return render(request, "_comun/cobranza.html")
+>>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
 
 
 """
@@ -201,26 +221,31 @@ def registrarPacientes(request):
 Vista del Administrador para modificar paciente.
 """
 def modificarPaciente(request, id_paciente):
-    pacienteM = Paciente.objects.get(pk = id_paciente)
-    
-    fielddni = request.POST['dni']
-    fieldnombres = request.POST['nombres']
-    fieldapellidos = request.POST['apellidos']
-    fielddiagnostico = request.POST['diagnostico']
-    fieldobra_social = request.POST['obra_social']
-    fieldfecha_nacimiento = request.POST['fecha_nacimiento']
-    fieldnumero_afiliado = request.POST['numero_afiliado']
-    fieldfoto = request.FILES['foto']
-    
-    pacienteM.dni = fielddni
-    pacienteM.nombres = fieldnombres
-    pacienteM.apellidos = fieldapellidos
-    pacienteM.diagnostico = fielddiagnostico
-    pacienteM.obra_social = fieldobra_social
-    pacienteM.fecha_nacimiento = fieldfecha_nacimiento
-    pacienteM.numero_afiliado = fieldnumero_afiliado
-    pacienteM.foto = fieldfoto
-    pacienteM.save()
+    paciente = Paciente.objects.get(pk = id_paciente)
+    if request.POST:
+        fielddni = request.POST['dni']
+        fieldnombres = request.POST['nombres']
+        fieldapellidos = request.POST['apellidos']
+        fielddiagnostico = request.POST['diagnostico']
+        fieldobra_social = request.POST['obra_social']
+        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldnumero_afiliado = request.POST['numero_afiliado']
+        fieldfoto = request.FILES['foto']
+        
+        paciente.dni = fielddni
+        paciente.nombres = fieldnombres
+        paciente.apellidos = fieldapellidos
+        paciente.diagnostico = fielddiagnostico
+        paciente.obra_social = fieldobra_social
+        paciente.fecha_nacimiento = fieldfecha_nacimiento
+        paciente.numero_afiliado = fieldnumero_afiliado
+        paciente.foto = fieldfoto
+        paciente.save()
+    else:
+        context = {"paciente": paciente,
+                   "btn_enlace": "..",
+                   "btn_icono": "arrow_back"}
+        return render(request, '_comun/paciente/paciente-editar.html', context)
     
 
     
@@ -232,7 +257,7 @@ def desactivarPaciente(request, id_paciente):
     if paciente.is_active == True:
         paciente.is_active = False
         paciente.save()
-        return redirect("/pacientes")
+        return redirect("/")
     else:
         return  HttpResponse("el paciente ya esta inactivo")
 """
@@ -283,6 +308,66 @@ def editarProfesional(request, id_profesional):
         return render(request, "administrador/editarProfesional.html", context)
 
 
+"""
+Creacion de un nuevo informe
+"""
+def crearInforme(request, id_paciente):
+    if request.POST:
+        fieldContenido = request.POST["contenido"]
+        fieldPaciente = Paciente.objects.get(pk = id_paciente)
+        fieldProfesional = request.POST["nombre"]
+        profesionalObj = Profesional.objects.get(first_name = fieldProfesional) 
+            
+        nuevoInforme = Informe(paciente = fieldPaciente, profesional = profesionalObj, contenido = fieldContenido)
+        nuevoInforme.save()
+        return redirect("../")
+    else :
+        context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back",
+               "paciente":Paciente.objects.get(pk = id_paciente) }
+        return render(request, "profesional/informe/informe-nuevo.html", context)
+    
+"""
+Desactivar un informe
+"""    
+def desactivarInforme(request,id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    informe.is_active = False
+    informe.save()
+    return redirect("../")
+    
+"""
+Ver un informe en especifico
+"""    
+def verInforme(request, id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    context = {
+        "informe":informe,
+        "btn_enlace": "..",
+        "btn_icono": "arrow_back"        
+    }
+    pagina = render(request,  "profesional/informe/informe-ver.html", context)
+    return pagina
+    
+"""
+Editar un informe
+"""
+def editarInforme(request,id_paciente, id_informe):
+    informe = Informe.objects.get(pk = id_informe)
+    if request.POST:
+        fieldContenido = request.POST['contenido']
+        informe.contenido = fieldContenido
+        informe.save()
+        return redirect("../")
+    else:
+        context = {
+            "informe":informe,
+            "btn_enlace": "..",
+            "btn_icono": "arrow_back"        
+        }
+        pagina = render(request,  "profesional/informe/informe-editar.html", context)
+        return pagina
+    
 """
 Sistema de logueo de usuarios.
 """
