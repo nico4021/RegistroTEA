@@ -146,8 +146,6 @@ Vista de cobranza.
 """
 @login_required(login_url="/loguearse")
 def cobranza(request):
-    
-<<<<<<< HEAD
     return render_to_pdf(
             'cobranza.html',
             {
@@ -155,10 +153,7 @@ def cobranza(request):
             }
         )
 
-
-=======
     return render(request, "_comun/cobranza.html")
->>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
 
 
 """
