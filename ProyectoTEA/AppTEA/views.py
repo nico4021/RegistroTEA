@@ -2,12 +2,16 @@
 
 from django.shortcuts import render_to_response, render, redirect
 from django.http import HttpResponse
-from django.template import RequestContext
+from django.template import RequestContext, Context
+from django.template.loader import get_template
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from AppTEA.models import Profesional, Area, Paciente
+from xhtml2pdf import pisa
+from cgi import escape
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
+import cStringIO as StringIO
 from django.utils.datastructures import MultiValueDictKeyError
 
 
@@ -127,7 +131,14 @@ Vista de cobranza.
 @login_required(login_url="/loguearse")
 def cobranza(request):
     
-    return render(request, "cobranza.html")
+    return render_to_pdf(
+            'cobranza.html',
+            {
+                'pagesize':'A4',
+            }
+        )
+
+
 
 
 """
@@ -362,10 +373,26 @@ def desactivarArea(request, id_area):
 
 
 
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    context = Context(context_dict)
+    html  = template.render(context)
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
 
 
-
-
-
+def myview(request):
+    #Retrieve data or whatever you need
+    return render_to_pdf(
+            'cobranza.html',
+            {
+                'pagesize':'A4',
+                'mylist': results,
+            }
+        )
 
