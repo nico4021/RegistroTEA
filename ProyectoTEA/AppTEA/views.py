@@ -6,13 +6,9 @@ from django.template import RequestContext, Context
 from django.template.loader import get_template
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from AppTEA.models import Profesional, Area, Paciente
+from AppTEA.models import Profesional, Area, Paciente, Informe
 from xhtml2pdf import pisa
 from cgi import escape
-=======
-from AppTEA.models import Profesional, Area, Paciente, Informe
->>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
 from django.core.context_processors import csrf
 import django.contrib.auth.hashers
 import cStringIO as StringIO
