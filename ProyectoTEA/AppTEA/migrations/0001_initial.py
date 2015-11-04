@@ -2,14 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-<<<<<<< HEAD
-from django.conf import settings
-import django.contrib.auth.models
-=======
 import datetime
 import django.contrib.auth.models
 from django.conf import settings
->>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
 
 
 class Migration(migrations.Migration):
@@ -36,11 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('is_active', models.BooleanField(default=True)),
-<<<<<<< HEAD
-                ('fecha', models.DateField(default=b'1')),
-=======
                 ('fecha', models.DateField(default=datetime.datetime.now)),
->>>>>>> 0bd7b3504a6b1ebec30ee17b8e1c3dd0dc269046
                 ('contenido', models.CharField(max_length=400)),
             ],
             options={
