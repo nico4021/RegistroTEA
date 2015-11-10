@@ -1,0 +1,26 @@
+{% extends '_base/base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}" />
+
+{% if user.is_authenticated %}
+
+	<div class="mdl-grid">
+		
+	{% for paciente in pacientes %}
+		
+        {% url 'apptea:verPaciente' paciente.id as accion_ver %}
+        {% url 'apptea:editarPaciente' paciente.id as accion_edi %}
+        {% url 'apptea:desactivarPaciente' paciente.id as accion_del %}
+
+    	{% include '_base/_card.html' with persona=paciente accion_ver=accion_ver accion_edi=accion_edi accion_del=accion_del nombres=paciente.nombres apellidos=paciente.apellidos %}
+
+	{% endfor %}
+	</div>
+
+{% endif %}
+
+{% endblock %}

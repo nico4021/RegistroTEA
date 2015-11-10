@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!doctype html>
+
+<html lang="es">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro T.E.A</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{% static 'images/touch/chrome-touch-icon-200x200.png' %}">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/apple-touch-icon-precomposed.png' %}">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="{% static 'images/touch/ms-touch-icon-144x144-precomposed.png' %}">
+    <meta name="msapplication-TileColor" content="#3372DF">
+      
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/roboto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fuentes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/boton-flotante.css' %}" />
+    <script src="{% static 'js/material.min.js' %}"></script>
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+  </head>
+    
+  <body style="background-color: #E2E8F2;">
+      
+      <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">  
+          <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
+              <div class="mdl-layout__header-row">
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
+                      <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                          <i class="material-icons">search</i>
+                      </label>
+                      <div class="mdl-textfield__expandable-holder">
+                          <input placeholder="{{ placeholder }}" class="mdl-textfield__input" type="text" id="search" onkeyup="filtrar(this.value)" />
+                          <label class="mdl-textfield__label" for="search"></label>
+                      </div>
+                      
+                  </div>
+              </div>
+          </header>
+          <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+              <header class="demo-drawer-header">
+                  <img src="{% static 'images/dog.png' %}" class="demo-avatar">
+                      <center><h5>{{ user }}</h5></center>
+              </header>
+              <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                  
+                {% url 'apptea:pacientes' as pac %}
+                {% url 'apptea:areas' as ars %}
+                {% url 'apptea:profesionales' as profs %}
+                {% url 'apptea:facturacion' as fac %}
+                {% url 'apptea:cobranza' as cob %}
+                {% url 'apptea:desloguearse' as log %}
+
+                {% include "_base/_item_menu.html" with titulo="Pacientes" enlace=pac icono="wc" %}
+
+                {% if user.is_staff %}
+
+                    {% include "_base/_item_menu.html" with titulo="Areas" enlace=ars icono="dvr" %}
+                    {% include "_base/_item_menu.html" with titulo="Profesionales" enlace=profs icono="local_library" %}
+                      
+                {% else %}
+                
+                    {% include "_base/_item_menu.html" with titulo="Facturación" enlace=fac icono="chrome_reader_mode" %}
+                      
+                {% endif %}
+
+                {% include "_base/_item_menu.html" with titulo="Cobranza" enlace=cob icono="local_atm" %}
+                {% include "_base/_item_menu.html" with titulo="Cerrar sesión" enlace=log icono="cancel" %}  
+
+              </nav>
+          </div>
+          <main class="mdl-layout__content">
+            <div id="grilla" class="page-content" style="padding: 2%">
+            
+                {% block body_block %}{% endblock %}
+            
+                {% if btn_enlace and btn_icono %}
+                    <a href="{{ btn_enlace }}"><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast mdl-button--colored">
+                      <i class="material-icons">{{ btn_icono }}</i>
+                    </button></a>
+                {% endif %}
+              
+            </div>
+          </main> 
+
+      <script>
+          /* 
+           * Filtrar paciente o profesional
+           */
+          function funcionPacProf(json) {
+              $('#grilla').html("")
+              for (var i=0; i<json.cards.length; i++) {
+                  $('#grilla').append(json.cards[i].apellidos + ", " + json.cards[i].nombres + " - ");
+              }
+          }
+
+          /* 
+           * Filtrar area
+           */
+          function funcionArea(json) {
+              $('#grilla').html("")
+              for (var i=0; i<json.cards.length; i++) {
+                  $('#grilla').append(json.cards[i].nombre + " - ");
+              }
+          }
+
+          function getCookie(name) {
+              var cookieValue = null;
+              if (document.cookie && document.cookie != '') {
+                  var cookies = document.cookie.split(';');
+                  for (var i = 0; i < cookies.length; i++) {
+                      var cookie = jQuery.trim(cookies[i]);
+                      // Does this cookie string begin with the name we want?
+                      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                          break;
+                      }
+                  }
+              }
+              return cookieValue;
+          }
+          var csrftoken = getCookie('csrftoken');
+
+          function csrfSafeMethod(method) {
+              // these HTTP methods do not require CSRF protection
+              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+          }
+          $.ajaxSetup({
+              beforeSend: function(xhr, settings) {
+                  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  }
+              }
+          });
+
+          function filtrar(filtro) {
+              $.ajax({
+                  url : "", 
+                  type : "post", 
+                  data : { 'filtro' : filtro, csrfmiddlewaretoken: '{{ csrf_token }}' },
+
+                  success : {{ funcion_filtro }},
+
+                  error : function(xhr,errmsg,err) {
+                      $('#grilla').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                          " <a href='#' class='close'>&times;</a></div>"); 
+                      console.log(xhr.status + ": " + xhr.responseText); 
+                  }
+              });
+          }
+      </script>
+    </body>
+</html>

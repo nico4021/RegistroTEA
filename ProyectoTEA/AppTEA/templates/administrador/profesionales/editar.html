@@ -1,0 +1,4 @@
+{% url 'apptea:editarProfesional' as accion_url %}
+
+{% include 'administrador/profesionales/_form.html' with titulo='Editar profesional' accion_form=accion_url boton='Guardar' prof=profesional area_seleccionada=profesional.area %}
+

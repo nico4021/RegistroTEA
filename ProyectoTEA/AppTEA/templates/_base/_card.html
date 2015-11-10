@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<div class="demo-card-image mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone" style="background: url('{% if persona.foto %}{{ MEDIA_URL }}{{ persona.foto }}{% else %}{% static 'images/dog.png' %}{% endif %}') center / cover;">
+	<div class="mdl-card__title mdl-card--expand">
+		<h4>
+		{{ nombres }}<br>
+		{{ apellidos }}<br>
+		{{ persona.dni }}
+		</h4>
+	</div>
+	<div class="mdl-card__actions mdl-card--border">
+		<a href="{{ accion_ver }}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">visibility</i>
+        </a>
+        {% if user.is_staff %}
+			
+	        <a id="borrar-{{ persona.id }}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+	          <i class="material-icons">delete</i>
+	        </a>
+
+		    {% include '_base/_confirm.html' with id=persona.id link=accion_del %}
+
+		    <a href="{{ accion_edi }}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+	          <i class="material-icons">edit</i>
+	        </a>
+	        
+	    {% endif %}
+	</div>
+</div>

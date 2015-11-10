@@ -1,0 +1,16 @@
+{% extends '_base/base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
+<div class="mdl-grid">
+
+  {% for area in areas %}
+    
+    {% include '_base/_card_area.html' with area=area %}
+
+  {% endfor %}
+</div>
+
+{% endblock %}

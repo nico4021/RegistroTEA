@@ -1,0 +1,76 @@
+{% extends '_base/base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
+<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th class="mdl-data-table__cell--non-numeric">Nombre</th>
+      <th>DNI</th>
+      <th>Obra_social</th>
+      <th>Horarios</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Juan Perez</td>
+      <td>43098456</td>
+      <td>OSPE</td>
+      <td><a id="demo-1">
+            <i class="material-icons">more_vert</i>
+          </a>
+
+          <ul class="mdl-menu mdl-menu--left mdl-js-menu" for="demo-1">
+            <li disabled class="mdl-menu__item" style="color: black;">Lunes 1:00 PM - 4:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Miercoles 10:00 AM - 2:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Jueves 2:00 PM - 6:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Viernes 9:00 AM - 1:00 PM</li>
+          </ul>
+          <div class="mdl-tooltip" for="demo-1">
+          Expandir
+          </div>
+</td>
+    </tr>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Juan Perez</td>
+      <td>43098456</td>
+      <td>OSPE</td>
+      <td><a id="demo-2">
+            <i class="material-icons">more_vert</i>
+          </a>
+
+          <ul class="mdl-menu mdl-menu--left mdl-js-menu" for="demo-2">
+            <li disabled class="mdl-menu__item" style="color: black;">Lunes 1:00 PM - 4:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Miercoles 10:00 AM - 2:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Jueves 2:00 PM - 6:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Viernes 9:00 AM - 1:00 PM</li>
+          </ul>
+          <div class="mdl-tooltip" for="demo-2">
+          Expandir
+          </div>
+</td>
+    </tr><tr>
+      <td class="mdl-data-table__cell--non-numeric">Juan Perez</td>
+      <td>43098456</td>
+      <td>OSPE</td>
+      <td><a id="demo-3">
+            <i class="material-icons">more_vert</i>
+          </a>
+
+          <ul class="mdl-menu mdl-menu--left mdl-js-menu" for="demo-3">
+            <li disabled class="mdl-menu__item" style="color: black;">Lunes 1:00 PM - 4:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Miercoles 10:00 AM - 2:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Jueves 2:00 PM - 6:00 PM</li>
+            <li disabled class="mdl-menu__item" style="color: black;">Viernes 9:00 AM - 1:00 PM</li>
+          </ul>
+          <div class="mdl-tooltip" for="demo-3">
+          Expandir
+          </div>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}

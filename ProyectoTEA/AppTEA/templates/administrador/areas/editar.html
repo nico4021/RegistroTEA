@@ -1,0 +1,4 @@
+{% url 'apptea:editarArea' as accion_url %}
+
+{% include 'administrador/areas/_form.html' with titulo='Editar area' accion_form=accion_url nombre=area boton='Guardar' %}
+

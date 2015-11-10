@@ -1,0 +1,4 @@
+{% url 'apptea:registrarProf' as accion_url %}
+
+{% include 'administrador/profesionales/_form.html' with titulo='Registrar un nuevo profesional' accion_form=accion_url boton='Registrar profesional' pass_req=True %}
+

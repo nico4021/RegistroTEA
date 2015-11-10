@@ -1,0 +1,26 @@
+{% extends '_base/base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}" />
+
+{% if user.is_authenticated %}
+
+	<div class="mdl-grid">
+		
+	{% for profesional in profesionales %}
+
+        {% url 'apptea:verProfesional' profesional.id as accion_ver %}
+        {% url 'apptea:editarProfesional' profesional.id as accion_edi %}
+        {% url 'apptea:desactivarProfesional' profesional.id as accion_del %}
+
+    	{% include '_base/_card.html' with persona=profesional accion_ver=accion_ver accion_edi=accion_edi accion_del=accion_del nombres=profesional.first_name apellidos=profesional.last_name %}
+		
+	{% endfor %}
+	</div>
+	
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bienvenidos a registro T.E.A</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{% static 'images/touch/chrome-touch-icon-200x200.png' %}">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'apple-touch-icon-precomposed.png' %}">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="{% static 'images/touch/ms-touch-icon-144x144-precomposed.png' %}">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/roboto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fuentes.css' %}">
+    <script src="{% static 'js/material.min.js' %}"></script>
+</head>
+<body background="{% static 'images/background.jpg' %}" style="background-size: 100% 100%;">
+    <center>  
+        <div class="demo-card-square mdl-card mdl-shadow--2dp "style="margin-top: 7%;">
+            <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">Bienvenido</h2>
+            </div>
+            
+            <center>
+                <form action="" method="POST">{% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input name="username" class="mdl-textfield__input" type="text" required>
+                    <label class="mdl-textfield__label">Ingrese su nombre de usuario...</label>
+                </div>
+            </center>
+            
+            <center>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input name="password" class="mdl-textfield__input" type="password" id="contraseña" required/>
+                    <label class="mdl-textfield__label">Ingrese su contraseña...</label>
+                </div>
+            </center>
+            <div class="mdl-card__actions mdl-card--border">
+                <input type="submit" value="Ingresar" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #78909C;">
+            </div>
+            </form>
+        </div>
+    </center>          
+</body>
+</html>

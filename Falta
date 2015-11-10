@@ -1,0 +1,16 @@
+Tareas a realizar:
+==================
+
+# Diseño:
+
+* Visualizacion del Login:
+    - Imagen de fondo (Logo de la fundacion con los lapices) se ve pixelada, conseguir mejor definicion.
+    - Al scrollear la ventana, se repite la imagen de fondo (NO SE TIENE QUE REPETIR, NI PODER SCROLLEAR).
+
+* Visualizacion de los perfiles:
+    - Imagen default (perro) se ve con baja calidad, conseguir otra que quede bien y que este relacionada con la app (NO UN PERRO).
+
+
+# Acceso:
+
+* Restringir acceso en todas las vistas dependiendo del tipo de usuario.
