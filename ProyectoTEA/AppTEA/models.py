@@ -5,10 +5,17 @@ from datetime import *
 from django.utils import timezone
 
 
-"""
-Modelo de area
-"""
 class Area(models.Model):
+    """Modelo de área.
+
+    :var is_active: indica si esta activo o no
+    :vartype is_active: BooleanField
+    :var nombre: nombre del área
+    :vartype nombre: CharField
+
+    :func __unicode__:
+    """
+
     # Atributos
     is_active = models.BooleanField(default=True)
 
@@ -22,13 +29,25 @@ class Area(models.Model):
         verbose_name_plural = 'areas'
 
 
-"""
-Modelo de profesional
-
-:Usuario: Usuario del sistema, hereda del modelo User
-:RNP: Registro nacional de proveedores
-"""
 class Profesional(User):
+    """Modelo de profesional.
+
+    Hereda del modelo :py:class:User. Es un usuario del sistema.
+
+    :var area: relación con el modelo área
+    :vartype area: ForeignKey
+    :var rnp: Registro Nacional de Proveedores
+    :vartype rnp: CharField
+    :var dni: Documento Nacional de Identidad
+    :vartype dni: CharField
+    :var num_matricula: número de matrícula
+    :vartype num_matricula: CharField
+    :var tel_personal: teléfono personal
+    :vartype tel_personal: CharField
+    :var cuit: número de CUIT (Código Único de Identificación Tributaria)
+    :vartype cuit: CharField
+    """
+
     # Relaciones
     area = models.ForeignKey(Area)
 
@@ -47,10 +66,29 @@ class Profesional(User):
         verbose_name_plural = 'profesionales'
 
 
-"""
-Modelo de paciente
-"""
 class Paciente(models.Model):
+    """Modelo de paciente.
+
+    :var is_active: indica si esta activo o no
+    :vartype is_active: BooleanField
+    :var nombres: nombres del paciente
+    :vartype nombres: CharField
+    :var apellidos: apellidos del paciente
+    :vartype apellidos: CharField
+    :var dni: Documento Nacional de Identidad
+    :vartype dni: CharField
+    :var obra_social: obra social del paciente
+    :vartype obra_social: CharField
+    :var numero_afiliado: número de afiliado a la obra social
+    :vartype numero_afiliado: CharField
+    :var fecha_nacimiento: fecha de nacimiento
+    :vartype fecha_nacimiento: DateField
+    :var diagnostico: diagnóstico del paciente
+    :vartype diagnostico: CharField
+    :var foto: foto del paciente
+    :vartype foto: ImageField
+    """
+
     # Atributos
     is_active = models.BooleanField(default=True)
 
