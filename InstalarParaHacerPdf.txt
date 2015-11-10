@@ -1,9 +1,0 @@
-easy_install pypdf
-easy_install html5lib
-easy_install xhtml2pdf
-easy_install reportlab
-
-Links:
-
-http://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
-https://docs.djangoproject.com/en/dev/howto/outputting-pdf/
