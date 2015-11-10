@@ -39,16 +39,21 @@
           <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
               <div class="mdl-layout__header-row">
                   <div class="mdl-layout-spacer"></div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
-                      <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-                          <i class="material-icons">search</i>
-                      </label>
-                      <div class="mdl-textfield__expandable-holder">
-                          <input placeholder="{{ placeholder }}" class="mdl-textfield__input" type="text" id="search" onkeyup="filtrar(this.value)" />
-                          <label class="mdl-textfield__label" for="search"></label>
-                      </div>
-                      
-                  </div>
+                    
+                  {% if url_filtro %}
+                    <input type="hidden" id="tipo" value="{{ url_filtro }}" />
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input placeholder="{{ placeholder }}" class="mdl-textfield__input" type="text" id="search" />
+                            <label class="mdl-textfield__label" for="search"></label>
+                        </div>
+                        
+                    </div>
+                  {% endif %}
+
               </div>
           </header>
           <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -84,9 +89,11 @@
               </nav>
           </div>
           <main class="mdl-layout__content">
-            <div id="grilla" class="page-content" style="padding: 2%">
-            
-                {% block body_block %}{% endblock %}
+            <div class="page-content" style="padding: 2%">
+                
+                <div id="grilla">
+                    {% block body_block %}{% endblock %}
+                </div>
             
                 {% if btn_enlace and btn_icono %}
                     <a href="{{ btn_enlace }}"><button class="mdl-button mdl-js-button mdl-button--fab mdl-button--floating-action mdl-js-ripple-effect mdl-color-text--accent-contrast mdl-button--colored">
@@ -98,70 +105,26 @@
           </main> 
 
       <script>
-          /* 
-           * Filtrar paciente o profesional
-           */
-          function funcionPacProf(json) {
-              $('#grilla').html("")
-              for (var i=0; i<json.cards.length; i++) {
-                  $('#grilla').append(json.cards[i].apellidos + ", " + json.cards[i].nombres + " - ");
-              }
-          }
+          $("#search").keyup(function() {
+              var url = $("#tipo").val();
 
-          /* 
-           * Filtrar area
-           */
-          function funcionArea(json) {
-              $('#grilla').html("")
-              for (var i=0; i<json.cards.length; i++) {
-                  $('#grilla').append(json.cards[i].nombre + " - ");
-              }
-          }
-
-          function getCookie(name) {
-              var cookieValue = null;
-              if (document.cookie && document.cookie != '') {
-                  var cookies = document.cookie.split(';');
-                  for (var i = 0; i < cookies.length; i++) {
-                      var cookie = jQuery.trim(cookies[i]);
-                      // Does this cookie string begin with the name we want?
-                      if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                          break;
-                      }
-                  }
-              }
-              return cookieValue;
-          }
-          var csrftoken = getCookie('csrftoken');
-
-          function csrfSafeMethod(method) {
-              // these HTTP methods do not require CSRF protection
-              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-          }
-          $.ajaxSetup({
-              beforeSend: function(xhr, settings) {
-                  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                      xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                  }
-              }
-          });
-
-          function filtrar(filtro) {
               $.ajax({
-                  url : "", 
-                  type : "post", 
-                  data : { 'filtro' : filtro, csrfmiddlewaretoken: '{{ csrf_token }}' },
+                  url : url,
+                  type : "post",
+                  data : {filtro: $("#search").val(),
+                          csrfmiddlewaretoken: '{{ csrf_token }}'},
 
-                  success : {{ funcion_filtro }},
-
+                  success : function(data) {
+                      // hide the post
+                      $('#grilla').html(data);
+                  },
                   error : function(xhr,errmsg,err) {
                       $('#grilla').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                           " <a href='#' class='close'>&times;</a></div>"); 
                       console.log(xhr.status + ": " + xhr.responseText); 
                   }
               });
-          }
+          });
       </script>
     </body>
 </html>

@@ -15,20 +15,26 @@ def areas(request):
             filtro = request.POST['filtro']
             areas = Area.objects.filter(Q(nombre__icontains=filtro),
                                                 is_active=True).order_by("nombre")
-            json = []
-
-            for a in range(len(areas)):
-                json.append({'id': areas[a].id,
-                             'nombre': areas[a].nombre})
-
-            return JsonResponse({"cards": json})
+            txt = "<div class='mdl-grid'>"
+        
+            for a in areas:
+                context = {
+                    "area": a,
+                    "accion_ver": reverse('apptea:verArea', args=[a.id]), 
+                    "accion_edi": reverse('apptea:editarArea', args=[a.id]), 
+                    "accion_del": reverse('apptea:desactivarArea', args=[a.id]), 
+                }
+                txt += render_to_string('_base/_card_area.html', context)
+                print txt
+            txt += "</div>"
+            return HttpResponse(txt)
 
         else:
             context = {"areas": Area.objects.filter(is_active=True).order_by("nombre"),
                        "btn_enlace": "registrar/",
                        "btn_icono": "add",
                        "placeholder": "Nombre del area",
-                       "funcion_filtro": "funcionArea"}
+                       "url_filtro": reverse('apptea:areas')}
             
             return render(request, "administrador/areas/index.html", context)
     else:
