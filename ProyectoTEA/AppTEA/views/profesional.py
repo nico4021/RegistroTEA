@@ -15,22 +15,30 @@ def profesionales(request):
             filtro = request.POST['filtro']
             profesionales = Profesional.objects.filter(Q(first_name__icontains=filtro) | Q(last_name__icontains=filtro),
                                                 is_active=True).order_by("first_name")
-            json = []
-
-            for prof in range(len(profesionales)):
-                json.append({'id': profesionales[prof].id,
-                         'nombres': profesionales[prof].first_name,
-                         'apellidos': profesionales[prof].last_name,
-                         'dni': profesionales[prof].dni})
-
-            return JsonResponse({"cards": json})
+            txt = "<link rel='stylesheet' type='text/css' href='" + STATIC_URL + "css/perfil.css' /><div class='mdl-grid'>"
         
+            for p in profesionales:
+                context = {
+                    "persona": p,
+                    "accion_ver": reverse('apptea:verProfesional', args=[p.id]), 
+                    "accion_edi": reverse('apptea:editarProfesional', args=[p.id]), 
+                    "accion_del": reverse('apptea:desactivarProfesional', args=[p.id]), 
+                    "nombres": p.first_name, 
+                    "apellidos": p.last_name,
+                    "MEDIA_URL": MEDIA_URL,
+                    "user": request.user,
+                }
+                txt += render_to_string('_base/_card.html', context)
+                print txt
+            txt += "</div>"
+            return HttpResponse(txt)
+
         else:
             context = {"profesionales": Profesional.objects.filter(is_active=True).order_by("first_name"),
                        "btn_enlace": "registrar/",
                        "btn_icono": "add",
                        "placeholder": "Nombre o apellido",
-                       "funcion_filtro": "funcionPacProf"}
+                       "url_filtro": reverse('apptea:profesionales')}
             
             return render(request, "administrador/profesionales/index.html", context)
     else:

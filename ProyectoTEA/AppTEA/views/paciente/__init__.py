@@ -15,21 +15,29 @@ y filtrarlos por nombre o apellido.
 """
 @login_required(login_url="/loguearse")
 def pacientes(request):
-
+    
     if (request.method == "POST"):
         filtro = request.POST['filtro']
         pacientes = Paciente.objects.filter(Q(nombres__icontains=filtro) | Q(apellidos__icontains=filtro),
                                             is_active=True).order_by("nombres")
-        json = []
+        txt = "<link rel='stylesheet' type='text/css' href='" + STATIC_URL + "css/perfil.css' /><div class='mdl-grid'>"
+        
+        for p in pacientes:
+            context = {
+                "persona": p,
+                "accion_ver": reverse('apptea:verPaciente', args=[p.id]), 
+                "accion_edi": reverse('apptea:editarPaciente', args=[p.id]), 
+                "accion_del": reverse('apptea:desactivarPaciente', args=[p.id]), 
+                "nombres": p.nombres, 
+                "apellidos": p.apellidos,
+                "MEDIA_URL": MEDIA_URL,
+                "user": request.user,
+            }
+            txt += render_to_string('_base/_card.html', context)
+            print txt
+        txt += "</div>"
+        return HttpResponse(txt)
 
-        for pac in range(len(pacientes)):
-            json.append({'id': pacientes[pac].id,
-                     'nombres': pacientes[pac].nombres,
-                     'apellidos': pacientes[pac].apellidos,
-                     'dni': pacientes[pac].dni})
-
-        return JsonResponse({"cards": json})
-    
     else:
         pacientes = Paciente.objects.filter(is_active=True).order_by("nombres")
 
@@ -38,7 +46,7 @@ def pacientes(request):
                     "btn_enlace": "registrar/",
                     "btn_icono": "add",
                     "placeholder": "Nombre o apellido",
-                    "funcion_filtro": "funcionPacProf"}
+                    "url_filtro": reverse('apptea:pacientes')}
 
         return render(request, 'comun/pacientes/index.html', context)
 
