@@ -6,8 +6,6 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}" />
 
-{% if user.is_authenticated %}
-
 	<div class="mdl-grid">
 		
 	{% for paciente in pacientes %}
@@ -20,7 +18,5 @@
 
 	{% endfor %}
 	</div>
-
-{% endif %}
 
 {% endblock %}
