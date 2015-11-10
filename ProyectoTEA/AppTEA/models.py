@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import *
 from django.utils import timezone
 
 
@@ -83,7 +83,6 @@ class Informe(models.Model):
     # Relaciones
     paciente = models.ForeignKey(Paciente)
     profesional = models.ForeignKey(Profesional)
-    area = models.ForeignKey(Area)
 
     # Atributos
     is_active = models.BooleanField(default=True)
@@ -106,26 +105,36 @@ class Presupuesto(models.Model):
     # Relaciones
     paciente = models.ForeignKey(Paciente)
     profesional = models.ForeignKey(Profesional)
-
+    
     # Atributos
     is_active = models.BooleanField(default=True)
 
     tratamiento_prestacion = models.CharField(max_length=50)
-    #horas por semana que asiste el profesional
-    horas_semanales = models.IntegerField()
-    #horas por mes que asiste el profesional
-    horas_mensuales = models.IntegerField()
     domicilio_prestacion = models.CharField(max_length=40)
     #costo de una hora
     costo_hora = models.IntegerField()
-    #Martes, jueves, etc
-    dias_semanales = models.CharField(max_length=100)
-    horario = models.CharField(max_length=6)
-    #Cantidad (1, 2, 18, etc) Veces por semana
-    frecuencia = models.IntegerField()
     costo_mensual = models.IntegerField()
-
+    #Fecha en que se genera el presupuesto
+    fecha_creacion = models.DateField(default=datetime.now)
+    def __unicode__(self):
+        return self.paciente.nombres+" "+self.paciente.apellidos+" "+self.fecha_creacion.strftime("%d/%m/%Y")
     
     class Meta:
         verbose_name = 'presupuesto'
         verbose_name_plural = 'presupuestos'
+        
+"""
+Modelo de un Horario, necesario para poder crear un presupueso
+# Dia #Hora de entrada #Hora de salida
+"""        
+class Horario(models.Model):
+    #Relaciones
+    presupuesto = models.ForeignKey(Presupuesto)
+    
+    #Atributos
+    dia = models.CharField(max_length=7)
+    hora_entrada = models.CharField(max_length = 20)
+    hora_salida = models.CharField(max_length = 20)
+    cantidad_horas = models.IntegerField(blank=True)
+    def __unicode__(self):
+        return self.dia+" de "+self.hora_entrada+" a "+self.hora_salida

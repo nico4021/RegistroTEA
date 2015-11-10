@@ -36,8 +36,8 @@
         {% for area in areas %}
             <div class="mdl-tabs__panel {% if forloop.first %}is-active{% endif %} mdl-grid" id="{{area.nombre}}-panel">
 
-            {% for informe in paciente|obtener_informes:area.id %}
-
+            {% for informe in informes %}
+            {% if informe.profesional.area = area %}
                     <div class="coloreado mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--12-col-phone informe mdl-layout__content">
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">{{informe.fecha}}</h2>
@@ -70,6 +70,7 @@
                         </div>
                         </center>
                     </div>
+            {% endif %}
             {% endfor %}
             </div>
         {% endfor %}

@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import datetime
+import django.contrib.auth.models
 import django.utils.timezone
 from django.conf import settings
-import django.contrib.auth.models
 
 
 class Migration(migrations.Migration):
@@ -27,13 +28,22 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='Horario',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('dia', models.CharField(max_length=7)),
+                ('hora_entrada', models.CharField(max_length=20)),
+                ('hora_salida', models.CharField(max_length=20)),
+                ('cantidad_horas', models.IntegerField(blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Informe',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('fecha', models.DateField(default=django.utils.timezone.now)),
                 ('contenido', models.CharField(max_length=400)),
-                ('area', models.ForeignKey(to='AppTEA.Area')),
             ],
             options={
                 'verbose_name': 'informe',
@@ -65,14 +75,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('tratamiento_prestacion', models.CharField(max_length=50)),
-                ('horas_semanales', models.IntegerField()),
-                ('horas_mensuales', models.IntegerField()),
                 ('domicilio_prestacion', models.CharField(max_length=40)),
                 ('costo_hora', models.IntegerField()),
-                ('dias_semanales', models.CharField(max_length=100)),
-                ('horario', models.CharField(max_length=6)),
-                ('frecuencia', models.IntegerField()),
                 ('costo_mensual', models.IntegerField()),
+                ('fecha_creacion', models.DateField(default=datetime.datetime.now)),
                 ('paciente', models.ForeignKey(to='AppTEA.Paciente')),
             ],
             options={
@@ -114,5 +120,10 @@ class Migration(migrations.Migration):
             model_name='informe',
             name='profesional',
             field=models.ForeignKey(to='AppTEA.Profesional'),
+        ),
+        migrations.AddField(
+            model_name='horario',
+            name='presupuesto',
+            field=models.ForeignKey(to='AppTEA.Presupuesto'),
         ),
     ]
