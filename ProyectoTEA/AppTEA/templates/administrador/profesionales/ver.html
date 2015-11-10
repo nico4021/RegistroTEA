@@ -1,1 +1,44 @@
-{{ profesional }}
+{% extends '_base/base.html' %}
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+{% if user.is_authenticated %}	
+		<style>
+		
+		.demo-card-wide > .mdl-card__title {
+		color: #999999;
+		height: 176px;
+		background: url("{% static 'images/transparent.jpg' %}") center / cover;
+		}
+		.demo-card-wide > .mdl-card__menu {
+		color: #fff;
+		}
+		.mdl-card__title-text {
+		font-size: 2.7em;
+		}
+		.mdl-card__supporting-text{
+		font-size: 1em;
+		}
+		</style>
+		
+		<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--3-col"></div>
+		<div class="demo-card-wide mdl-card mdl-shadow--2dp    mdl-cell mdl-cell--6-col mdl-cell--8-col-phone">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">{{ profesional.first_name }} {{ profesional.last_name }}</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+				<b>DNI : </b>{{ profesional.dni }}<br>
+				<b>Matricula :</b> {{ profesional.matricula }}<br>
+				<b>TEL :</b>{{ profesional.tel_personal }}<br>
+				<b>CUIT :</b> {{ profesional.cuit }}<br>
+				<b>Registro Nacional de Proveedores :</b> {{ paciente.numero_afiliado }}<br>
+		</div>
+		</div>
+		</div>
+{% else %}
+<h1>acceso denegado</h1>
+{% endif %}
+{% endblock %}

@@ -40,7 +40,7 @@ def registrar(request, id_paciente):
         fieldPaciente = Paciente.objects.get(pk=id_paciente)
         area = profesionalObj.area
             
-        nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, area=area, contenido=fieldContenido)
+        nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, contenido=fieldContenido)
         nuevoInforme.save()
         return redirect("..")
     
@@ -89,8 +89,8 @@ def editar(request, id_paciente, id_informe):
 """
 Vista para desactivar informe.
 """
-def desactivar(request, id_informe):
+def desactivar(request,id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
     informe.is_active = False
     informe.save()
-    return redirect(".")
+    return redirect("../..")

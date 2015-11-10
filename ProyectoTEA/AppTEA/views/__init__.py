@@ -10,6 +10,12 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.hashers import make_password
 from django.utils.datastructures import MultiValueDictKeyError
 from django.db.models import Q
+import django.contrib.auth.hashers
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from cgi import escape
+import cStringIO as StringIO
+
 
 from AppTEA.models import *
 from ProyectoTEA.settings import MEDIA_URL, STATIC_URL
