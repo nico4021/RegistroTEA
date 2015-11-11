@@ -103,6 +103,9 @@ class Paciente(models.Model):
     diagnostico = models.CharField(max_length=300)
     foto = models.ImageField(upload_to='profile_images', blank=True)
 
+    def ape_nom(self):
+        return self.apellidos + ", " + self.nombres
+
     def __unicode__(self):
         return self.nombres + " " + self.apellidos
 
