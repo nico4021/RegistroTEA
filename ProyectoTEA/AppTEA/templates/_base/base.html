@@ -105,6 +105,10 @@
           </main> 
 
       <script>
+          $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+              options.async = true;
+          });
+
           $("#search").keyup(function() {
               var url = $("#tipo").val();
 
@@ -115,8 +119,12 @@
                           csrfmiddlewaretoken: '{{ csrf_token }}'},
 
                   success : function(data) {
-                      // hide the post
-                      $('#grilla').html(data);
+                      $('div[id^=card-]').hide();
+                      
+                      for (var i=0; i < data.ids.length; i++) {
+                          $('#card-'+data.ids[i]).show();
+                      };
+
                   },
                   error : function(xhr,errmsg,err) {
                       $('#grilla').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
