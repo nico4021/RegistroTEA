@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<div class="demo-card-image mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone" style="background: url('{% if persona.foto %}{{ MEDIA_URL }}{{ persona.foto }}{% else %}{% static 'images/dog.png' %}{% endif %}') center / cover;">
+<div id="card-{{ persona.id }}" class="demo-card-image mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone" style="background: url('{% if persona.foto %}{{ MEDIA_URL }}{{ persona.foto }}{% else %}{% static 'images/dog.png' %}{% endif %}') center / cover;">
 	<div class="mdl-card__title mdl-card--expand">
 		<h4>
 		{{ nombres }}<br>
