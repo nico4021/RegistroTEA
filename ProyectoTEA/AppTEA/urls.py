@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Configuración de urls de AppTEA
 
 Variables:
