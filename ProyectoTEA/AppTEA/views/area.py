@@ -11,23 +11,16 @@ def areas(request):
     # Si es Administrador
     if request.user.is_staff:
 
-        if (request.method == "POST"):
+        if request.method == "POST" and request.is_ajax():
             filtro = request.POST['filtro']
             areas = Area.objects.filter(Q(nombre__icontains=filtro),
                                                 is_active=True).order_by("nombre")
-            txt = "<div class='mdl-grid'>"
-        
+            ids = []
+
             for a in areas:
-                context = {
-                    "area": a,
-                    "accion_ver": reverse('apptea:verArea', args=[a.id]), 
-                    "accion_edi": reverse('apptea:editarArea', args=[a.id]), 
-                    "accion_del": reverse('apptea:desactivarArea', args=[a.id]), 
-                }
-                txt += render_to_string('_base/_card_area.html', context)
-                print txt
-            txt += "</div>"
-            return HttpResponse(txt)
+                ids.append(a.id)
+
+            return JsonResponse({"ids": ids})
 
         else:
             context = {"areas": Area.objects.filter(is_active=True).order_by("nombre"),

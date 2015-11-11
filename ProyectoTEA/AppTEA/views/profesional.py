@@ -11,27 +11,16 @@ def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
 
-        if (request.method == "POST"):
+        if request.method == "POST" and request.is_ajax():
             filtro = request.POST['filtro']
             profesionales = Profesional.objects.filter(Q(first_name__icontains=filtro) | Q(last_name__icontains=filtro),
                                                 is_active=True).order_by("first_name")
-            txt = "<link rel='stylesheet' type='text/css' href='" + STATIC_URL + "css/perfil.css' /><div class='mdl-grid'>"
-        
+            ids = []
+
             for p in profesionales:
-                context = {
-                    "persona": p,
-                    "accion_ver": reverse('apptea:verProfesional', args=[p.id]), 
-                    "accion_edi": reverse('apptea:editarProfesional', args=[p.id]), 
-                    "accion_del": reverse('apptea:desactivarProfesional', args=[p.id]), 
-                    "nombres": p.first_name, 
-                    "apellidos": p.last_name,
-                    "MEDIA_URL": MEDIA_URL,
-                    "user": request.user,
-                }
-                txt += render_to_string('_base/_card.html', context)
-                print txt
-            txt += "</div>"
-            return HttpResponse(txt)
+                ids.append(p.id)
+
+            return JsonResponse({"ids": ids})
 
         else:
             context = {"profesionales": Profesional.objects.filter(is_active=True).order_by("first_name"),

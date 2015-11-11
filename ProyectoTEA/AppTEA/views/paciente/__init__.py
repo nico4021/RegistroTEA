@@ -16,27 +16,16 @@ y filtrarlos por nombre o apellido.
 @login_required(login_url="/loguearse")
 def pacientes(request):
     
-    if (request.method == "POST"):
+    if request.method == "POST" and request.is_ajax():
         filtro = request.POST['filtro']
         pacientes = Paciente.objects.filter(Q(nombres__icontains=filtro) | Q(apellidos__icontains=filtro),
                                             is_active=True).order_by("nombres")
-        txt = "<link rel='stylesheet' type='text/css' href='" + STATIC_URL + "css/perfil.css' /><div class='mdl-grid'>"
-        
+        ids = []
+
         for p in pacientes:
-            context = {
-                "persona": p,
-                "accion_ver": reverse('apptea:verPaciente', args=[p.id]), 
-                "accion_edi": reverse('apptea:editarPaciente', args=[p.id]), 
-                "accion_del": reverse('apptea:desactivarPaciente', args=[p.id]), 
-                "nombres": p.nombres, 
-                "apellidos": p.apellidos,
-                "MEDIA_URL": MEDIA_URL,
-                "user": request.user,
-            }
-            txt += render_to_string('_base/_card.html', context)
-            print txt
-        txt += "</div>"
-        return HttpResponse(txt)
+            ids.append(p.id)
+
+        return JsonResponse({"ids": ids})
 
     else:
         pacientes = Paciente.objects.filter(is_active=True).order_by("nombres")
