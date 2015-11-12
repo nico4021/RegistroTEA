@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from AppTEA.views import *
+from django.core.management import call_command
 
 
 """
@@ -56,6 +57,12 @@ def registrar(request):
             
         nuevoProfesional = Profesional(username=fieldusername ,area=fieldarea, rnp=fieldrnp, first_name=fieldnombres, last_name=fieldapellidos, password=fieldcontra, email=fieldmail, dni=fielddni, num_matricula=fieldnum_matricula, tel_personal=fieldtel_personal)
         nuevoProfesional.save()
+
+        call_command('add_groups')
+
+        g = Group.objects.get(name='profesional') 
+        g.user_set.add(nuevoProfesional)
+
         return redirect("..")
     else:
         return render(request, "administrador/profesionales/registrar.html", context)

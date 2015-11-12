@@ -39,11 +39,26 @@ def pacientes(request):
 
         return render(request, 'comun/pacientes/index.html', context)
 
+"""
+Vista de un paciente particular con sus datos.
+
+Recibe como parámetro el id del paciente.
+"""
+@login_required
+def ver(request, id_paciente):
+    paciente = Paciente.objects.get(pk=id_paciente)
+
+    context = {"paciente": paciente,
+                "btn_enlace": "..",
+                "btn_icono": "arrow_back"}
+
+    return render(request, 'comun/pacientes/ver.html', context)
+
 
 """
 Vista del Administrador para registrar paciente.
 """
-@login_required
+@permission_required('AppTEA.add_paciente', raise_exception=True)
 def registrar(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -78,25 +93,9 @@ def registrar(request):
 
 
 """
-Vista de un paciente particular con sus datos.
-
-Recibe como parámetro el id del paciente.
-"""
-@login_required
-def ver(request, id_paciente):
-    paciente = Paciente.objects.get(pk=id_paciente)
-
-    context = {"paciente": paciente,
-                "btn_enlace": "..",
-                "btn_icono": "arrow_back"}
-
-    return render(request, 'comun/pacientes/ver.html', context)
-
-
-"""
 Vista del Administrador para modificar paciente.
 """
-@login_required
+@permission_required('AppTEA.change_paciente', raise_exception=True)
 def editar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if request.POST:
@@ -134,7 +133,7 @@ def editar(request, id_paciente):
 """
 Vista del Administrador para desactivar paciente.
 """
-@login_required
+@permission_required('AppTEA.delete_paciente', raise_exception=True)
 def desactivar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if paciente.is_active == True:

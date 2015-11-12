@@ -64,3 +64,8 @@ urlpatterns = [
     url(r'^facturacion/$', V + 'facturacion.mostrar', name='facturacion'),
     url(r'^cobranza/$', V + 'cobranza.mostrar', name='cobranza'),
 ]
+
+# Errores
+handler403 = V + 'error.denegado'
+#handler404 = ''
+#handler500 = ''
