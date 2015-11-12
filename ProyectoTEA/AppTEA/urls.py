@@ -19,9 +19,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
-
 V = 'AppTEA.views.'
-
 
 urlpatterns = [
     # Redireccion a la pagina de pacientes
@@ -64,8 +62,3 @@ urlpatterns = [
     url(r'^facturacion/$', V + 'facturacion.mostrar', name='facturacion'),
     url(r'^cobranza/$', V + 'cobranza.mostrar', name='cobranza'),
 ]
-
-# Errores
-handler403 = V + 'error.denegado'
-#handler404 = ''
-#handler500 = ''
