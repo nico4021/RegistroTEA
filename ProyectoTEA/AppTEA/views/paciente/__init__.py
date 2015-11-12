@@ -13,7 +13,7 @@ de lo contrario se lo redirige a la funcion loguearse.
 Una vez logueado el usuario podra ver la lista de pacientes 
 y filtrarlos por nombre o apellido.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def pacientes(request):
     
     if request.method == "POST" and request.is_ajax():
@@ -43,6 +43,7 @@ def pacientes(request):
 """
 Vista del Administrador para registrar paciente.
 """
+@login_required
 def registrar(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -81,7 +82,7 @@ Vista de un paciente particular con sus datos.
 
 Recibe como parámetro el id del paciente.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def ver(request, id_paciente):
     paciente = Paciente.objects.get(pk=id_paciente)
 
@@ -95,6 +96,7 @@ def ver(request, id_paciente):
 """
 Vista del Administrador para modificar paciente.
 """
+@login_required
 def editar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if request.POST:
@@ -132,6 +134,7 @@ def editar(request, id_paciente):
 """
 Vista del Administrador para desactivar paciente.
 """
+@login_required
 def desactivar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if paciente.is_active == True:

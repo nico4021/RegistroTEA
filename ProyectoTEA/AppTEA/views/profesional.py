@@ -6,7 +6,7 @@ from AppTEA.views import *
 """
 Vista del Administrador para gestionar los profesionales existentes.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:

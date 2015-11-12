@@ -6,7 +6,7 @@ from AppTEA.views import *
 """
 Vista del Profesional para mostrar información de facturación.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def mostrar(request):
 	context = {
 		"pacientes": Paciente.objects.filter(),
