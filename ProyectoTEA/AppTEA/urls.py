@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^pacientes/(?P<id_paciente>\d+)/historia/(?P<id_informe>\d+)/desactivar/$', V + 'paciente.historia.desactivar', name='desactivarInforme'),
 
     url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/$', V + 'paciente.presupuesto.presupuestos', name='presupuestos'),
-    #url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/registrar/$', V + 'paciente.presupuesto.registrar', name='registrarPresupuesto'),
+    url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/registrar/$', V + 'paciente.presupuesto.registrar', name='registrarPresupuesto'),
     url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/(?P<id_presupuesto>\d+)/pdf$', V + 'paciente.presupuesto.presupuesto_pdf', name='pdfPresupuesto'),
     #url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/(?P<id_presupuesto>\d+)/editar/$', V + 'paciente.presupuesto.editar', name='editarPresupuesto'),
     #url(r'^pacientes/(?P<id_paciente>\d+)/presupuestos/(?P<id_presupuesto>\d+)/desactivar/$', V + 'paciente.presupuesto.desactivar', name='desactivarPresupuesto'),

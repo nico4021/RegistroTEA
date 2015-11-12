@@ -45,3 +45,5 @@ def render_to_pdf(template_src, context_dict):
         return HttpResponse(result.getvalue(), content_type='aplication/pdf')
     return HttpResponse('Algo no salio bien <pre>%s</pre><br>Contacte al administrador o desarollador' % escape(html))
 
+def registrar(request, id_paciente):
+    return render(request, "comun/pacientes/presupuestos/registrar.html")
