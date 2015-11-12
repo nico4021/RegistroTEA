@@ -9,7 +9,7 @@ de un paciente específico.
 
 Recibe como parámetro el id del paciente.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def presupuestos(request, id_paciente):
     # Obtengo el paciente
     paciente = Paciente.objects.get(pk=id_paciente)
@@ -33,6 +33,7 @@ def presupuesto_pdf(request ,id_paciente ,id_presupuesto):
 """
 Funcion para renderizar un PDF
 """
+@login_required
 def render_to_pdf(template_src, context_dict):
     template = get_template(template_src)
     context = Context(context_dict)

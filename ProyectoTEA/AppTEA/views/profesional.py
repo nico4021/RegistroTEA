@@ -1,36 +1,34 @@
 # -*- coding: utf-8 -*-
 
 from AppTEA.views import *
+from django.core.management import call_command
 
 
 """
 Vista del Administrador para gestionar los profesionales existentes.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
 
-        if (request.method == "POST"):
+        if request.method == "POST" and request.is_ajax():
             filtro = request.POST['filtro']
             profesionales = Profesional.objects.filter(Q(first_name__icontains=filtro) | Q(last_name__icontains=filtro),
                                                 is_active=True).order_by("first_name")
-            json = []
+            ids = []
 
-            for prof in range(len(profesionales)):
-                json.append({'id': profesionales[prof].id,
-                         'nombres': profesionales[prof].first_name,
-                         'apellidos': profesionales[prof].last_name,
-                         'dni': profesionales[prof].dni})
+            for p in profesionales:
+                ids.append(p.id)
 
-            return JsonResponse({"cards": json})
-        
+            return JsonResponse({"ids": ids})
+
         else:
             context = {"profesionales": Profesional.objects.filter(is_active=True).order_by("first_name"),
                        "btn_enlace": "registrar/",
                        "btn_icono": "add",
                        "placeholder": "Nombre o apellido",
-                       "funcion_filtro": "funcionPacProf"}
+                       "url_filtro": reverse('apptea:profesionales')}
             
             return render(request, "administrador/profesionales/index.html", context)
     else:
@@ -59,6 +57,12 @@ def registrar(request):
             
         nuevoProfesional = Profesional(username=fieldusername ,area=fieldarea, rnp=fieldrnp, first_name=fieldnombres, last_name=fieldapellidos, password=fieldcontra, email=fieldmail, dni=fielddni, num_matricula=fieldnum_matricula, tel_personal=fieldtel_personal)
         nuevoProfesional.save()
+
+        call_command('add_groups')
+
+        g = Group.objects.get(name='profesional') 
+        g.user_set.add(nuevoProfesional)
+
         return redirect("..")
     else:
         return render(request, "administrador/profesionales/registrar.html", context)

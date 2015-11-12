@@ -12,7 +12,7 @@ Vista de cobranza.
 * En caso de ser Profesional:
     Información de aportes propios.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def mostrar(request):
     
     return render(request, "comun/cobranza/index.html")

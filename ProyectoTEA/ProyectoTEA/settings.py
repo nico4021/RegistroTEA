@@ -25,7 +25,7 @@ SECRET_KEY = 'p-7h6yizyf@stb5a7=@vr_5gx*o34yt+3i_xj_t4p+^8tpr*7u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,3 +118,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
+
+
+LOGIN_URL = '/loguearse/'

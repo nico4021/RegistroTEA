@@ -8,7 +8,7 @@ Vista que muestra la historia clínica de un paciente específico.
 
 Recibe como parámetro el id del paciente.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def informes(request, id_paciente):
     paciente = Paciente.objects.get(pk=id_paciente)
     informes = Informe.objects.filter(is_active = True).filter(paciente = id_paciente).order_by("profesional")
@@ -32,6 +32,7 @@ def informes(request, id_paciente):
 """
 Vista para registrar un nuevo informe.
 """
+@login_required
 def registrar(request, id_paciente):
     profesionalObj = Profesional.objects.get(pk=request.user.id)
 
@@ -55,7 +56,7 @@ def registrar(request, id_paciente):
 """
 Vista de un informe específico.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def ver(request, id_paciente, id_informe):
     informe = Informe.objects.get(pk = id_informe)
     context = {
@@ -69,6 +70,7 @@ def ver(request, id_paciente, id_informe):
 """
 Editar un informe
 """
+@login_required
 def editar(request, id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
     if request.POST:
@@ -89,6 +91,7 @@ def editar(request, id_paciente, id_informe):
 """
 Vista para desactivar informe.
 """
+@login_required
 def desactivar(request,id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
     informe.is_active = False

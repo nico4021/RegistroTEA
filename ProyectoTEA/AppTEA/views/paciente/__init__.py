@@ -13,23 +13,20 @@ de lo contrario se lo redirige a la funcion loguearse.
 Una vez logueado el usuario podra ver la lista de pacientes 
 y filtrarlos por nombre o apellido.
 """
-@login_required(login_url="/loguearse")
+@login_required
 def pacientes(request):
-
-    if (request.method == "POST"):
+    
+    if request.method == "POST" and request.is_ajax():
         filtro = request.POST['filtro']
         pacientes = Paciente.objects.filter(Q(nombres__icontains=filtro) | Q(apellidos__icontains=filtro),
                                             is_active=True).order_by("nombres")
-        json = []
+        ids = []
 
-        for pac in range(len(pacientes)):
-            json.append({'id': pacientes[pac].id,
-                     'nombres': pacientes[pac].nombres,
-                     'apellidos': pacientes[pac].apellidos,
-                     'dni': pacientes[pac].dni})
+        for p in pacientes:
+            ids.append(p.id)
 
-        return JsonResponse({"cards": json})
-    
+        return JsonResponse({"ids": ids})
+
     else:
         pacientes = Paciente.objects.filter(is_active=True).order_by("nombres")
 
@@ -38,14 +35,30 @@ def pacientes(request):
                     "btn_enlace": "registrar/",
                     "btn_icono": "add",
                     "placeholder": "Nombre o apellido",
-                    "funcion_filtro": "funcionPacProf"}
+                    "url_filtro": reverse('apptea:pacientes')}
 
         return render(request, 'comun/pacientes/index.html', context)
+
+"""
+Vista de un paciente particular con sus datos.
+
+Recibe como parámetro el id del paciente.
+"""
+@login_required
+def ver(request, id_paciente):
+    paciente = Paciente.objects.get(pk=id_paciente)
+
+    context = {"paciente": paciente,
+                "btn_enlace": "..",
+                "btn_icono": "arrow_back"}
+
+    return render(request, 'comun/pacientes/ver.html', context)
 
 
 """
 Vista del Administrador para registrar paciente.
 """
+@permission_required('AppTEA.add_paciente', raise_exception=True)
 def registrar(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -80,24 +93,9 @@ def registrar(request):
 
 
 """
-Vista de un paciente particular con sus datos.
-
-Recibe como parámetro el id del paciente.
-"""
-@login_required(login_url="/loguearse")
-def ver(request, id_paciente):
-    paciente = Paciente.objects.get(pk=id_paciente)
-
-    context = {"paciente": paciente,
-                "btn_enlace": "..",
-                "btn_icono": "arrow_back"}
-
-    return render(request, 'comun/pacientes/ver.html', context)
-
-
-"""
 Vista del Administrador para modificar paciente.
 """
+@permission_required('AppTEA.change_paciente', raise_exception=True)
 def editar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if request.POST:
@@ -135,6 +133,7 @@ def editar(request, id_paciente):
 """
 Vista del Administrador para desactivar paciente.
 """
+@permission_required('AppTEA.delete_paciente', raise_exception=True)
 def desactivar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if paciente.is_active == True:

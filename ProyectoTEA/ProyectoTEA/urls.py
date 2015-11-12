@@ -20,7 +20,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('AppTEA.urls', namespace="apptea")),
     url(r'^admin/', include(admin.site.urls)),
-    
 ]
 
 if settings.DEBUG:
@@ -28,3 +27,8 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}))
+
+# Errores
+handler403 = 'AppTEA.views.error.denegado'
+handler404 = 'AppTEA.views.error.error404'
+handler500 = 'AppTEA.views.error.error500'
