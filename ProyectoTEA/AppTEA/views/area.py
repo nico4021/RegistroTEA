@@ -6,7 +6,7 @@ from AppTEA.views import *
 """
 Vista del Administrador para gestionar las áreas existentes.
 """
-@login_required
+@permission_required('AppTEA.areas', raise_exception=True)
 def areas(request):
     # Si es Administrador
     if request.user.is_staff:
@@ -37,7 +37,7 @@ def areas(request):
 """
 Vista del Administrador para registrar una nueva area
 """
-@login_required
+@permission_required('AppTEA.areas', raise_exception=True)
 def registrar(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
@@ -53,7 +53,7 @@ def registrar(request):
 """
 Vista del Administrador para ver un area específica
 """
-@login_required
+@permission_required('AppTEA.areas', raise_exception=True)
 def ver(request, id_area):
     area = Area.objects.get(pk=id_area)
     context = {"area": Area.objects.get(pk=id_area),
@@ -66,7 +66,7 @@ def ver(request, id_area):
 """
 Vista del Administrador para editar un area
 """
-@login_required
+@permission_required('AppTEA.areas', raise_exception=True)
 def editar(request, id_area):
     area = Area.objects.get(pk=id_area)
     context = {"area": Area.objects.get(pk=id_area),
@@ -83,7 +83,7 @@ def editar(request, id_area):
 """
 Vista del Administrador para desactivar area.
 """
-@login_required
+@permission_required('AppTEA.areas', raise_exception=True)
 def desactivar(request, id_area):
     area = Area.objects.get(pk=id_area)
     area.is_active = False

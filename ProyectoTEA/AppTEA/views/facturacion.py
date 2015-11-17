@@ -6,10 +6,16 @@ from AppTEA.views import *
 """
 Vista del Profesional para mostrar información de facturación.
 """
-@login_required
+@permission_required('AppTEA.facturacion', raise_exception=True)
 def mostrar(request):
+	profesional = Profesional.objects.get(pk=request.user.id)
+	pacientes = []
+
+	for pres in profesional.presupuesto_set.all():
+		if not pres.paciente in pacientes:
+			pacientes.append(pres.paciente)
+
 	context = {
-		"pacientes": Paciente.objects.filter(),
+		"pacientes": pacientes,
 	}
 	return render(request, 'profesional/facturacion/index.html', context)
-

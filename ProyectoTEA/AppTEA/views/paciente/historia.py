@@ -30,30 +30,6 @@ def informes(request, id_paciente):
 
 
 """
-Vista para registrar un nuevo informe.
-"""
-@login_required
-def registrar(request, id_paciente):
-    profesionalObj = Profesional.objects.get(pk=request.user.id)
-
-    if request.POST:
-        fieldContenido = request.POST["contenido"]
-        fieldPaciente = Paciente.objects.get(pk=id_paciente)
-        area = profesionalObj.area
-            
-        nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, contenido=fieldContenido)
-        nuevoInforme.save()
-        return redirect("..")
-    
-    else:
-        context = {"btn_enlace": "..",
-               "btn_icono": "arrow_back",
-               "paciente": Paciente.objects.get(pk=id_paciente),
-               "profesional": profesionalObj}
-        return render(request, "comun/pacientes/historia/registrar.html", context)
-
-
-"""
 Vista de un informe específico.
 """
 @login_required
@@ -68,9 +44,32 @@ def ver(request, id_paciente, id_informe):
 
 
 """
+Vista para registrar un nuevo informe.
+"""
+@permission_required('AppTEA.add_informe', raise_exception=True)
+def registrar(request, id_paciente):
+    profesionalObj = Profesional.objects.get(pk=request.user.id)
+
+    if request.POST:
+        fieldContenido = request.POST["contenido"]
+        fieldPaciente = Paciente.objects.get(pk=id_paciente)
+
+        nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, contenido=fieldContenido)
+        nuevoInforme.save()
+        return redirect("..")
+    
+    else:
+        context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back",
+               "paciente": Paciente.objects.get(pk=id_paciente),
+               "profesional": profesionalObj}
+        return render(request, "comun/pacientes/historia/registrar.html", context)
+
+
+"""
 Editar un informe
 """
-@login_required
+@permission_required('AppTEA.change_informe', raise_exception=True)
 def editar(request, id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
     if request.POST:
@@ -91,7 +90,7 @@ def editar(request, id_paciente, id_informe):
 """
 Vista para desactivar informe.
 """
-@login_required
+@permission_required('AppTEA.delete_informe', raise_exception=True)
 def desactivar(request,id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
     informe.is_active = False
