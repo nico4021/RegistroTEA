@@ -8,12 +8,17 @@ Vista del Profesional para mostrar información de facturación.
 """
 @permission_required('AppTEA.facturacion', raise_exception=True)
 def mostrar(request):
-	profesional = Profesional.objects.get(pk=request.user.id)
-	pacientes = []
+	if request.user.is_staff:
+		pacientes = Paciente.objects.all()
 
-	for pres in profesional.presupuesto_set.all():
-		if not pres.paciente in pacientes:
-			pacientes.append(pres.paciente)
+	else:
+		profesional = Profesional.objects.get(pk=request.user.id)
+
+		pacientes = []
+
+		for pres in profesional.presupuesto_set.all():
+			if not pres.paciente in pacientes:
+				pacientes.append(pres.paciente)
 
 	context = {
 		"pacientes": pacientes,
