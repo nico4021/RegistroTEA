@@ -7,7 +7,7 @@ from django.core.management import call_command
 """
 Vista del Administrador para gestionar los profesionales existentes.
 """
-@login_required
+@permission_required('AppTEA.profesionales', raise_exception=True)
 def profesionales(request):
     # Si es Administrador
     if request.user.is_staff:
@@ -38,6 +38,7 @@ def profesionales(request):
 """
 Vista del Administrador para registrar profesional.
 """
+@permission_required('AppTEA.profesionales', raise_exception=True)
 def registrar(request):
     context = { "areas" : Area.objects.order_by("nombre").filter(is_active = True),
                "btn_enlace": "..",
@@ -71,6 +72,7 @@ def registrar(request):
 """
 Vista del Administrador para ver un profesional.
 """
+@permission_required('AppTEA.profesionales', raise_exception=True)
 def ver(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
     
@@ -84,6 +86,7 @@ def ver(request, id_profesional):
 """
 Vista del Administrador para editar profesional.
 """
+@permission_required('AppTEA.profesionales', raise_exception=True)
 def editar(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
     if request.POST:
@@ -126,6 +129,7 @@ def editar(request, id_profesional):
 """
 Vista del Administrador para dar de baja profesional.
 """
+@permission_required('AppTEA.profesionales', raise_exception=True)
 def desactivar(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
     if profesional.is_active == True:

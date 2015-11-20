@@ -23,17 +23,18 @@
           <td>{{ p.dni }}</td>
           <td>{{ p.numero_afiliado }}</td>
           <td>{{ p.obra_social }}</td>
-          <td><a id="demo-1">
+          <td><a id="demo-{{ p.id }}">
                 <i class="material-icons">more_vert</i>
               </a>
 
-              <ul class="mdl-menu mdl-menu--left mdl-js-menu" for="demo-1">
-                <li disabled class="mdl-menu__item" style="color: black;">Lunes 1:00 PM - 4:00 PM</li>
-                <li disabled class="mdl-menu__item" style="color: black;">Miercoles 10:00 AM - 2:00 PM</li>
-                <li disabled class="mdl-menu__item" style="color: black;">Jueves 2:00 PM - 6:00 PM</li>
-                <li disabled class="mdl-menu__item" style="color: black;">Viernes 9:00 AM - 1:00 PM</li>
+              <ul class="mdl-menu mdl-menu--left mdl-js-menu" for="demo-{{ p.id }}">
+                {% for pres in p.presupuesto_set.all %}
+                  {% for h in pres.horario_set.all %}
+                    <li disabled class="mdl-menu__item" style="color: black;">{{ h }}</li>
+                  {% endfor %}
+                {% endfor %}
               </ul>
-              <div class="mdl-tooltip" for="demo-1">
+              <div class="mdl-tooltip" for="demo-{{ p.id }}">
               Expandir
               </div>
           </td>
