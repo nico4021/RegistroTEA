@@ -16,7 +16,7 @@ from xhtml2pdf import pisa
 from django.template.loader import get_template
 from cgi import escape
 import cStringIO as StringIO
-
+from datetime import *
 
 from AppTEA.models import *
 from ProyectoTEA.settings import MEDIA_URL, STATIC_URL

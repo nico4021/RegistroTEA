@@ -159,6 +159,9 @@ class Presupuesto(models.Model):
     costo_mensual = models.IntegerField()
     #Fecha en que se genera el presupuesto
     fecha_creacion = models.DateField(default=datetime.now)
+    periodo = models.CharField(max_length=50)
+    
+    texto = models.CharField(max_length=4000)
     def __unicode__(self):
         return self.paciente.nombres+" "+self.paciente.apellidos+" "+self.fecha_creacion.strftime("%d/%m/%Y")
     

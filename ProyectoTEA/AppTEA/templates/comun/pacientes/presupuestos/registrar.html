@@ -6,7 +6,7 @@
 {% block body_block %}
 
 {% if user.is_authenticated %}
-{% if user.is_staff %}
+
 
 <style>
 
@@ -29,167 +29,192 @@ font-size: 1em;
 }
 </style>
 
+
+<form action="" method="post">{% csrf_token %}
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="demo-card-wide mdl-card mdl-shadow--3dp" style="width:99%">
-        <div class="mdl-card__title">
-            <center><h2 class="mdl-card__title-text">Presupuesto de rehabilitacion</h2></center>
+	<div class="demo-card-wide mdl-card mdl-shadow--3dp mdl-cell mdl-cell--12-col">
+		<div class="mdl-card__title">
+			<center><h2 class="mdl-card__title-text">Presupuesto de rehabilitacion</h2></center>
+		</div>
+		<!-- Seccion Datos del Beneficiaro -->
+<!--  ##################################################################################################################  -->
+		<center><H4>Datos del beneficiario</H4></center>
+        <div class="mdl-card__actions mdl-card--border mdl-grid">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+				<input class="mdl-textfield__input" type="text" name="tratamiento_prestacion">
+				<label class="mdl-textfield__label" for="sample4">Tratamiento o prestacion</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+				<input class="mdl-textfield__input" type="text" name="domicilio_prestacion">
+				<label class="mdl-textfield__label" for="sample4">Domicilio de Prestacion</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+				<input class="mdl-textfield__input" type="text" name="periodo">
+				<label class="mdl-textfield__label" for="sample4">Periodo</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div>	
         </div>
-        <div class="mdl-card__supporting-text">	
-            
-            <form method="POST">{% csrf_token %}
-                <center><H4>Datos del beneficiario</H4></center>
-                <div class="mdl-card__actions mdl-card--border mdl-grid">
-                    
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col">
-                        <input class="mdl-textfield__input" type="text" maxlength="8" name="dni" pattern="-?[0-9]*(\.[0-9]+)?" value="{{ paciente.dni }}">
-                        <label class="mdl-textfield__label" for="sample4">Beneficiario </label>
-                        <span class="mdl-textfield__error">Eso no es un numero!</span>
-                    </div><br>
-                    <div class="mdl-cell mdl-cell--1-col"></div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col">
-                        <input class="mdl-textfield__input" type="text" maxlength="10" name="obra_social" value="{{ paciente.obra_social }}">
-                        <label class="mdl-textfield__label" for="sample4">Tratamiento o prestacion</label>
-                        <span class="mdl-textfield__error">Que paso aca?</span>
-                    </div><br>
-                    
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
-                        <input class="mdl-textfield__input" type="text" maxlength="10" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento.year }}{{ paciente.fecha_nacimiento.month }}{{ paciente.fecha_nacimiento.day }}">
-                        <label class="mdl-textfield__label" for="sample4">Periodo</label>
-                        <span class="mdl-textfield__error">Que paso aca?</span>
-                    </div><br>       
-                    
-                    <div class="mdl-card__actions mdl-card--border">
-                    <center><H4>Distribucion del modulo</H4></center>
-                    <div class="mdl-card__actions mdl-card--border">
-
-                    <H6>Horas y dias semanales de asistencia</H6>                    
-                    <form action="#">
-                        
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col">
-                                <br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-1">
-                                    <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input">
-                                    <span class="mdl-checkbox__label">Lunes</span>
-                                </label>
-                            </div>
-                        
-                                <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--4-col">
-                                    <input class="mdl-textfield__input" type="text" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ingrese las horas correspondientes</label>
-                                </div>                            
-                        
-                            <div class="mdl-cell mdl-cell--2-col">
-                                <br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-                                    <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input">
-                                    <span class="mdl-checkbox__label">Martes</span>
-                                </label>
-                            </div>
-                            
-                                <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--4-col">
-                                    <input class="mdl-textfield__input" type="text" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ingrese las horas correspondientes</label>
-                                </div>
-                            </div>
-
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col">
-                                <br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3">
-                                    <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input">
-                                    <span class="mdl-checkbox__label">Miercoles</span>
-                                </label>
-                            </div>
-                            
-                            <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--4-col">
-                                <input class="mdl-textfield__input" type="text" id="sample1">
-                                <label class="mdl-textfield__label" for="sample1">Ingrese las horas correspondientes</label>
-                            </div>                     
-                        
-                            <div class="mdl-cell mdl-cell--2-col">
-                                <br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-4">
-                                    <input type="checkbox" id="checkbox-4" class="mdl-checkbox__input">
-                                    <span class="mdl-checkbox__label">Jueves</span>
-                                </label>
-                            </div>
-
-                                <div class="mdl-textfield mdl-js-textfield  mdl-cell mdl-cell--4-col">
-                                    <input class="mdl-textfield__input" type="text" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ingrese las horas correspondientes</label>
-                                </div>
-                            </div>
-
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col">
-                                <br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-5">
-                                    <input type="checkbox" id="checkbox-5" class="mdl-checkbox__input">
-                                    <span class="mdl-checkbox__label">Viernes</span>
-                                </label>
-                            </div>
-                            
-                                <div class="mdl-textfield mdl-js-textfield  mdl-cell mdl-cell--4-col">
-                                    <input class="mdl-textfield__input" type="text" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ingrese las horas correspondientes</label>
-                                </div>
-                            </div>                           
-                                </form>
-
-                            <div class="mdl-grid">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                                <input class="mdl-textfield__input" type="text" maxlength="30" name="nombres" value="{{ paciente.nombres }}">
-                                <label class="mdl-textfield__label" for="sample4">Horas mensuales de asistencia</label>
-                                <span class="mdl-textfield__error">Que paso aca?</span>
-                            </div><br>
-                                
-                            <div class="mdl-cell--2-col"></div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" maxlength="30" name="apellidos"  value="{{ paciente.apellidos }}">
-                                <label class="mdl-textfield__label" for="sample4">Frecuencia, Dias y Horas</label>
-                                <span class="mdl-textfield__error">Que paso aca?</span>
-                            </div><br>
-                            
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" maxlength="40" name="diagnostico" value="{{ paciente.diagnostico }}">
-                                <label class="mdl-textfield__label" for="sample4">Costo por hora</label>
-                                <span class="mdl-textfield__error">Que paso aca?</span>
-                            </div><br>
-                            
-                            <div class="mdl-cell--2-col"></div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" maxlength="10" name="obra_social" value="{{ paciente.obra_social }}">
-                                <label class="mdl-textfield__label" for="sample4">Domicilio de la prestacion</label>
-                                <span class="mdl-textfield__error">Que paso aca?</span>
-                            </div><br>
-                            
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" maxlength="10" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento.year }}{{ paciente.fecha_nacimiento.month }}{{ paciente.fecha_nacimiento.day }}">
-                                <label class="mdl-textfield__label" for="sample4">Costo mensual del tratamiento</label>
-                                <span class="mdl-textfield__error">Que paso aca?</span>
-                            </div><br>
-                            
-                            <div class="mdl-card__actions mdl-card--border">
-                                <center><H4>Datos del profesional tratante</H4></center>
-                            <div class="mdl-card__actions mdl-card--border">
-                            </div>
-                                
-<!----------------------------------------------------------------------------------------------------------------------------------------------->                                
-                                
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" maxlength="10" name="obra_social" value="{{ paciente.obra_social }}">
-                                    <label class="mdl-textfield__label" for="sample4">Profesional</label>
-                                    <span class="mdl-textfield__error">Que paso aca?</span>
-                                </div><br>
-                                
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <center><input type="submit" value="Guardar" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #78909C;"></center>
-                                </div>
-            </form>
-                            </div>
-</div>
+		<!-- Seccion Datos del Beneficiaro -->
+<!--  ##################################################################################################################  -->		
+		<div class="mdl-card__actions mdl-card--border">
+		<center><H4>Distribucion del modulo</H4></center>
+        <div class="mdl-grid">
+			
+				<div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"style="background: white;">
+					<br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-1">
+						<input type="checkbox" id="checkbox-1" name="dia" value="lunes" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Lunes</span>
+					</label>
+				</div>
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">de</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col">
+					<input class="mdl-textfield__input" name="horario_entrada_lunes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">a</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horario_salida_lunes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horas_lunes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">(Horas)</label>
+				</div>                            
+			
+		</div>
+		
+		<div class="mdl-grid">
+			
+				<div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"style="background: white;">
+					<br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-2">
+						<input type="checkbox" id="checkbox-2" name="dia" value="martes" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Martes</span>
+					</label>
+				</div>
+				<div class="mdl-cell mdl-cell--1-col " style="padding-top: 1.5em;">de</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col">
+					<input class="mdl-textfield__input" name="horario_entrada_martes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">a</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horario_salida_martes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div>  
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horas_martes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">(Horas)</label>
+				</div>                           
+			
+		</div>
+		
+		<div class="mdl-grid">
+			
+				<div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"style="background: white;">
+					<br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-3">
+						<input type="checkbox" id="checkbox-3" name="dia" value="miercoles" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Miercoles</span>
+					</label>
+				</div>
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">de</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col">
+					<input class="mdl-textfield__input" name="horario_entrada_miercoles" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">a</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horario_salida_miercoles" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horas_miercoles" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">(Horas)</label>
+				</div>                            
+			
+		</div>
+		
+		<div class="mdl-grid">
+			
+				<div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"style="background: white;">
+					<br><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-4">
+						<input type="checkbox" id="checkbox-4" name="dia" value="jueves" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Jueves</span>
+					</label>
+				</div>
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">de</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col">
+					<input class="mdl-textfield__input" name="horario_entrada_jueves" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">a</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horario_salida_jueves" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div>   
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horas_jueves" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">(Horas)</label>
+				</div>                          
+			
+		</div>
+		
+		<div class="mdl-grid">
+			
+				<div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-phone"style="background: white;">
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-5">
+						<input type="checkbox" id="checkbox-5" name="dia" value="viernes" class="mdl-checkbox__input">
+						<span class="mdl-checkbox__label">Viernes</span>
+					</label>
+				</div>
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">de</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col">
+					<input class="mdl-textfield__input" name="horario_entrada_viernes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div> 
+				<div class="mdl-cell mdl-cell--1-col" style="padding-top: 1.5em;">a</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--3-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horario_salida_viernes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">XX:XX PM/AM</label>
+				</div>  
+				<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--2-col"style="background: white;">
+					<input class="mdl-textfield__input" name="horas_viernes" type="text" id="sample1">
+					<label class="mdl-textfield__label" for="sample1">(Horas)</label>
+				</div>  
+											
+			
+		</div>
+		</div>
+		
+		<div class="mdl-card__actions mdl-card--border">
+		<center><H4>Distribucion del modulo</H4></center>	
+<!--  ##################################################################################################################  -->
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+				<input class="mdl-textfield__input" type="text" name="costo_hora">
+				<label class="mdl-textfield__label" for="sample4">Costo por hora ($)</label>
+				<span class="mdl-textfield__error">Que paso aca?</span>
+			</div>
+			
+			
+		</div>
+<!--  ##################################################################################################################  -->
+		<div class="mdl-card__actions mdl-card--border">
+		<center><H4>Distribucion del modulo</H4></center>
+		<div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+			<textarea class="mdl-textfield__input" name="texto" type="text" rows="8" id="sample5" ></textarea>
+			<label class="mdl-textfield__label" for="sample5">Texto del Presuesto</label>
+		</div>		
+		
+		<div class="mdl-card__actions mdl-card--border">
+			<center><input type="submit" value="Guardar" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #78909C;"></center>
+		</div>
+	</div>
+</form>
 {% else %}
+
 <h1>acceso denegado</h1>
 {% endif %}
-{% else %}
-<h1>acceso denegado</h1>
-{% endif %}
+
 {% endblock %}
 

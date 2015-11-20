@@ -1,6 +1,43 @@
-<html> 
-	<head></head>
-	<body>
-		<h1>{{presupuesto}}</h1>
-	</body>
-</html>
+{% block body_block %}
+
+{{ presupuesto.fecha_creacion }}
+<center><u><b>PRESUPUESTO DE REHABILITACIÓN</b></u></center>
+
+
+<br><u>BENEFICIARIO</u>: {{presupuesto.paciente.nombres}} {{presupuesto.paciente.apellidos}}</br>
+<br><u>FECHA DE NACIMIENTO</u>: {{presupuesto.paciente.fecha_nacimiento}}</br>              
+<br><u>DNI</u>: {{presupuesto.paciente.dni}}</br> 
+<br><u>OBRA SOCIAL</u>: {{presupuesto.paciente.obra_social}}</br>                                
+<br><u>AFILIADO Nº</u>: {{presupuesto.paciente.numero_afiliado}}</br> 
+<br><u>DIAGNÓSTICO</u>: {{presupuesto.paciente.diagnostico}}</br> 
+<br><u>TRATAMIENTO O PRESTACIÓN</u>: {{presupuesto.profesional.area}}</br> 
+<br><u>PERIODO</u>: {{presupuesto.periodo}}</br>
+
+
+<center><u><b>DISTRIBUCIÓN DEL MODULO</b></u></center> 
+<br><u>HORAS Y DIAS SEMANALES DE ASISTENCIA</u>:</br>
+<br>{{horas_semanales}} Horas semanales</br>
+{% for horario in horarios %}
+<br>{{horario.dia}} de {{horario.hora_entrada}} a {{horario.hora_salida}}</br>
+{% endfor %}
+<br><u>HORAS MENSUALES DE ASISTENCIA</u>: {{ horas_mensuales }} Hs. mensuales</br>
+<br><u>COSTO POR HORA</u>: $ {{presupuesto.costo_hora}}</br> 
+<br><u>DOMICILIO DE LA PRESTACION</u>: {{presupuesto.domicilio_prestacion}}</br> 
+<br><u>COSTO MENSUAL DEL TRATAMIENTO</u>: $ {{ costo_mensual }}</br>
+
+
+<center><u><b>DATOS DEL PROFESIONAL TRATANTE</b></u></center> 
+<br><u>APELLIDO Y NOMBRE</u>: {{ presupuesto.profesional.first_name }} {{ presupuesto.profesional.last_name }}</br>                
+<br><u>DNI N°</u>: {{ presupuesto.profesional.dni }}</br>                                                
+<br><u>CUIT</u>: {{ presupuesto.profesional.cuit }}</br>
+<br><u>PROFESIÓN</u>: {{ presupuesto.profesional.area }}</br>                
+<br><u>MAT. PROF. Nº</u>: {{ presupuesto.profesional.num_matricula }}</br>                                         
+<br><u>R.N.P.</u>: {{ presupuesto.profesional.rnp }}</br>
+<br><u>TEL. PERSONAL</u>: {{ presupuesto.profesional.tel_personal }}</br>
+<br><u>CORREO ELECTRÓNICO</u>: {{ presupuesto.profesional.email }}</br>
+<br>
+<br>
+<br>
+<p>{{presupuesto.texto}}</p>
+
+{% endblock %}
