@@ -33,7 +33,7 @@
 		<div class="mdl-card__supporting-text">
 			<form method="POST">{% csrf_token %}
 
-			<textarea id="edit" name="contenido">{{ informe.contenido }}</textarea><br>
+				<textarea id="edit" name="contenido">{{ informe.contenido }}</textarea><br>
 
 			<input type="hidden" name="nombre" value="{{profesional.id}}">
 			<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Guardar">
