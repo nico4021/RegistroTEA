@@ -20,7 +20,7 @@
 			<h2 class="mdl-card__title-text">{{ informe }}</h2>
 		</div>
 		<div class="mdl-card__supporting-text">
-			{{ informe.contenido }}
+			{% autoescape off %}{{ informe.contenido }}{% endautoescape %}
 		</div>
 	</div>
 </div>
