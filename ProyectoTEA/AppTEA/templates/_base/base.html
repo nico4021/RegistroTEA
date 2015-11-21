@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/fuentes.css' %}">
     <link rel="stylesheet" href="{% static 'css/boton-flotante.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/picker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/picker.date.css' %}">
     <script src="{% static 'js/material.min.js' %}"></script>
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
   </head>
@@ -103,7 +105,9 @@
               
             </div>
           </main> 
-
+    <script src="{% static 'js/picker.js' %}"></script>
+    <script src="{% static 'js/picker.date.js' %}"></script>
+    <script src="{% static 'js/legacy.js' %}"></script>
       <script>
           $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
               options.async = true;
@@ -133,6 +137,25 @@
                   }
               });
           });
+          
+          
+          
+          var $input = $( '.datepicker' ).pickadate({
+            format: 'yyyy-mm-dd',
+            selectYears: 100,
+            container: 'body',
+            monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            closeOnClear: false,
+            today: 'Hoy',
+            clear: 'Limpiar',
+            close: 'Cerrar',
+            max: false,
+            min: false,
+          })
+  
+          var picker = $input.pickadate('picker')
+          
       </script>
     </body>
 </html>
