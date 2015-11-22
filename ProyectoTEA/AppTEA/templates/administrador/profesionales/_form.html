@@ -44,7 +44,7 @@
 				<span class="mdl-textfield__error"></span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="8" name="rnp" value="{{ prof.rnp }}" pattern="-?[0-9]*(\.[0-9]+)?">
+				<input class="mdl-textfield__input" type="text" maxlength="8" name="rnp" value="{{ prof.rnp }}" pattern="[0-9.]*">
 				<label class="mdl-textfield__label" for="sample4">Registro nacional de proveedores </label>
 				<span class="mdl-textfield__error">Ingrese un rnp válido</span>
 			</div><br>
@@ -59,22 +59,22 @@
 				<span class="mdl-textfield__error"></span>
 			</div><br>			
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input maxlength="40" name="mail" class="mdl-textfield__input" type="email" value="{{ prof.email }}" />
+				<input maxlength="40" name="mail" class="mdl-textfield__input" type="email" value="{{ prof.email }}" required />
 				<label class="mdl-textfield__label">E-Mail</label>
 				<span class="mdl-textfield__error">Ingrese una dirección de e-mail válida</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="10" name="dni" value="{{ prof.dni }}" pattern="([0-9]*.{1}?){3}">
+				<input class="mdl-textfield__input" type="text" maxlength="11" name="dni" value="{{ prof.dni }}" pattern="[0-9]{1,3}[.]{0,1}[0-9]{3}[.]{0,1}[0-9]{3}$">
 				<label class="mdl-textfield__label" for="sample4">DNI </label>
 				<span class="mdl-textfield__error">Ingrese un DNI válido</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="20" name="num_matricula" value="{{ prof.num_matricula }}" pattern="-?[0-9]*(\.[0-9]+)?">
+				<input class="mdl-textfield__input" type="text" maxlength="20" name="num_matricula" value="{{ prof.num_matricula }}" pattern="[0-9.]*">
 				<label class="mdl-textfield__label" for="sample4">Numero de matricula </label>
 				<span class="mdl-textfield__error"></span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="40" name="tel_personal" value="{{ prof.tel_personal }}" pattern="-?[0-9]*(\.[0-9]+)?">
+				<input class="mdl-textfield__input" type="text" maxlength="40" name="tel_personal" value="{{ prof.tel_personal }}" pattern="[0-9 -]*">
 				<label class="mdl-textfield__label" for="sample4">Telefono personal </label>
 				<span class="mdl-textfield__error"></span>
 			</div><br>
