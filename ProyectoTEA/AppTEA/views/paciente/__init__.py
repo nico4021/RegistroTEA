@@ -68,7 +68,7 @@ def registrar(request):
         fieldapellidos = request.POST['apellidos']
         fielddiagnostico = request.POST['diagnostico']
         fieldobra_social = request.POST['obra_social']
-        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
         fieldnumero_afiliado = request.POST['numero_afiliado']
         
         paciente = Paciente()
@@ -104,7 +104,7 @@ def editar(request, id_paciente):
         fieldapellidos = request.POST['apellidos']
         fielddiagnostico = request.POST['diagnostico']
         fieldobra_social = request.POST['obra_social']
-        fieldfecha_nacimiento = request.POST['fecha_nacimiento']
+        fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
         fieldnumero_afiliado = request.POST['numero_afiliado']
 
         try: 

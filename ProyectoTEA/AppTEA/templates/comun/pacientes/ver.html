@@ -32,7 +32,7 @@ font-size: 1em;
 		<b>DNI : </b>{{ paciente.dni }}<br>
 		<b>Diagnostico :</b> {{ paciente.diagnostico }}<br>
 		<b>Obra Social :</b>{{ paciente.obra_social }}<br>
-		<b>Fecha de nacimiento :</b> {{ paciente.fecha_nacimiento }}<br>
+		<b>Fecha de nacimiento :</b> {{ paciente.fecha_nacimiento|date:"d/m/Y" }}<br>
 		<b>Numero de afiliado :</b> {{ paciente.numero_afiliado }}<br><br>
 		<a href="{% url 'apptea:historia' paciente.id %}" class="mdl-button mdl-js-button mdl-js-ripple-effect">Historia clínica  <i class="material-icons" style="color:#7088FF;">launch</i></a></a>
 		<a href="{% url 'apptea:presupuestos' paciente.id %}" class="mdl-button mdl-js-button mdl-js-ripple-effect">Presupuestos  <i class="material-icons" style="color:#7088FF;">launch</i></a></a>

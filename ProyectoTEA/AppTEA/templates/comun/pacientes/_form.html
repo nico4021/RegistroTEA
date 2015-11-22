@@ -58,8 +58,8 @@
 				<input type="file" name="foto" accept=".jpeg, .jpg, .png" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="{{ paciente.foto }}"><br>
 
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input datepicker" type="text" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento.year }}-{{ paciente.fecha_nacimiento.month }}-{{ paciente.fecha_nacimiento.day }}">
-				<label class="mdl-textfield__label" for="sample4">Fecha de Nacimiento (AAAA-MM-DD)</label>
+				<input class="mdl-textfield__input datepicker" type="text" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|date:"d/m/Y" }}">
+				<label class="mdl-textfield__label" for="sample4">Fecha de Nacimiento (DD/MM/AAAA)</label>
 				<span class="mdl-textfield__error">Que paso aca?</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
