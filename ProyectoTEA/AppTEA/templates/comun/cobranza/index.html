@@ -5,38 +5,11 @@
 
 {% block body_block %}
 
-Córdoba, enero de 2015.
-<center><u><b>PRESUPUESTO DE REHABILITACIÓN</b></u></center>
-
-
-<br><u>BENEFICIARIO</u>: nombre</br>
-<br><u>FECHA DE NACIMIENTO</u>:fecha</br>              
-<br><u>DNI</u>: DNI</br> 
-<br><u>OBRA SOCIAL</u>: OSMEDICA</br>                                
-<br><u>AFILIADO Nº</u>: 155-2728271804-4-2</br> 
-<br><u>DIAGNÓSTICO</u>: Trastorno del Espectro Autista.</br> 
-<br><u>TRATAMIENTO O PRESTACIÓN</u>: Fonoaudiología.</br> 
-<br><u>PERIODO</u>: Febrero a junio 2015.</br>
-
-
-<center><u><b>DISTRIBUCIÓN DEL MODULO</b></u></center> 
-<br><u>HORAS Y DIAS SEMANALES DE ASISTENCIA</u>: 2 (dos) Hs. semanales.</br>
-<br><u>HORAS MENSUALES DE ASISTENCIA</u>: 4 Hs. mensuales</br>
-<br><u>FRECUENCIA, DIAS Y HORARIOS</u>: 2 (dos) veces por semana. Martes y jueves 19 Hs.</br>
-<br><u>COSTO POR HORA</u>: $221</br> 
-<br><u>DOMICILIO DE LA PRESTACION</u>: Enfermera Clermont 179</br> 
-<br><u>COSTO MENSUAL DEL TRATAMIENTO</u>: $1768</br>
-
-
-<center><u><b>DATOS DEL PROFESIONAL TRATANTE</b></u></center> 
-<br><u>APELLIDO Y NOMBRE</u>: Maza Ana Gabriela</br>                
-<br><u>DNI N°</u>: 34724953</br>                                                
-<br><u>CUIT</u>: 27-34724953-5</br>
-<br><u>PROFESIÓN</u>: Fonoaudióloga</br>                
-<br><u>MAT. PROF. Nº</u>: 8417</br>                                         
-<br><u>R.N.P.</u>: 273.683</br>
-<br><u>TEL. PERSONAL</u>: 0351 157600248</br>
-<br><u>CORREO ELECTRÓNICO</u>: maza.anagabriela@gmail.com</br>
+<h1>Cobranza</h1>
+{% for mes_aporte in meses_aporte %}
+	{{ mes_aporte.dinero_total }} - {{ mes_aporte.aporte}} = {{mes_aporte.ganancia}}<br>
+	
+{% endfor %}
 
 {% endblock %}
 

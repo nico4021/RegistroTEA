@@ -182,5 +182,24 @@ class Horario(models.Model):
     hora_entrada = models.CharField(max_length = 20)
     hora_salida = models.CharField(max_length = 20)
     cantidad_horas = models.IntegerField(blank=True)
+    
     def __unicode__(self):
         return self.dia+" de "+self.hora_entrada+" a "+self.hora_salida
+        
+class Mes_presupuesto(models.Model):
+    #relaciones
+    profesional = models.ForeignKey(Profesional)
+    
+    #Atributos
+    mes = models.DateField(default = datetime.now)
+    dinero_total = models.IntegerField(blank=True)
+    porcentaje_aporte = models.IntegerField(blank=True)
+    
+    def __unicode__(self):
+        return self.profesional.first_name+" "+self.mes.strftime("%m %Y")
+        
+    def aporte(self):
+        return (self.dinero_total*self.porcentaje_aporte)/100
+    
+    def ganancia(self):
+        return self.dinero_total-(self.dinero_total*self.porcentaje_aporte)/100
