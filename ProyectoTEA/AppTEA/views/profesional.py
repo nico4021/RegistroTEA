@@ -55,6 +55,7 @@ def registrar(request):
         fieldnum_matricula = request.POST['num_matricula']
         fieldtel_personal = request.POST['tel_personal']
         fieldusername = request.POST['usuario']
+        
             
         nuevoProfesional = Profesional(username=fieldusername ,area=fieldarea, rnp=fieldrnp, first_name=fieldnombres, last_name=fieldapellidos, password=fieldcontra, email=fieldmail, dni=fielddni, num_matricula=fieldnum_matricula, tel_personal=fieldtel_personal)
         nuevoProfesional.save()

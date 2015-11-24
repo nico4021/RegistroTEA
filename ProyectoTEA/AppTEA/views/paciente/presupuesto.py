@@ -42,19 +42,8 @@ def registrar(request, id_paciente):
         fecha_creacion = datetime.now().date() 
         periodo = request.POST['periodo'] 
         texto = request.POST['texto'] 
-        
-        presupuesto = Presupuesto()
         dias = request.POST.getlist('dia')
-        
-        for i in range(len(dias)):
-            dia = dias[i]
-            hora_entrada = request.POST['horario_entrada_'+dia]
-            hora_salida = request.POST['horario_salida_'+dia]
-            cantidad_horas = int(request.POST['horas_'+dia])
-            costo_semanal += cantidad_horas
-            horario = Horario(presupuesto = presupuesto, dia = dia, hora_entrada = hora_entrada, hora_salida = hora_salida, cantidad_horas = cantidad_horas)
-            horario.save()
-        
+        presupuesto = Presupuesto()
         costo_mensual = costo_semanal*4
         presupuesto.tratamiento_prestacion = tratamiento_prestacion
         presupuesto.domicilio_prestacion = domicilio_prestacion
@@ -67,7 +56,16 @@ def registrar(request, id_paciente):
         presupuesto.paciente = paciente
         presupuesto.profesional = profesional
         presupuesto.save()
-             
+        
+        for i in range(len(dias)):
+            dia = dias[i]
+            hora_entrada = request.POST['horario_entrada_'+dia]
+            hora_salida = request.POST['horario_salida_'+dia]
+            cantidad_horas = int(request.POST['horas_'+dia])
+            costo_semanal += cantidad_horas
+            horario = Horario(presupuesto = presupuesto, dia = dia, hora_entrada = hora_entrada, hora_salida = hora_salida, cantidad_horas = cantidad_horas)
+            horario.save()
+        
         return redirect("../")
     else:
         print "no estoy recibiendo post, papo"

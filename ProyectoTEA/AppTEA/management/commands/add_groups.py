@@ -16,14 +16,15 @@ class Command(BaseCommand):
 
         if p_created:
             print "Grupo profesional creado."
-            p, p_c = Permission.objects.get_or_create(codename='facturacion',
-                                   name='Acceso a facturacion',
-                                   content_type=ContentType.objects.get(app_label='AppTEA', model='Paciente'))
-            if p_c:
-                print "Permiso facturacion creado."
+        
+        p, p_c = Permission.objects.get_or_create(codename='facturacion',
+                                name='Acceso a facturacion',
+                                content_type=ContentType.objects.get(app_label='AppTEA', model='Paciente'))
+        if p_c:
+            print "Permiso facturacion creado."
 
-            prof.permissions.add(p)
-            print "Permiso facturacion agregado."
+        prof.permissions.add(p)
+        print "Permiso facturacion agregado."
 
         otros = ['add_informe', 'change_informe', 'delete_informe', 'add_presupuesto', 'change_presupuesto', 'delete_presupuesto']
 
