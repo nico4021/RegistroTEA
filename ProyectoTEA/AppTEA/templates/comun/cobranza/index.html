@@ -23,6 +23,9 @@
         <th>Costo del Tratamiento</th>
 	<th>Dinero Aportado</th>
 	<th>Ganancia del Profesional</th>
+	{% if titulo %}
+	<th>Año/Mes</th>
+	{% endif %}
       </tr>
     </thead>
     <tbody>
@@ -33,6 +36,9 @@
 	<td>$ {{ mes_aporte.dinero_total }}</td>
 	<td>$ {{ mes_aporte.aporte}}</td>
 	<td>$ {{mes_aporte.ganancia}}</td>
+	{% if titulo %}
+	<th>{{mes_aporte.mes.month}}/{{mes_aporte.mes.year}}</th>
+	{% endif %}
 	</tr>
 	{% endfor %}
     

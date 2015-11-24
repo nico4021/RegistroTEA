@@ -23,7 +23,6 @@ def presupuestos(request, id_paciente):
 
 @login_required
 def registrar(request, id_paciente):
-    print "la mama de lucho se la come"
     if request.method == 'POST':
         
         
@@ -68,7 +67,10 @@ def registrar(request, id_paciente):
         
         return redirect("../")
     else:
-        print "no estoy recibiendo post, papo"
+        context = {
+            "btn_enlace": "..",
+            "btn_icono": "arrow_back"
+        }
         return render(request, "comun/pacientes/presupuestos/registrar.html")
 
 
