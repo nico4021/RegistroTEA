@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{% static 'css/boton-flotante.css' %}" />
     <link rel="stylesheet" href="{% static 'css/picker.css' %}">
     <link rel="stylesheet" href="{% static 'css/picker.date.css' %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.0/css/responsive.dataTables.min.css">
+
     <script src="{% static 'js/material.min.js' %}"></script>
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
   </head>
@@ -43,6 +46,17 @@
                   <div class="mdl-layout-spacer"></div>
                     
                   {% if url_filtro %}
+                    {% if url_filtro = "cobranza" %}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input placeholder="Buscar por Mes-Año" class="mdl-textfield__input" type="text" id="search" />
+                            <label class="mdl-textfield__label" for="search"></label>
+                        </div>
+                    </div>
+                    {% else %}
                     <input type="hidden" id="tipo" value="{{ url_filtro }}" />
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">  
                         <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -52,8 +66,8 @@
                             <input placeholder="{{ placeholder }}" class="mdl-textfield__input" type="text" id="search" />
                             <label class="mdl-textfield__label" for="search"></label>
                         </div>
-                        
                     </div>
+                    {% endif %}
                   {% endif %}
 
               </div>
@@ -108,14 +122,46 @@
     <script src="{% static 'js/picker.js' %}"></script>
     <script src="{% static 'js/picker.date.js' %}"></script>
     <script src="{% static 'js/legacy.js' %}"></script>
+    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.0.0/js/dataTables.responsive.min.js"></script>
       <script>
           $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
               options.async = true;
           });
+          {% if url_filtro = "cobranza" %}
+          $("#search").keyup(function() {
+              
+              
+              $.ajax({
+                  url : "{% url 'apptea:cobranza' %}",
+                  type : "post",
+                  data : {filtro: $("#search").val(),
+                          csrfmiddlewaretoken: '{{ csrf_token }}'},
 
+                  success : function(data) {
+                     
+                      var neva_tabla = "";
+                      for (var i=0; i < data.objs.length; i++) {
+                          nueva_tabla += "<tr>"+
+                                         "<td>"+data.objs[i].nombre+"</td>"+
+                                         "<td>"+data.objs[i].porcentaje_aporte+"</td>"+
+                                         "<td>"+data.objs[i].dinero_total+"</td>"+
+                                         "<td>"+data.objs[i].aporte+"</td>"+
+                                         "<td>"+data.objs[i].ganancia+"</td>"+
+                                         "</tr>"
+                      }
+                      $("tbody").html(nueva_tabla);
+                  },
+                  error : function(xhr,errmsg,err) {
+                      console.log(xhr.status + ": " + xhr.responseText); 
+                      console.log("introduzca AAAA-MM")
+                  }
+              });
+          });
+          {% else %}
           $("#search").keyup(function() {
               var url = $("#tipo").val();
-
+              
               $.ajax({
                   url : url,
                   type : "post",
@@ -137,7 +183,7 @@
                   }
               });
           });
-          
+          {% endif %}
           
           
           var $input = $( '.datepicker' ).pickadate({
@@ -156,6 +202,20 @@
   
           var picker = $input.pickadate('picker')
           
+          
+          $(document).ready(function() {
+            $('#example').DataTable( {
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                        type: ''
+                    }
+                },
+                "bPaginate": false,
+                "bInfo": false,
+                "bFilter": false
+            } );
+        } );
       </script>
     </body>
 </html>
