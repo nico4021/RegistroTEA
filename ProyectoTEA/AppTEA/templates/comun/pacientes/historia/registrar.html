@@ -1,16 +1,3 @@
 {% load staticfiles %}
 
-<script src="{% static 'js/dropbox.min.js' %}"></script>
-
-<script type="text/javascript">/*
-	var client = new Dropbox.Client({ 
-		key: 'eewqcmr82yt0r39',
-		secret: 'zobo2p8jdsa6o9i'
-	});
-	client.authenticate(function () {
-	    alert('Funca');
-	});*/
-</script>
-
-
 {% include 'comun/pacientes/historia/_form.html' with titulo='Nuevo Informe de' paciente=paciente profesional=profesional %}
