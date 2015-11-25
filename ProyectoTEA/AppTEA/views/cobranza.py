@@ -39,7 +39,7 @@ def mostrar_todas(request):
         objects = Mes_presupuesto.objects.filter(profesional = request.user.pk)
         
     context = {
-               "btn_enlace": "..",
+               "btn_enlace": "../cobranza",
                "btn_icono": "arrow_back",
                "titulo": "Cobranza General",
                "meses_aporte":objects

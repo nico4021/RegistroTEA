@@ -49,9 +49,14 @@ Vista para registrar un nuevo informe.
 @permission_required('AppTEA.add_informe', raise_exception=True)
 def registrar(request, id_paciente):
     profesionalObj = Profesional.objects.get(pk=request.user.id)
-
+    
+    context = {"btn_enlace": "..",
+               "btn_icono": "arrow_back"}
     if request.POST:
-        fieldContenido = request.POST["contenido"]
+        fieldContenido = request.POST["texto"]
+        if fieldContenido == "":
+            context['err'] = "El informe esta vacio"
+            return render(request, "comun/pacientes/historia/registrar.html", context)
         fieldPaciente = Paciente.objects.get(pk=id_paciente)
 
         nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, contenido=fieldContenido)
@@ -59,10 +64,8 @@ def registrar(request, id_paciente):
         return redirect("..")
     
     else:
-        context = {"btn_enlace": "..",
-               "btn_icono": "arrow_back",
-               "paciente": Paciente.objects.get(pk=id_paciente),
-               "profesional": profesionalObj}
+        context["paciente"]= Paciente.objects.get(pk=id_paciente),
+        context["profesional"]= profesionalObj
         return render(request, "comun/pacientes/historia/registrar.html", context)
 
 
@@ -72,18 +75,22 @@ Editar un informe
 @permission_required('AppTEA.change_informe', raise_exception=True)
 def editar(request, id_paciente, id_informe):
     informe = Informe.objects.get(pk=id_informe)
-    if request.POST:
-        fieldContenido = request.POST['contenido']
-        informe.contenido = fieldContenido
-        informe.save()
-        return redirect("..")
-    else:
-        context = {
+    context = {
             "informe": informe,
             "btn_enlace": "../..",
             "btn_icono": "arrow_back",
             "profesional": Profesional.objects.get(pk=request.user.id)
         }
+    if request.POST:
+        fieldContenido = request.POST['texto']
+        if fieldContenido == "":
+            context['err'] = "El informe esta vacio"
+            return render(request, "comun/pacientes/historia/editar.html", context)
+        informe.contenido = fieldContenido
+        informe.save()
+        return redirect("..")
+    else:
+        
         return render(request, "comun/pacientes/historia/editar.html", context)
 
 

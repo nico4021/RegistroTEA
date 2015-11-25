@@ -44,7 +44,8 @@ font-size: 1em;
 <div class="mdl-grid">
 	<div class="demo-card-wide mdl-card mdl-shadow--3dp mdl-cell mdl-cell--12-col">
 		<div class="mdl-card__title">
-			<center><h2 class="mdl-card__title-text">Presupuesto de rehabilitacion</h2></center>
+			<center>{% if err %}<h2 style="color: red;">{{err}}</h2>{% else %}<h2 class="mdl-card__title-text">Presupuesto de rehabilitacion</h2>{% endif %}</center>
+			
 		</div>
 		<!-- Seccion Datos del Beneficiaro -->
 <!--  ##################################################################################################################  -->

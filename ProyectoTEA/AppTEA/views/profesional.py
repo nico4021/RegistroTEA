@@ -47,14 +47,41 @@ def registrar(request):
     if request.method == 'POST':
         fieldarea = Area.objects.get(pk=int(request.POST['area']))
         fieldrnp = request.POST['rnp']
+        if fieldrnp == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldnombres = request.POST['nombres']
+        if fieldnombres == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldapellidos = request.POST['apellidos']
+        if fielapellidos == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
+        if request.POST['contra'] == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldcontra = make_password(request.POST['contra'])
         fieldmail = request.POST['mail']
+        if fieldmail == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fielddni = request.POST['dni']
+        if fielddni == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldnum_matricula = request.POST['num_matricula']
+        if fieldnum_matricula == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldtel_personal = request.POST['tel_personal']
+        if fieldtel_personal == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldusername = request.POST['usuario']
+        if fieldusername == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         
             
         nuevoProfesional = Profesional(username=fieldusername ,area=fieldarea, rnp=fieldrnp, first_name=fieldnombres, last_name=fieldapellidos, password=fieldcontra, email=fieldmail, dni=fielddni, num_matricula=fieldnum_matricula, tel_personal=fieldtel_personal)
@@ -93,12 +120,33 @@ def editar(request, id_profesional):
     if request.POST:
         fieldarea = request.POST['area']
         fieldrnp = request.POST['rnp']
+        if fieldrnp == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldnombres = request.POST['nombres']
+        if fieldnombres == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldapellidos = request.POST['apellidos']
+        if fielapellidos == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldmail = request.POST['mail']
+        if fieldmail == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fielddni = request.POST['dni']
+        if fielddni == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldnum_matricula = request.POST['num_matricula']
+        if fieldnum_matricula == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         fieldtel_personal = request.POST['tel_personal']
+        if fieldtel_personal == "":
+            context['err'] = "faltan campos"
+            return render(request, "administrador/profesionales/registrar.html", context)
         
         profesional.area = Area.objects.get(pk=int(fieldarea))
         profesional.rnp = fieldrnp
