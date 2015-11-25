@@ -59,9 +59,6 @@ class Profesional(User):
     num_matricula = models.CharField(max_length=15)
     tel_personal = models.CharField(max_length=20)
     cuit = models.CharField(max_length=20)
-    # sync
-    #dropbox_key = models.CharField(max_length=20, blank=True)
-    #dropbox_secret = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
         return self.first_name + " " + self.last_name

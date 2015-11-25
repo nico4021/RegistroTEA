@@ -56,6 +56,7 @@ def registrar(request, id_paciente):
 
         nuevoInforme = Informe(paciente=fieldPaciente, profesional=profesionalObj, contenido=fieldContenido)
         nuevoInforme.save()
+
         return redirect("..")
     
     else:
@@ -63,6 +64,7 @@ def registrar(request, id_paciente):
                "btn_icono": "arrow_back",
                "paciente": Paciente.objects.get(pk=id_paciente),
                "profesional": profesionalObj}
+
         return render(request, "comun/pacientes/historia/registrar.html", context)
 
 
