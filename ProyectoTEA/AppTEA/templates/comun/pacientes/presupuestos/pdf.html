@@ -38,6 +38,6 @@
 <br>
 <br>
 <br>
-<p>{{presupuesto.texto}}</p>
+{% autoescape off %}{{presupuesto.texto}}{% endautoescape %}
 
 {% endblock %}

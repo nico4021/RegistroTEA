@@ -61,4 +61,5 @@ urlpatterns = [
 
     url(r'^facturacion/$', V + 'facturacion.mostrar', name='facturacion'),
     url(r'^cobranza/$', V + 'cobranza.mostrar', name='cobranza'),
+    url(r'^cobranza/total$', V + 'cobranza.mostrar_todas', name='cobranza_total')
 ]

@@ -5,11 +5,67 @@
 
 {% block body_block %}
 
-<h1>Cobranza</h1>
-{% for mes_aporte in meses_aporte %}
-	{{ mes_aporte.dinero_total }} - {{ mes_aporte.aporte}} = {{mes_aporte.ganancia}}<br>
+{% now "m" as fecha_mes %}
+{% now "Y" as fecha_year %}
+
+
+<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col" style="padding: 1.5em;">
+	<div class="mdl-grid">
+	<div style="font-size: 2em">{% if titulo %}{{titulo}}{% else %}Cobranza del {{fecha_mes}} del {{fecha_year}} {% endif %}</div>{% if not titulo %} <pre>                   </pre><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="{% url 'apptea:cobranza_total' %}">Cobranza General</a>{% endif %}
+	</div>
+<table id="example" class="display nowrap" cellspacing="0" width="100%">
+
 	
-{% endfor %}
+    <thead>
+      <tr>
+        <th>Profesional</th>
+        <th>Porcentaje aportado</th>
+        <th>Costo del Tratamiento</th>
+	<th>Dinero Aportado</th>
+	<th>Ganancia del Profesional</th>
+	{% if titulo %}
+	<th>Año/Mes</th>
+	{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+	{% for mes_aporte in meses_aporte %}
+	<tr>
+	<td>{{ mes_aporte.profesional.first_name }} {{ mes_aporte.profesional.last_name }}</td>
+	<td>{{ mes_aporte.porcentaje_aporte}}%</td>
+	<td>$ {{ mes_aporte.dinero_total }}</td>
+	<td>$ {{ mes_aporte.aporte}}</td>
+	<td>$ {{mes_aporte.ganancia}}</td>
+	{% if titulo %}
+	<th>{{mes_aporte.mes.month}}/{{mes_aporte.mes.year}}</th>
+	{% endif %}
+	</tr>
+	{% endfor %}
+    
+  </tbody>
+</table>
+</div>
+
+<!--
+<div class="mdl-grid" style="background: white;">
+	<div class="mdl-cell mdl-cell--1-col"></div>
+	<div class="mdl-cell mdl-cell--2-col">Profesional</div>
+	<div class="mdl-cell mdl-cell--2-col">Porcentaje aportado</div>
+	<div class="mdl-cell mdl-cell--2-col">Costo del Tratamiento</div>
+	<div class="mdl-cell mdl-cell--2-col">Dinero Aportado</div>
+	<div class="mdl-cell mdl-cell--2-col">Ganancia del Profesional</div>
+</div>
+
+<div class="mdl-grid" style="background: white;">
+	<div class="mdl-cell mdl-cell--1-col"></div>
+	<div class="mdl-cell mdl-cell--2-col">{{ mes_aporte.profesional.first_name }} {{ mes_aporte.profesional.last_name }}</div>
+	<div class="mdl-cell mdl-cell--2-col">{{ mes_aporte.porcentaje_aporte}}%</div>
+	<div class="mdl-cell mdl-cell--2-col">$ {{ mes_aporte.dinero_total }}</div>
+	<div class="mdl-cell mdl-cell--2-col">$ {{ mes_aporte.aporte}}</div>
+	<div class="mdl-cell mdl-cell--2-col">$ {{mes_aporte.ganancia}}</div>
+</div>
+-->
+
 
 {% endblock %}
 

@@ -28,7 +28,7 @@
 <div class="mdl-grid">
 	<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-phone">
 		<div class="mdl-card__title">
-			<h1 class="mdl-card__title-text">{{ titulo }} {{ paciente.nombres }}{{ informe }}<br><br>Area: {{ profesional.area }}</h1>
+			{% if err %}<h1 class="mdl-card__title-text" style="color: red;">{{err}}{% else %}<h1 class="mdl-card__title-text">{{ titulo }} {{ paciente.nombres }}{{ informe }}<br><br>Area: {{ profesional.area }}{% endif %}</h1>
 		</div>
 		<div class="mdl-card__supporting-text">
 			<form method="POST">{% csrf_token %}

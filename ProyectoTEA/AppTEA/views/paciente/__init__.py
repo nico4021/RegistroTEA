@@ -32,11 +32,12 @@ def pacientes(request):
 
         context = { "usuario": request.user,
                     "pacientes": pacientes,
-                    "btn_enlace": "registrar/",
-                    "btn_icono": "add",
                     "placeholder": "Nombre o apellido",
                     "url_filtro": reverse('apptea:pacientes')}
-
+        if request.user.is_staff:
+            context["btn_enlace"] = "registrar/"
+            context["btn_icono"] = "add"
+            
         return render(request, 'comun/pacientes/index.html', context)
 
 """
@@ -63,14 +64,37 @@ def registrar(request):
     context = {"btn_enlace": "..",
                "btn_icono": "arrow_back"}
     if request.method == 'POST':
-        fielddni = request.POST['dni']
-        fieldnombres = request.POST['nombres']
-        fieldapellidos = request.POST['apellidos']
-        fielddiagnostico = request.POST['diagnostico']
-        fieldobra_social = request.POST['obra_social']
-        fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
-        fieldnumero_afiliado = request.POST['numero_afiliado']
-        
+        try: 
+            fielddni = request.POST['dni']
+            if fielddni == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldnombres = request.POST['nombres']
+            if fieldnombres == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldapellidos = request.POST['apellidos']
+            if fieldapellidos == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fielddiagnostico = request.POST['diagnostico']
+            if fielddiagnostico == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldobra_social = request.POST['obra_social']
+            if fieldobra_social == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
+            fieldnumero_afiliado = request.POST['numero_afiliado']
+            if fieldnumero_afiliado == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+        except ValueError as e:
+            print e
+            context['err'] = "Formato de Fecha Invalido"
+            return render(request, "comun/pacientes/registrar.html", context)
+            
         paciente = Paciente()
 
         try: 
@@ -99,14 +123,38 @@ Vista del Administrador para modificar paciente.
 def editar(request, id_paciente):
     paciente = Paciente.objects.get(pk = id_paciente)
     if request.POST:
-        fielddni = request.POST['dni']
-        fieldnombres = request.POST['nombres']
-        fieldapellidos = request.POST['apellidos']
-        fielddiagnostico = request.POST['diagnostico']
-        fieldobra_social = request.POST['obra_social']
-        fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
-        fieldnumero_afiliado = request.POST['numero_afiliado']
-
+        try: 
+            fielddni = request.POST['dni']
+            if fielddni == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldnombres = request.POST['nombres']
+            if fieldnombres == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldapellidos = request.POST['apellidos']
+            if fieldapellidos == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fielddiagnostico = request.POST['diagnostico']
+            if fielddiagnostico == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldobra_social = request.POST['obra_social']
+            if fieldobra_social == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+            fieldfecha_nacimiento = datetime.strptime(request.POST['fecha_nacimiento'], "%d/%m/%Y").date()
+            fieldnumero_afiliado = request.POST['numero_afiliado']
+            if fieldnumero_afiliado == "":
+                context['err'] = "Faltan Campos"
+                return render(request, "comun/pacientes/registrar.html", context)
+        except ValueError as e:
+            print e
+            context['err'] = "Formato de Fecha Invalido"
+            return render(request, "comun/pacientes/registrar.html", context)
+        
+        
         try: 
             request.FILES['foto']
             fieldfoto = request.FILES['foto']                

@@ -43,6 +43,9 @@ def registrar(request):
                "btn_icono": "arrow_back"}
     if request.method == 'POST':
         fieldnombre = request.POST['nombre']
+        if fieldnombre == "":
+            context['err'] = "el nombre esta vacio"
+            return render(request, "administrador/areas/editar.html", context)
         nuevaArea = Area(nombre = fieldnombre)
         nuevaArea.save()
         return redirect("..")
@@ -74,6 +77,9 @@ def editar(request, id_area):
                "btn_icono": "arrow_back"}
                
     if request.method == 'POST':
+        if request.POST['nombre'] == "":
+            context['err'] = "el nombre esta vacio"
+            return render(request, "administrador/areas/editar.html", context)
         area.nombre = request.POST['nombre']
         area.save()
         return redirect("../..")

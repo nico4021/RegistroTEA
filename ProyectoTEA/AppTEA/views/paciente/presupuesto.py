@@ -23,9 +23,9 @@ def presupuestos(request, id_paciente):
 
 @login_required
 def registrar(request, id_paciente):
-    print "la mama de lucho se la come"
-    if request.method == 'POST':
+    context = {}
         
+    if request.method == 'POST':
         
         idProf = int(request.user.pk)
         paciente = Paciente.objects.get(pk = id_paciente)
@@ -33,16 +33,19 @@ def registrar(request, id_paciente):
         
         # Atributos
         
-    
-        tratamiento_prestacion = request.POST['tratamiento_prestacion']
-        domicilio_prestacion = request.POST['domicilio_prestacion']
-        costo_hora = int(request.POST['costo_hora'])
-        costo_mensual = 0
-        costo_semanal = 0
-        fecha_creacion = datetime.now().date() 
-        periodo = request.POST['periodo'] 
-        texto = request.POST['texto'] 
-        dias = request.POST.getlist('dia')
+        try:    
+            tratamiento_prestacion = request.POST['tratamiento_prestacion']
+            domicilio_prestacion = request.POST['domicilio_prestacion']
+            costo_hora = int(request.POST['costo_hora'])
+            costo_mensual = 0
+            costo_semanal = 0
+            fecha_creacion = datetime.now().date() 
+            periodo = request.POST['periodo'] 
+            texto = request.POST['texto'] 
+            dias = request.POST.getlist('dia')
+        except Exception:
+            context['err'] = "Llena todos los campos correctamente"   
+            return render(request, "comun/pacientes/presupuestos/registrar.html", context)
         presupuesto = Presupuesto()
         costo_mensual = costo_semanal*4
         presupuesto.tratamiento_prestacion = tratamiento_prestacion
@@ -68,8 +71,8 @@ def registrar(request, id_paciente):
         
         return redirect("../")
     else:
-        print "no estoy recibiendo post, papo"
-        return render(request, "comun/pacientes/presupuestos/registrar.html")
+        
+        return render(request, "comun/pacientes/presupuestos/registrar.html", context)
 
 
 def presupuesto_pdf(request ,id_paciente ,id_presupuesto):

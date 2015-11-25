@@ -6,7 +6,7 @@
 
   <div id="dialog-form" class="demo-card-wide mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">{{ titulo }}</h2>
+      {% if err %}<h2 class="mdl-card__title-text" style="color: red;">{{err}}{% else %}<h2 class="mdl-card__title-text">{{ titulo }}{% endif %}</h2>
     </div>
     <div class="mdl-card__supporting-text">
       <form name="form" action="{{ accion_form }}" method="POST">{% csrf_token %}

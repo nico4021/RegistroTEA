@@ -29,11 +29,17 @@ def loguearse(request):
 
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("ERROR: cuenta inactiva.")
+                context = {
+                    'bad_login': "Su cuenta esta inactiva"
+                }
+                return render_to_response('bad_login.html', context)
         else:
             # Bad login details were provided. So we can't log the user in.
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            
+            context = {
+                    'bad_login': "Usuario o contraseña invalidos"
+                }
+            return render_to_response('bad_login.html', context)
 
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
