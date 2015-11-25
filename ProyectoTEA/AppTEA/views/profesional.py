@@ -117,36 +117,41 @@ Vista del Administrador para editar profesional.
 @permission_required('AppTEA.profesionales', raise_exception=True)
 def editar(request, id_profesional):
     profesional = Profesional.objects.get(pk = id_profesional)
+    context = {"btn_enlace": "../..",
+               "btn_icono": "arrow_back",
+               "profesional":profesional,
+               "areas" : Area.objects.order_by("nombre").filter(is_active = True)}
+         
     if request.POST:
         fieldarea = request.POST['area']
         fieldrnp = request.POST['rnp']
         if fieldrnp == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fieldnombres = request.POST['nombres']
         if fieldnombres == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fieldapellidos = request.POST['apellidos']
         if fielapellidos == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fieldmail = request.POST['mail']
         if fieldmail == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fielddni = request.POST['dni']
         if fielddni == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fieldnum_matricula = request.POST['num_matricula']
         if fieldnum_matricula == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         fieldtel_personal = request.POST['tel_personal']
         if fieldtel_personal == "":
             context['err'] = "faltan campos"
-            return render(request, "administrador/profesionales/registrar.html", context)
+            return render(request, "administrador/profesionales/editar.html", context)
         
         profesional.area = Area.objects.get(pk=int(fieldarea))
         profesional.rnp = fieldrnp
@@ -166,11 +171,7 @@ def editar(request, id_profesional):
         profesional.save()
         return redirect("/profesionales")
     else:
-        context = {"btn_enlace": "../..",
-               "btn_icono": "arrow_back",
-               "profesional":profesional,
-               "areas" : Area.objects.order_by("nombre").filter(is_active = True)}
-               
+              
         return render(request, "administrador/profesionales/editar.html", context)
 
 
