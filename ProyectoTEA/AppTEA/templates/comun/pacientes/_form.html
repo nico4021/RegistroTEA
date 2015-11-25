@@ -30,42 +30,42 @@
 		<div class="mdl-card__supporting-text">
 		<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="10" name="dni" pattern="-?[0-9]*(\.[0-9]+)?" value="{{ paciente.dni }}">
+				<input class="mdl-textfield__input" type="text" maxlength="10" name="dni" pattern="[0-9]{1,3}[.]{0,1}[0-9]{3}[.]{0,1}[0-9]{3}$" value="{{ paciente.dni }}" autofocus>
 				<label class="mdl-textfield__label" for="sample4">DNI </label>
-				<span class="mdl-textfield__error">Eso no es un numero!</span>
+				<span class="mdl-textfield__error">Ingrese un DNI válido</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="30" name="nombres" value="{{ paciente.nombres }}">
 				<label class="mdl-textfield__label" for="sample4">Nombres</label>
-				<span class="mdl-textfield__error">Que paso aca?</span>
+				<span class="mdl-textfield__error"></span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="30" name="apellidos" value="{{ paciente.apellidos }}">
 				<label class="mdl-textfield__label" for="sample4">Apellidos</label>
-				<span class="mdl-textfield__error">Que paso aca?</span>
+				<span class="mdl-textfield__error"></span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="40" name="diagnostico" value="{{ paciente.diagnostico }}">
 				<label class="mdl-textfield__label" for="sample4">Diagnostico</label>
-				<span class="mdl-textfield__error">Que paso aca?</span>
+				<span class="mdl-textfield__error"></span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="10" name="obra_social" value="{{ paciente.obra_social }}">
 				<label class="mdl-textfield__label" for="sample4">Obra Social</label>
-				<span class="mdl-textfield__error">Que paso aca?</span>
+				<span class="mdl-textfield__error"></span>
 			</div><br>
 
 				<input type="file" name="foto" accept=".jpeg, .jpg, .png" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="{{ paciente.foto }}"><br>
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input datepicker" type="text" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|date:"d/m/Y" }}">
+			<div id="lbl" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input onchange="if(this.value!=''){$('#lbl').addClass('is-dirty');}else{$('#lbl').removeClass('is-dirty');}" class="mdl-textfield__input datepicker" type="text" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|date:'d/m/Y' }}">
 				<label class="mdl-textfield__label" for="sample4">Fecha de Nacimiento (DD/MM/AAAA)</label>
-				<span class="mdl-textfield__error">Que paso aca?</span>
+				<span class="mdl-textfield__error">Ingrese un formato de fecha válido</span>
 			</div><br>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" maxlength="40" name="numero_afiliado" value="{{ paciente.numero_afiliado }}">
 				<label class="mdl-textfield__label" for="sample4">Numero de afiliado </label>
-				<span class="mdl-textfield__error">Eso no es un numero!</span>
+				<span class="mdl-textfield__error">Ingrese un número de afiliado válido</span>
 			</div><br>
 			<div class="mdl-card__actions mdl-card--border">
 				<input type="submit" value="{{ boton }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #78909C;">

@@ -192,15 +192,15 @@
             container: 'body',
             monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-            closeOnClear: false,
+            closeOnClear: true,
             today: 'Hoy',
             clear: 'Limpiar',
             close: 'Cerrar',
             max: new Date(),
             min: false,
-          })
+          });
   
-          var picker = $input.pickadate('picker')
+          var picker = $input.pickadate('picker');
           
           
           $(document).ready(function() {

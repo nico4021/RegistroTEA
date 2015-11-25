@@ -34,7 +34,7 @@
 		<form action="{{ accion_form }}" method="POST">
 		{% csrf_token %}
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" maxlength="30" name="usuario" value="{{ prof.first_name }}" required>
+				<input class="mdl-textfield__input" type="text" maxlength="30" name="usuario" value="{{ prof.first_name }}" required autofocus>
 				<label class="mdl-textfield__label" for="sample4">Nombre de usuario</label>
 				<span class="mdl-textfield__error"></span>
 			</div><br>
