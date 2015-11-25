@@ -12,7 +12,6 @@ Recibe como parámetro el id del paciente.
 @login_required
 def presupuestos(request, id_paciente):
     # Obtengo el paciente
-    print "la mama de lucho se la come"
     paciente = Paciente.objects.get(pk=id_paciente)
     presupuestos = Presupuesto.objects.filter(paciente = paciente.pk).filter(is_active = True).order_by("fecha_creacion")
     context = {"presupuestos": presupuestos,
